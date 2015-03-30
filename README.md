@@ -1,2 +1,3 @@
 # BachelorThesis
 Repository of my Bachelor Thesis
+Zmena, zmena, zmena,....
