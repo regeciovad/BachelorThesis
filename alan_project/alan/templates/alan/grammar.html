@@ -1,0 +1,35 @@
+<!-- Bachelor Thesis GUI -->
+<!-- about.html -->
+<!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
+{% block title %} Gramatika {% endblock %}
+
+{% block body_block %}
+<h1>Gramatika</h1>
+    
+<p>
+{% if nonterminals %}
+    <h3>Neterminály:</h3>
+    { {{ nonterminals }} }
+  {% endif %}
+  
+{% if terminals %}
+    <h3>Terminály:</h3>
+    { {{ terminals }} }
+  {% endif %}
+  
+{% if grammar %}
+    <h3>Pravidla:</h3>
+    {% for g in grammar %}
+    {{ g }}<br>
+    {% endfor %}
+  {% endif %}
+
+</p>
+<p>
+<strong>Poznámka:</strong><br>
+Tato gramatika je převzatata z učebních materiálů do předmětu IFJ.
+</p>
+{% endblock %}

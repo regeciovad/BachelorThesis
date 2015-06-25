@@ -12,3 +12,13 @@ def about(request):
 def index(request):
     response = "Alan says hey there world!"
     return render(request, 'alan/index.html', {'response':response})
+    
+def grammar(request):
+    grammar = Rule.objects.order_by('id')
+    terminals = Terminal.objects.order_by('id')
+    terminals = ', '.join([terminals.char for terminals in terminals]) 
+    nonterminals = Nonterminal.objects.order_by('id')
+    nonterminals = ', '.join([nonterminals.char for nonterminals in nonterminals])
+    return render(
+        request, 'alan/grammar.html', {'grammar':grammar, 'terminals': terminals,
+        'nonterminals':nonterminals})
