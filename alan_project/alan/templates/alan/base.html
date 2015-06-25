@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'alan/style.css' %}"/>
+    </head>
+    <body>
+        <div id="wrapper">
+        <div id="header">
+        <h1>Projekt Alan</h1>
+        </div>
+        
+        <div id="navigation">
+        <ul id="menu">
+        <li><a href="{% url 'index' %}">Menu</a></li>
+        <li><a href="{% url 'index' %}">Soubor</a></li>
+        <li><a href="{% url 'about' %}">O programu</a></li>
+        </ul>
+        </div>
+        
+        <div id="section">
+            {% block body_block %} {% endblock %}
+        </div>
+        </div>
+        
+        <div id="footer">
+        Designed by Dominika Regéciová, Verze: 0.1 
+        </div>
+    </body>
+</html>

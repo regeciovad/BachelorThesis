@@ -1,0 +1,133 @@
+/* CSS styles */
+/* Bachelor Thesis GUI */
+/* Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz */
+
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+#wrapper {
+    min-height:100%;
+    height:auto;
+}
+
+#header {
+    background-color:#215868;
+    color:white;
+    text-align:center;
+    padding:10px;
+    height:30px;
+}
+
+#navigation {
+    background-color:#215868;
+    clear:both;
+    padding:10px;
+    margin:0px; 
+    height:40px;
+}
+
+#footer {
+    position:relative;
+    clear:both;
+    z-index:10;
+    height:1em;
+    margin-top:-2em;
+    background-color:#215868;
+    color:white;
+    clear:both;
+    text-align:left;
+    padding:5px; 
+    font-size:12px;
+    width:100%;
+}
+
+#section{
+    float:center;
+    padding:15px; 
+    padding-bottom:2em;
+}
+
+a {
+  color:orange;
+  font-weight: bold;
+  text-decoration:none;
+  padding:5px;
+  
+}
+
+a:hover {
+  color:green;
+  
+}
+
+input[type=submit] {
+    background-color:black;
+    color:white;
+    width:134px; height: 31px;
+    border:1px solid white;
+     
+}
+
+/* Main menu */
+ul#menu {
+    padding: 0px;
+    float:left;
+}
+
+ul#menu li {
+    display: inline;
+}
+
+ul#menu li a {
+    background-color:#215868; 
+    font-weight: bold;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin:2px; 
+    text-transform:uppercase;
+    
+}
+
+ul#menu li a:hover {
+    background-color:#CDCDCD;
+    color:black;
+    padding:10px 10px;
+}
+
+/* Table - basic*/
+.highlight {
+    background-color:#9F5F9F;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse:collapse;
+    text-align:left;
+    padding:5px;
+}
+
+table th a {
+    color:white;
+}
+
+th {
+    background-color:black;
+    color:white;
+    padding:5px 10px;
+}
+
+tr {
+   background-color:white; 
+}
+
+table#t01 {
+    width:100%;
+}
+
+table#t01, table#t01 th, table#t01 td {
+    border:0px;
+}
