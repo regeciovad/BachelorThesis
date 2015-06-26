@@ -23,7 +23,7 @@
 {% if grammar %}
     <h3>Pravidla:</h3>
     {% for g in grammar %}
-    {{ g }}<br>
+    {{g.id }}: {{ g }}<br>
     {% endfor %}
   {% endif %}
 

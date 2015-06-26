@@ -10,8 +10,8 @@ def about(request):
     return render(request, 'alan/about.html', {})
 
 def index(request):
-    response = "Alan says hey there world!"
-    return render(request, 'alan/index.html', {'response':response})
+    code = "i*i"
+    return render(request, 'alan/index.html', {'code':code})
     
 def grammar(request):
     grammar = Rule.objects.order_by('id')

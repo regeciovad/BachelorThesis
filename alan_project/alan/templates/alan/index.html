@@ -7,30 +7,30 @@
 {% block title %} Alan - home {% endblock %}
 
 {% block body_block %}
-<fieldset style="width:100px">
-<legend><h1 style="text-align:left; color:#61497A">Kód</h1></legend>
-<br>
-<textarea name="message" rows="20" cols="42" style="padding:10px">
-<Alan>
-i := 10;
-while (i > 10):
-  begin
-  i := i - 1; 
-  end
-write i;
-</Alan>
-</textarea> 
-</fieldset> 
-
-<fieldset style="width:100px">
-<legend><h1 style="text-align:left; color:#61497A">Zásobník</h1></legend>
-<br>
-<textarea name="message" rows="20" cols="10" style="padding:10px">
-</textarea>
-</fieldset> 
-    
-    <p>
-    {{ response }}
-    </p>
+<form>
+<table>
+<th>Kód</h1></th>
+<th>Lexikální analýza</th>
+  <tr>
+    <td>
+    <textarea name="message" rows="20" cols="42" style="padding:10px; font-size:16px;">
+    {% if code %} {{ code }}
+    {% else %} Zde napiště svůj kód
+    {% endif %}
+    </textarea> 
+    </td>
+    <td>
+    <textarea name="message" rows="20" cols="42" style="padding:10px; font-size:16px;">
+    {% if lex %}{{ lex }}
+    {% else %} Zde bude výsledek Lexikální analýzy
+    {% endif %}
+    </textarea>
+    </td>
+  </tr>
+</table>
+<p style="text-align:center">
+<input type="submit" value="Spustit analýzu">
+</p>
+</form>
 
 {% endblock %}
