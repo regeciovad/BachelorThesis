@@ -7,29 +7,47 @@
 {% block title %} Alan - home {% endblock %}
 
 {% block body_block %}
-<form>
-<table>
+<form id="lex_form" method="post" action="">
+{% csrf_token %}
+<table style="text-align:left;">
 <th>Kód</h1></th>
 <th>Lexikální analýza</th>
+<th>Syntaktická analýza</th>
+<th>Pravidla</th>
   <tr>
     <td>
-    <textarea name="message" rows="20" cols="42" style="padding:10px; font-size:16px;">
-    {% if code %} {{ code }}
-    {% else %} Zde napiště svůj kód
-    {% endif %}
+    <textarea name="lex_code" rows="20" cols="32" style="padding:10px; font-size:16px;">
+{% if code %}{{ code }}
+{% else %}{ Zde napiště svůj kód }
+{% endif %}
     </textarea> 
     </td>
-    <td>
-    <textarea name="message" rows="20" cols="42" style="padding:10px; font-size:16px;">
-    {% if lex %}{{ lex }}
-    {% else %} Zde bude výsledek Lexikální analýzy
+    <td style="padding:20px; font-size:16px;vertical-align: top;">
+    {% if lex %}
+    {% for l in lex %}
+    {% if l == '[error]'%}
+        <strong style="color:red">{{ l }}</strong><br>
+    {% else %}
+        {{ l }}<br>
     {% endif %}
-    </textarea>
+    {% endfor %}
+    {% else %}{ Zde bude výsledek Lexikální analýzy }
+    {% endif %}
+    </td>
+    <td style="padding:20px; font-size:16px;vertical-align: top;">
+    { Zde bude výsledek Syntaktické analýzy }
+    </td>
+    <td style="padding:20px; font-size:16px">
+    {% if grammar %}
+    {% for g in grammar %}
+    {{g.id }}: {{ g }}<br>
+    {% endfor %}
+    {% endif %}
     </td>
   </tr>
 </table>
 <p style="text-align:center">
-<input type="submit" value="Spustit analýzu">
+<input type="submit" name="lex" value="Spustit analýzu">
 </p>
 </form>
 
