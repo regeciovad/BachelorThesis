@@ -17,7 +17,11 @@ def parser(input):
     for char in iter_input:
         if char == '{':
             while char != '}':
-                char = next(iter_input)
+                try:
+                    char = next(iter_input)
+                except StopIteration:
+                    output.append('[error]')
+                    return output
             continue
         elif char == 'i':
             output.append('[id,i]')
