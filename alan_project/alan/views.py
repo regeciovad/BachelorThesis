@@ -10,7 +10,7 @@ import re
 def about(request):
     return render(request, 'alan/about.html', {})
 
-def parser(input):
+def scanner(input):
     input = re.sub(r'\s', '', input)
     output = []
     iter_input = iter(input)
@@ -20,7 +20,7 @@ def parser(input):
                 try:
                     char = next(iter_input)
                 except StopIteration:
-                    output.append('[error]')
+                    output.append('[chyba]')
                     return output
             continue
         elif char == 'i':
@@ -34,7 +34,7 @@ def parser(input):
         elif char == ')':
             output.append('[op,)]')
         else:
-            output.append('[error]')
+            output.append('[chyba]')
     return output
 
 
@@ -44,7 +44,7 @@ def index(request):
         code = ''
         if 'lex_code' in request.POST and request.POST['lex_code']:
             code = request.POST['lex_code']
-        lex = parser(code)
+        lex = scanner(code)
         return render(request, 'alan/index.html', {'code':code, 'lex':lex, 'grammar':grammar})
     return render(request, 'alan/index.html', {'grammar':grammar})
     
