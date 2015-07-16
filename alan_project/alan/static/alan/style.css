@@ -17,7 +17,7 @@ html, body {
     background-color:#215868;
     color:white;
     text-align:center;
-    padding:10px;
+    padding:5px;
     height:5px;
 }
 
@@ -41,7 +41,7 @@ html, body {
     text-align:left;
     padding:5px; 
     font-size:12px;
-    width:100%;
+    width:auto;
 }
 
 #section{
@@ -131,4 +131,11 @@ table#t01 {
 
 table#t01, table#t01 th, table#t01 td {
     border:0px;
+}
+
+h2 {
+    font-size:1.5em;
+    font-weight:bold;
+    text-align:left;
+    margin-top:0em;
 }
