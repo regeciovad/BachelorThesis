@@ -1,0 +1,9 @@
+program DOUBLE;
+{This FUN program reads and integer value and multiple it by two.}
+
+integer u;
+begin
+    read(u);
+    u = u * 2;
+    write(u);
+end.

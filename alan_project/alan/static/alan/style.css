@@ -66,8 +66,14 @@ a:hover {
 input[type=submit] {
     background-color:#61497A;
     color:white;
-    width:134px; height: 31px;
+    min-width:134px; height: 31px;
     border:1px solid black;
+     
+}
+
+
+input[type=file] {
+    
      
 }
 

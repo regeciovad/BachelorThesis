@@ -1,0 +1,48 @@
+<!-- Bachelor Thesis GUI -->
+<!-- scanner.html -->
+<!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
+{% block title %} Alan - home {% endblock %}
+
+{% block body_block %}
+<form id="lex_form" method="post" action="">
+{% csrf_token %}
+<table align="center">
+<th>Program</h1></th>
+<th>Lexikální analýza</th>
+  <tr>
+    <td>
+    <textarea name="lex_code" rows="20" cols="42" style="padding:10px; font-size:16px;">
+{% if code %}{{ code }}
+{% else %}{ Zde napiště svůj kód }
+{% endif %}
+    </textarea> 
+    </td>
+    <td style="padding:20px; font-size:16px;vertical-align: top;">
+    {% if lex %}
+    {% for l in lex %}
+    {% if l == '[chyba]'%}
+        <strong style="color:red">{{ l }}</strong><br>
+    {% else %}
+        {{ l }}<br>
+    {% endif %}
+    {% endfor %}
+    {% else %}{ Zde bude výsledek Lexikální analýzy }
+    {% endif %}
+    </td>
+  </tr>
+</table>
+
+<p style="text-align:center">
+<input type="submit" name="get_code" value="Nahrát program">
+<input type="submit" name="lex" value="Spustit lexikální analýzu">
+{% if lex %}
+<input type="submit" name="lex" value="Spustit syntaktickou analýzu">
+{% endif %}
+</p>
+</form>
+
+
+{% endblock %}
