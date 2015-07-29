@@ -1,8 +1,11 @@
 import re
 
 class Scanner(object):
+    _code = ''
+    _scanner = ''
 
     def scanner_analysis(self, input):
+        self._code = input
         input = re.sub(r'\s', '', input)
         output = []
         iter_input = iter(input)
@@ -27,4 +30,5 @@ class Scanner(object):
                 output.append('[op,)]')
             else:
                 output.append('[chyba]')
+        self._scanner = output
         return output

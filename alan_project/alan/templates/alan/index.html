@@ -11,19 +11,20 @@
 {% csrf_token %}
 
 <table align="center">
-<th>Program</h1></th>
+<th>Program</th>
 <tr>
 <td>
-<textarea name="fun_code" rows="20" cols="42" style="padding:10px; font-size:16px;">
+<textarea name="fun_code_area" rows="20" cols="42" style="padding:10px; font-size:16px;">
 {% if code %}{{ code }}
 {% else %}{ Zde napiště svůj kód }
 {% endif %}
 </textarea> 
+</td>
 </tr>
 </table>
 
 <p style="text-align:center">
-<input type="submit" name="lex" value="Spustit lexikální analýzu">
+<input type="submit" name="lex" formaction="{% url 'scanner' %}" value="Spustit lexikální analýzu">
 </p>
 </form>
 

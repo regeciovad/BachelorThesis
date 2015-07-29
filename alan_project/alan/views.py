@@ -9,14 +9,16 @@ from .models import *
 from .scanner import *
 from .forms import UploadFileForm
 
+scanner = Scanner()
+
 def about(request):
     return render(request, 'alan/about.html', {})
 
+def man(request):
+    return render(request, 'alan/man.html', {})
+
 def index(request):
     code = '{ Zde vložte svůj kód }'
-    #with open(r'C:\Users\Public\BachelorThesis\alan_project\alan\files\fun_double.txt') as f:
-        #code = f.read() 
-        #print (code)
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -26,17 +28,29 @@ def index(request):
                 code = code + str(chunk.decode('utf-8'))
     else:
         form = UploadFileForm()
-    return render(request, 'alan/index.html', {'code':code, 'form':form},context_instance=RequestContext(request))
+    return render(request, 'alan/index.html', {'code':code, 'form':form}, context_instance=RequestContext(request))
 
 
 def run_scanner(request):
-    scanner = Scanner()
+    code = ''
+    lex_code = ''
     if request.method == 'POST':
-        if 'lex_code' in request.POST and request.POST['lex_code']:
-            code = request.POST['lex_code']
-        lex = scanner.scanner_analysis(code)
-        return render(request, 'alan/index.html', {'code':code, 'lex':lex, 'grammar':grammar})
-    return render(request, 'alan/index.html', {'code':code,'grammar':grammar})
+        if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
+            code = request.POST['fun_code_area']
+            lex_code = scanner.scanner_analysis(code)
+        return render(request, 'alan/scanner.html', {'code':code, 'lex_code':lex_code})
+    return render(request, 'alan/scanner.html', {'code':code, 'lex_code':lex_code})
+
+def run_parser(request):
+    code = ''
+    lex_code = ''
+    parser_code = ''
+    if request.method == 'POST':
+        code = scanner._code
+        lex_code = scanner._scanner
+        parser_code = 'Zde bude SA'
+        return render(request, 'alan/parser.html', {'code':code, 'lex_code':lex_code, 'parser_code':parser_code})
+    return render(request, 'alan/parser.html', {'code':code, 'lex_code':lex_code, 'parser_code':parser_code})
     
 def grammar(request):
     grammar = Rule.objects.order_by('id')
