@@ -7,7 +7,7 @@
 {% block title %} Projekt Alan {% endblock %}
 
 {% block body_block %}
-<form id="lex_form" method="post" action="">
+<form id="parser_form" method="post" action="">
 {% csrf_token %}
 <table align="center">
 <th>Program</th>
@@ -38,7 +38,7 @@
 
 <td name="parser_code_area" rows="20" cols="42" style="padding:10px; font-size:16px;">
 {% if parser_code %}{{ parser_code }}
-{% else %}{ Zde napiště bude SAAA }
+{% else %}{ Zde bude SA }
 {% endif %}
 </td>
 </tr>

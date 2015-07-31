@@ -18,11 +18,10 @@ def man(request):
     return render(request, 'alan/man.html', {})
 
 def index(request):
-    code = '{ Zde vložte svůj kód }'
+    code = ''
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            code = ''
             path = (request.FILES['docfile'])
             for chunk in path.chunks():
                 code = code + str(chunk.decode('utf-8'))
@@ -38,7 +37,6 @@ def run_scanner(request):
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
             code = request.POST['fun_code_area']
             lex_code = scanner.scanner_analysis(code)
-        return render(request, 'alan/scanner.html', {'code':code, 'lex_code':lex_code})
     return render(request, 'alan/scanner.html', {'code':code, 'lex_code':lex_code})
 
 def run_parser(request):
@@ -48,8 +46,7 @@ def run_parser(request):
     if request.method == 'POST':
         code = scanner._code
         lex_code = scanner._scanner
-        parser_code = 'Zde bude SA'
-        return render(request, 'alan/parser.html', {'code':code, 'lex_code':lex_code, 'parser_code':parser_code})
+        parser_code = 'Výsledek SA'
     return render(request, 'alan/parser.html', {'code':code, 'lex_code':lex_code, 'parser_code':parser_code})
     
 def grammar(request):
