@@ -3,6 +3,8 @@ import re
 class Scanner(object):
     _code = ''
     _scanner = ''
+    _keywords = {'begin', 'declaration', 'else', 'end', 'execution', 'for', 'goto', 'if', 'integer', 'iterate', 
+                'label', 'program', 'provided', 'read', 'real', 'then', 'through', 'write'}
 
     def scanner_analysis(self, input):
         self._code = input

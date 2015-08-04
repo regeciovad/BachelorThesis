@@ -1,0 +1,10 @@
+program DOUBLECZ;
+{Tento program zkouší diakritiku
+ìšèøıáíé}
+
+integer u;
+begin
+    read(u);
+    u = u * 2;
+    write(u);
+end.

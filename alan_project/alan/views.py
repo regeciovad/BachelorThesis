@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -24,7 +25,7 @@ def index(request):
         if form.is_valid():
             path = (request.FILES['docfile'])
             for chunk in path.chunks():
-                code = code + str(chunk.decode('utf-8'))
+                code = code + str(chunk.decode('utf-8', 'ignore'))
     else:
         form = UploadFileForm()
     return render(request, 'alan/index.html', {'code':code, 'form':form}, context_instance=RequestContext(request))
@@ -55,6 +56,7 @@ def grammar(request):
     terminals = ', '.join([terminals.char for terminals in terminals]) 
     nonterminals = Nonterminal.objects.order_by('id')
     nonterminals = ', '.join([nonterminals.char for nonterminals in nonterminals])
+    keywords = scanner._keywords
     return render(
         request, 'alan/grammar.html', {'grammar':grammar, 'terminals': terminals,
-        'nonterminals':nonterminals})
+        'nonterminals':nonterminals, 'keywords':keywords})
