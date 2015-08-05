@@ -37,7 +37,7 @@ def run_scanner(request):
     if request.method == 'POST':
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
             code = request.POST['fun_code_area']
-            lex_code = scanner.scanner_analysis(code)
+            lex_code = scanner.new_scanner(code)
     return render(request, 'alan/scanner.html', {'code':code, 'lex_code':lex_code})
 
 def run_parser(request):
