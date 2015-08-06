@@ -13,23 +13,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Nonterminal',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('char', models.CharField(verbose_name='Nonterminal', max_length=1)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('char', models.CharField(max_length=1, verbose_name='Nonterminal')),
             ],
         ),
         migrations.CreateModel(
-            name='Rules',
+            name='Rule',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('left_side', models.CharField(verbose_name='Left side', max_length=1)),
-                ('right_side', models.CharField(verbose_name='Right side', max_length=42)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('left_side', models.CharField(max_length=1, verbose_name='Left side')),
+                ('right_side', models.CharField(max_length=42, verbose_name='Right side')),
             ],
         ),
         migrations.CreateModel(
             name='Terminal',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('char', models.CharField(verbose_name='Terminal', max_length=1)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('char', models.CharField(max_length=1, verbose_name='Terminal')),
             ],
         ),
     ]
