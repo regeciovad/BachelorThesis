@@ -24,10 +24,12 @@
 <td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
 {% if lex_code %}
 {% for lex in lex_code %}
-{% if lex == '[chyba]'%}
+{% if '[chyba' in lex %}
     <strong style="color:red">{{ lex }}</strong><br>
+{% elif '[k' in lex %}
+    <strong style="color:green">{{ lex }}</strong><br>
 {% else %}
-    {{ lex }}LA<br>
+    {{ lex }}<br>
 {% endif %}
 {% endfor %}
 {% else %}{ Zde bude výsledek Lexikální analýzy }
@@ -40,4 +42,16 @@
 <input type="submit" name="parser" formaction="{% url 'parser' %}" value="Spustit syntaktickou analýzu">
 </p>
 </form>
+
+<p>
+    <strong>Vysvětlivka:</strong><br>
+    Zelené tokeny označují klíčová slova, červené lexikální chybu.<br>
+    i = identifikátor<br>
+    k = klíčové slovo<br>
+    l = label (návěští)<br>
+    t = textový literál<br>
+    r = relační operatory<br>
+    # = integer (celé číslo)<br>
+    chyba = lexikální chyba
+</p>
 {% endblock %}

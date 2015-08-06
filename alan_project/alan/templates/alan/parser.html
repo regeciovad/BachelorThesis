@@ -26,8 +26,10 @@
 <td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
 {% if lex_code %}
 {% for lex in lex_code %}
-{% if lex == '[chyba]'%}
+{% if '[chyba' in lex %}
     <strong style="color:red">{{ lex }}</strong><br>
+{% elif '[k' in lex %}
+    <strong style="color:green">{{ lex }}</strong><br>
 {% else %}
     {{ lex }}<br>
 {% endif %}

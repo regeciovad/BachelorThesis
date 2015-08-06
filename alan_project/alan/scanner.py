@@ -2,83 +2,181 @@ import re
 
 class Scanner(object):
     _code = ''
-    _scanner = ''
-    _keywords = {'begin', 'declaration', 'else', 'end', 'execution', 'for', 'goto', 'if', 'integer', 'iterate', 
-                'label', 'program', 'provided', 'read', 'real', 'then', 'through', 'write'}
-
-    def scanner_analysis(self, input):
-        self._code = input
-        output = []
-        iter_input = iter(input)
-        for char in iter_input:
-            if char == '{':
-                while char != '}':
-                    try:
-                        char = next(iter_input)
-                    except StopIteration:
-                        output.append('[chyba]')
-                        return output
-                continue
-            else:
-                #output.append('[chyba]')
-                output.append(char)
-        if 'BEGIN'.lower() in self._keywords:
-            output.append('YES')
-        self._scanner = output
-        return output
+    _scanner = []
+    _keywords = {'begin', 'declaration', 'else', 'end', 'execution', 'for',
+                'goto', 'if', 'integer', 'iterate','label', 'program',
+                'provided', 'read', 'real', 'then', 'through', 'write'}
 
     def get_next(self, input):
+        """ Return next char of input or error """
         try:
             char = next(input)
         except StopIteration:
             char = '[chyba]'
         return char
 
-    def new_scanner(self, input):
+    def scanner_analysis(self, input):
+        """ Lexical analysis of input for FUN grammer """
         self._code = input
-        output = []
+        self._scanner = []
         iter_input = iter(input)
         char = ''
         get_new = True
         while(True):
+            # Read new char
             if get_new:
                 char = self.get_next(iter_input)
+                # In this case error means end of input
                 if char == '[chyba]':
-                    return output
+                    return self._scanner
+            # Comment in input
             if char == '{':
                 while char != '}':
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        output.append('[Chyba, chybi "}"]')
-                        return output
-                get_new = False
-                continue
+                        self._scanner.append('[chyba, chybi }]')
+                        return self._scanner
+                get_new = True
+            # Identifiers
             elif char.isalpha():
-                lex = ''
+                lexeme = ''
                 while char.isalnum():
-                    lex = lex + char
+                    lexeme = lexeme + char
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        output.append(char)
-                        return output
-                token = '[i, ' + lex + ']'
-                output.append(token)
+                        self._scanner.append('[chyba, ' + lexeme + ']')
+                        return self._scanner
+                lexeme = lexeme.lower()
+                if lexeme in self._keywords:
+                    token = '[k, ' + lexeme + ']'
+                else:
+                    token = '[i, ' + lexeme + ']'
+                self._scanner.append(token)
                 get_new = False
+            # Label
+            elif char == '@':
+                lexeme = char
+                while (True):
+                    char = self.get_next(iter_input)
+                    if char == '[chyba]':
+                        self._scanner.append("[chyba, spatny label]")
+                        return self._scanner
+                    if not char.isalnum():
+                        break
+                    lexeme = lexeme + char
+                if lexeme == '@':
+                    self._scanner.append("[chyba, prazny label]")
+                    return self._scanner
+                else:
+                    token = '[l, ' + lexeme + ']'
+                    self._scanner.append(token)
+                    get_new = False
+            # Number
             elif char.isdigit():
-                lex = ''
+                lexeme = ''
                 while char.isdigit():
-                    lex = lex + char
+                    lexeme = lexeme + char
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        output.append(char)
-                        return output
-                token = '[#, ' + lex + ']'
-                output.append(token)
+                        self._scanner.append('[chyba, ' + lexeme + ']')
+                        return self._scanner
+                token = '[#, ' + lexeme + ']'
+                self._scanner.append(token)
                 get_new = False
+            # Text literal
+            elif char == "'":
+                lexeme = ''
+                while (True):
+                    char = self.get_next(iter_input)
+                    if char == '[chyba]':
+                        self._scanner.append("[chyba, chybi ']")
+                        return v
+                    if char == "'":
+                        break
+                    lexeme = lexeme + char
+                token = '[t, ' + lexeme + ']'
+                self._scanner.append(token)
+                get_new = True
+            elif char == ',':
+                self._scanner.append('[,]')
+                get_new = True
             elif char == ';':
-                output.append('[;]')
+                self._scanner.append('[;]')
+                get_new = True
+            elif char == '(':
+                self._scanner.append('[(]')
+                get_new = True
+            elif char == ')':
+                self._scanner.append('[)]')
+                get_new = True
+            elif char == '+':
+                self._scanner.append('[+]')
+                get_new = True
+            elif char == '-':
+                self._scanner.append('[-]')
+                get_new = True
+            elif char == '*':
+                self._scanner.append('[*]')
+                get_new = True
+            elif char == '/':
+                self._scanner.append('[/]')
+                get_new = True
+            elif char == '&':
+                self._scanner.append('[&]')
+                get_new = True
+            elif char == '|':
+                self._scanner.append('[|]')
+                get_new = True
+            elif char == '.':
+                self._scanner.append('[.]')
+                get_new = True
+            elif char == '=':
+                char = self.get_next(iter_input)
+                if char == '[chyba]':
+                    self._scanner.append('[chyba, neukonceny program]')
+                    return self._scanner
+                if char == '=':
+                    self._scanner.append('[r, ==]')
+                    get_new = True
+                else:
+                    self._scanner.append('[=]')
+                    get_new = False
+            elif char == '!':
+                char = self.get_next(iter_input)
+                if char == '[chyba]':
+                    self._scanner.append('[chyba, neukonceny program]')
+                    return self._scanner
+                if char == '=':
+                    self._scanner.append('[r, !=]')
+                    get_new = True
+                else:
+                    self._scanner.append('[!]')
+                    get_new = False
+            elif char == '>':
+                char = self.get_next(iter_input)
+                if char == '[chyba]':
+                    self._scanner.append('[chyba, neukonceny program]')
+                    return self._scanner
+                if char == '=':
+                    self._scanner.append('[r, >=]')
+                    get_new = True
+                else:
+                    self._scanner.append('[r, >]')
+                    get_new = False
+            elif char == '<':
+                char = self.get_next(iter_input)
+                if char == '[chyba]':
+                    self._scanner.append('[chyba, neukonceny program]')
+                    return self._scanner
+                if char == '=':
+                    self._scanner.append('[r, <=]')
+                    get_new = True
+                else:
+                    self._scanner.append('[r, <]')
+                    get_new = False
+            elif char.isspace():
                 get_new = True
             else:
                 get_new = True
-                #output.append('[chyba]')
-        return output
+                self._scanner.append('[chyba, neznami lexem]' + char)
+        return self._scanner

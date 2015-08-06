@@ -28,7 +28,8 @@ def index(request):
                 code = code + str(chunk.decode('utf-8', 'ignore'))
     else:
         form = UploadFileForm()
-    return render(request, 'alan/index.html', {'code':code, 'form':form}, context_instance=RequestContext(request))
+    return render(request, 'alan/index.html', {'code':code, 'form':form}, 
+        context_instance=RequestContext(request))
 
 
 def run_scanner(request):
@@ -37,8 +38,9 @@ def run_scanner(request):
     if request.method == 'POST':
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
             code = request.POST['fun_code_area']
-            lex_code = scanner.new_scanner(code)
-    return render(request, 'alan/scanner.html', {'code':code, 'lex_code':lex_code})
+            lex_code = scanner.scanner_analysis(code)
+    return render(request, 'alan/scanner.html', {'code':code, 
+            'lex_code':lex_code})
 
 def run_parser(request):
     code = ''
@@ -48,7 +50,8 @@ def run_parser(request):
         code = scanner._code
         lex_code = scanner._scanner
         parser_code = 'Výsledek SA'
-    return render(request, 'alan/parser.html', {'code':code, 'lex_code':lex_code, 'parser_code':parser_code})
+    return render(request, 'alan/parser.html', {'code':code, 
+        'lex_code':lex_code, 'parser_code':parser_code})
     
 def grammar(request):
     grammar = Rule.objects.order_by('id')
