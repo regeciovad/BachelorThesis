@@ -11,14 +11,15 @@
     
 <h3>Načtení zdrojového programu</h3>
 <p>
-Zdrojový kód lze zadat více způsoby. Lze jej načíst z textového souboru (pozn. momentálně lze vkládat soubory pouze bez diakritiky), <br>
-také lze soubor zkopírovat a nakonec uživatel může program přímo napsat. <br>
-Ve všech případech lze kód přes zpuštěním LA upravit.
+Zdrojový kód lze zadat více způsoby.<br>
+Lze jej načíst z textového souboru (pozn.: momentálně je veškerá diakritika ignorována),
+také je možno soubor zkopírovat či program přímo vepsat. <br>
+Ve všech případech lze kód přes zpuštěním lexikální analýzy upravit.
 </p>
 
 <h3>Lexikální analýza</h3>
 <p>
-Lexikální analýza zpracovává vstup na jednou, ne tedy pomocí běžné metody Next_token. Výsledkem je seznam tokenů ve tvaru [lexém, další informace].<br>
+Lexikální analýza zpracovává vstup na jednou, ne tedy pomocí běžné metody GetNextToken. Výsledkem je seznam tokenů ve tvaru [lexém, další informace].<br>
 Další informací se rozumí například hodnota čísla, či jméno identifikátoru.<br>
 Oproti originálnímu jazyku FUN analýza přijímá pouze celá čísla.
 </p>
