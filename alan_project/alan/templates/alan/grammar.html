@@ -8,20 +8,20 @@
 
 {% block body_block %}
 <h2>Gramatika</h2>
-    
+
 <p>
 {% if nonterminals %}
-    <h3>Neterminály:</h3>
+    <h3>Neterminály: </h3>
     { {{ nonterminals }} }
   {% endif %}
-  
+
 {% if terminals %}
-    <h3>Terminály:</h3>
+    <h3>Terminály: </h3>
     { {{ terminals }} }
   {% endif %}
-  
+
 {% if grammar %}
-    <h3>Pravidla:</h3>
+    <h3>Pravidla: </h3>
     {% for g in grammar %}
     {{g.id }}: {{ g }}<br>
     {% endfor %}
@@ -32,11 +32,11 @@
   {{ keywords }}
 {% endif %}
 
-<h3>Komentáře:</h3>
+<h3>Komentáře: </h3>
 <i>{ Toto je komentar a muze byt i na vice radku }</i>
 </p>
 <p>
-<strong>Poznámka:</strong><br>
+<strong>Poznámka: </strong><br>
 Tato gramatika je převzatata z: MEDUNA, Alexander. Elements of compiler design. Boca Raton: Auerbach Publications, 2008, xiii, 286 s. ISBN 1420063235.
 </p>
 {% endblock %}

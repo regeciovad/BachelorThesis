@@ -25,7 +25,7 @@ html, body {
     background-color:#215868;
     clear:both;
     padding:5px;
-    margin:0px; 
+    margin:0px;
     height:40px;
 }
 
@@ -39,14 +39,14 @@ html, body {
     color:white;
     clear:both;
     text-align:left;
-    padding:5px; 
+    padding:5px;
     font-size:12px;
     width:auto;
 }
 
 #section{
     float:center;
-    padding:15px; 
+    padding:15px;
     padding-bottom:2em;
 }
 
@@ -55,12 +55,12 @@ a {
   font-weight: bold;
   text-decoration:none;
   padding:5px;
-  
+
 }
 
 a:hover {
   color:green;
-  
+
 }
 
 input[type=submit] {
@@ -68,7 +68,7 @@ input[type=submit] {
     color:white;
     min-width:134px; height: 31px;
     border:1px solid black;
-     
+
 }
 
 /* Main menu */
@@ -82,14 +82,14 @@ ul#menu li {
 }
 
 ul#menu li a {
-    background-color:#215868; 
+    background-color:#215868;
     font-weight: bold;
     color: white;
     padding: 5px 10px;
     text-decoration: none;
-    margin:2px; 
+    margin:2px;
     text-transform:uppercase;
-    
+
 }
 
 ul#menu li a:hover {
@@ -122,7 +122,7 @@ th {
 }
 
 tr {
-   background-color:white; 
+   background-color:white;
 }
 
 table#t01 {

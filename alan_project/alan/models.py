@@ -5,22 +5,24 @@
 
 from django.db import models
 
+
 class Nonterminal(models.Model):
     char = models.CharField(max_length=1, verbose_name='Nonterminal')
-    
+
     def __str__(self):
         return self.char
-        
+
+
 class Terminal(models.Model):
     char = models.CharField(max_length=1, verbose_name='Terminal')
-    
+
     def __str__(self):
         return self.char
-        
+
+
 class Rule (models.Model):
     left_side = models.CharField(max_length=1, verbose_name='Left side')
     right_side = models.CharField(max_length=42, verbose_name='Right side')
-    
-    def __str__(self):
-        return self.left_side + " -> " + self.right_side 
 
+    def __str__(self):
+        return self.left_side + " -> " + self.right_side

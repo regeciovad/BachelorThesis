@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from django.template import RequestContext
-from django.db.models import Q
-from django.db.models.query import QuerySet
-from .models import *
-from .scanner import *
+from .models import Nonterminal, Terminal, Rule
+from .scanner import Scanner
 from .forms import UploadFileForm
 
 scanner = Scanner()
 
+
 def about(request):
     return render(request, 'alan/about.html', {})
 
+
 def man(request):
     return render(request, 'alan/man.html', {})
+
 
 def index(request):
     code = ''
@@ -28,8 +26,8 @@ def index(request):
                 code = code + str(chunk.decode('utf-8', 'ignore'))
     else:
         form = UploadFileForm()
-    return render(request, 'alan/index.html', {'code':code, 'form':form}, 
-        context_instance=RequestContext(request))
+    return render(request, 'alan/index.html', {'code': code, 'form': form},
+                  context_instance=RequestContext(request))
 
 
 def run_scanner(request):
@@ -39,8 +37,9 @@ def run_scanner(request):
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
             code = request.POST['fun_code_area']
             lex_code = scanner.scanner_analysis(code)
-    return render(request, 'alan/scanner.html', {'code':code, 
-            'lex_code':lex_code})
+    return render(request, 'alan/scanner.html', {'code': code,
+                  'lex_code': lex_code})
+
 
 def run_parser(request):
     code = ''
@@ -50,16 +49,17 @@ def run_parser(request):
         code = scanner._code
         lex_code = scanner._scanner
         parser_code = 'Výsledek SA'
-    return render(request, 'alan/parser.html', {'code':code, 
-        'lex_code':lex_code, 'parser_code':parser_code})
-    
+    return render(request, 'alan/parser.html', {'code': code,
+                  'lex_code': lex_code, 'parser_code': parser_code})
+
+
 def grammar(request):
     grammar = Rule.objects.order_by('id')
     terminals = Terminal.objects.order_by('id')
-    terminals = ', '.join([terminals.char for terminals in terminals]) 
+    t_list = ', '.join([t.char for t in terminals])
     nonterminals = Nonterminal.objects.order_by('id')
-    nonterminals = ', '.join([nonterminals.char for nonterminals in nonterminals])
+    n_list = ', '.join([n.char for n in nonterminals])
     keywords = scanner._keywords
-    return render(
-        request, 'alan/grammar.html', {'grammar':grammar, 'terminals': terminals,
-        'nonterminals':nonterminals, 'keywords':keywords})
+    return render(request, 'alan/grammar.html', {'grammar': grammar,
+                  'terminals': t_list, 'nonterminals': n_list,
+                  'keywords': keywords})

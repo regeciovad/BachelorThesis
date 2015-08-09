@@ -4,7 +4,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alan_project.settings')
 import django
 django.setup()
 
-from alan.models import *
+from alan.models import Nonterminal, Terminal, Rule
+
 
 def populate():
     add_nonterminal('<program>')
@@ -24,7 +25,6 @@ def populate():
     add_nonterminal('<term>')
     add_nonterminal('<factor>')
 
-    
     add_terminal('i')
     add_terminal('l')
     add_terminal('t')
@@ -42,7 +42,7 @@ def populate():
     add_terminal('(')
     add_terminal(')')
     add_terminal('=')
-    
+
     add_rule('<program>', 'program <declaration part> <execution part> end')
     add_rule('<declaration part>', 'declaration <declaration list>')
     add_rule('<declaration list>', '<declaration>; <declaration list>')
@@ -64,7 +64,9 @@ def populate():
     add_rule('<statement>', 'if <condition> then <statement>')
     add_rule('<statement>', 'if <condition> then <statement> else <statement>')
     add_rule('<statement>', 'provided <condition> iterate <statement>')
-    add_rule('<statement>', 'for i = <expression> through expression iterate <statement>')
+    add_rule(
+        '<statement>', 'for i = <expression> through expression'
+        'iterate <statement>')
     add_rule('<statement>', 'begin <statement list> end')
     add_rule('<input list>', 'i, <input list>')
     add_rule('<input list>', 'i')
@@ -88,18 +90,18 @@ def populate():
     add_rule('<factor>', '#')
 
 
-
-
 def add_nonterminal(char):
-    n = Nonterminal.objects.get_or_create(char=char)[0]
+    Nonterminal.objects.get_or_create(char=char)[0]
+
 
 def add_terminal(char):
-    t = Terminal.objects.get_or_create(char=char)[0]
+    Terminal.objects.get_or_create(char=char)[0]
+
 
 def add_rule(left_side, right_side):
-    r = Rule.objects.get_or_create(left_side=left_side, right_side=right_side)[0]
+    Rule.objects.get_or_create(left_side=left_side, right_side=right_side)[0]
 
 if __name__ == '__main__':
-    print ('Starting Alan population script...')
+    print('Starting Alan population script...')
     populate()
-    print ('Done')
+    print('Done')

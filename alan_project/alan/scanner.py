@@ -1,11 +1,9 @@
-import re
-
 class Scanner(object):
     _code = ''
     _scanner = []
     _keywords = {'begin', 'declaration', 'else', 'end', 'execution', 'for',
-                'goto', 'if', 'integer', 'iterate','label', 'program',
-                'provided', 'read', 'real', 'then', 'through', 'write'}
+                 'goto', 'if', 'integer', 'iterate', 'label', 'program',
+                 'provided', 'read', 'real', 'then', 'through', 'write'}
 
     def get_next(self, input):
         """ Return next char of input or error """
@@ -90,7 +88,7 @@ class Scanner(object):
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
                         self._scanner.append("[chyba, chybi ']")
-                        return v
+                        return self._scanner
                     if char == "'":
                         break
                     lexeme = lexeme + char
