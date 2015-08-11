@@ -3,6 +3,7 @@
 * Update of grammar 
 * Upgrade of populate script
 * Man page created
+* First version of parser
 
 ## v0.1
 

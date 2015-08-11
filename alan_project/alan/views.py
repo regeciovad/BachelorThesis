@@ -3,9 +3,11 @@ from django.shortcuts import render
 from django.template import RequestContext
 from .models import Nonterminal, Terminal, Rule
 from .scanner import Scanner
+from .parser import Parser
 from .forms import UploadFileForm
 
 scanner = Scanner()
+parser = Parser()
 
 
 def about(request):
@@ -48,7 +50,7 @@ def run_parser(request):
     if request.method == 'POST':
         code = scanner._code
         lex_code = scanner._scanner
-        parser_code = 'Výsledek SA'
+        parser_code = parser.parser_analysis(lex_code)
     return render(request, 'alan/parser.html', {'code': code,
                   'lex_code': lex_code, 'parser_code': parser_code})
 

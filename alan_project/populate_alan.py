@@ -13,7 +13,6 @@ def populate():
     add_nonterminal('<declaration list>')
     add_nonterminal('<declaration>')
     add_nonterminal('<variable list>')
-    add_nonterminal('<label list>')
     add_nonterminal('<execution part>')
     add_nonterminal('<statement list>')
     add_nonterminal('<statement>')
@@ -26,7 +25,6 @@ def populate():
     add_nonterminal('<factor>')
 
     add_terminal('i')
-    add_terminal('l')
     add_terminal('t')
     add_terminal('#')
     add_terminal('r')
@@ -48,22 +46,16 @@ def populate():
     add_rule('<declaration list>', '<declaration>; <declaration list>')
     add_rule('<declaration list>', '<declaration>')
     add_rule('<declaration>', 'integer <variable list>')
-    add_rule('<declaration>', 'label <variable list>')
     add_rule('<variable list>', 'i, <variable list>')
     add_rule('<variable list>', 'i')
-    add_rule('<label list>', 'l, <label list>')
-    add_rule('<label list>', 'l')
     add_rule('<execution part>', 'execution <statement list>')
     add_rule('<statement list>', '<statement>; <statement list>')
     add_rule('<statement list>', '<statement>')
     add_rule('<statement>', 'i = <expression>')
-    add_rule('<statement>', 'l <statement>')
-    add_rule('<statement>', 'goto l')
     add_rule('<statement>', 'read(<input list>)')
     add_rule('<statement>', 'write(<output list>)')
     add_rule('<statement>', 'if <condition> then <statement>')
     add_rule('<statement>', 'if <condition> then <statement> else <statement>')
-    add_rule('<statement>', 'provided <condition> iterate <statement>')
     add_rule(
         '<statement>', 'for i = <expression> through expression'
         'iterate <statement>')
@@ -88,7 +80,6 @@ def populate():
     add_rule('<factor>', '(<expression>)')
     add_rule('<factor>', 'i')
     add_rule('<factor>', '#')
-
 
 def add_nonterminal(char):
     Nonterminal.objects.get_or_create(char=char)[0]

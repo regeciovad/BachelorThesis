@@ -2,8 +2,8 @@ class Scanner(object):
     _code = ''
     _scanner = []
     _keywords = {'begin', 'declaration', 'else', 'end', 'execution', 'for',
-                 'goto', 'if', 'integer', 'iterate', 'label', 'program',
-                 'provided', 'read', 'real', 'then', 'through', 'write'}
+                 'if', 'integer', 'iterate', 'program', 'read', 'then',
+                 'through', 'write'}
 
     def get_next(self, input):
         """ Return next char of input or error """
@@ -51,24 +51,6 @@ class Scanner(object):
                     token = '[i, ' + lexeme + ']'
                 self._scanner.append(token)
                 get_new = False
-            # Label
-            elif char == '@':
-                lexeme = char
-                while (True):
-                    char = self.get_next(iter_input)
-                    if char == '[chyba]':
-                        self._scanner.append("[chyba, spatny label]")
-                        return self._scanner
-                    if not char.isalnum():
-                        break
-                    lexeme = lexeme + char
-                if lexeme == '@':
-                    self._scanner.append("[chyba, prazny label]")
-                    return self._scanner
-                else:
-                    token = '[l, ' + lexeme + ']'
-                    self._scanner.append(token)
-                    get_new = False
             # Number
             elif char.isdigit():
                 lexeme = ''
