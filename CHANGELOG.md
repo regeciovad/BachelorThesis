@@ -4,6 +4,7 @@
 * Upgrade of populate script
 * Man page created
 * First version of parser
+* Download of files added
 
 ## v0.1
 

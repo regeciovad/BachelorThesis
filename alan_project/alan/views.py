@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.template import RequestContext
+from django.http import HttpResponse
 from .models import Nonterminal, Terminal, Rule
 from .scanner import Scanner
 from .parser import Parser
 from .forms import UploadFileForm
+import os
+import zipfile
+from io import StringIO
 
 scanner = Scanner()
 parser = Parser()
@@ -65,3 +69,17 @@ def grammar(request):
     return render(request, 'alan/grammar.html', {'grammar': grammar,
                   'terminals': t_list, 'nonterminals': n_list,
                   'keywords': keywords})
+
+
+def download(request):
+    zipf = zipfile.ZipFile('alanfiles.zip', 'w')
+    fpath = 'files/'
+    for root, dirs, files in os.walk(fpath):
+        for file in files:
+            zipf.write(os.path.join(root, file))
+    zipf.close()
+    response = HttpResponse(open('alanfiles.zip', 'rb').read())
+    response['Content-Type'] = 'application/x-zip-compressed'
+    response['Content-Disposition'] = 'attachment; filename=alanfiles.zip'
+    return response
+
