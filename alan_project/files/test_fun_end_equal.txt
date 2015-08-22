@@ -1,0 +1,7 @@
+program NUMBER;
+{This FUN program is for testing incorrect end of the code.}
+
+
+integer result;
+begin
+	result =

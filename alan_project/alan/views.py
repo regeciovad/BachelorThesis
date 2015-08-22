@@ -21,6 +21,13 @@ def about(request):
 def man(request):
     return render(request, 'alan/man.html', {})
 
+def changelog (request):
+    changelog = []
+    with open('../CHANGELOG.md') as f:
+        for line in f.readlines():
+            changelog.append(line)
+    return render(request, 'alan/changelog.html', {'changelog':changelog})
+
 
 def index(request):
     code = ''

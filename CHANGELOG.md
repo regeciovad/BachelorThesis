@@ -5,6 +5,7 @@
 * Man page created
 * First version of parser
 * Download of files added
+* Tests of scanner added (100% cover)
 
 ## v0.1
 

@@ -1,0 +1,2 @@
+program TESTCOMMENT;
+{This FUN program has lexical error - comment without end mark.

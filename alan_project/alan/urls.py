@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^parser/$', views.run_parser, name='parser'),
     url(r'^man/$', views.man, name='man'),
     url(r'^download/$', views.download, name='download'),
+    url(r'^changelog/$', views.changelog, name='changelog'),
 ]

@@ -17,6 +17,7 @@ class Scanner(object):
         """ Lexical analysis of input for FUN grammer """
         self._code = input
         self._scanner = []
+        input = input.rstrip()
         iter_input = iter(input)
         char = ''
         get_new = True
@@ -42,7 +43,7 @@ class Scanner(object):
                     lexeme = lexeme + char
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        self._scanner.append('[chyba, ' + lexeme + ']')
+                        self._scanner.append('[chyba, za ' + lexeme + ']')
                         return self._scanner
                 lexeme = lexeme.lower()
                 if lexeme in self._keywords:
@@ -58,7 +59,7 @@ class Scanner(object):
                     lexeme = lexeme + char
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        self._scanner.append('[chyba, ' + lexeme + ']')
+                        self._scanner.append('[chyba, za ' + lexeme + ']')
                         return self._scanner
                 token = '[#, ' + lexeme + ']'
                 self._scanner.append(token)
@@ -158,5 +159,4 @@ class Scanner(object):
                 get_new = True
             else:
                 get_new = True
-                self._scanner.append('[chyba, neznami lexem]' + char)
-        return self._scanner
+                self._scanner.append('[chyba, neznami lexem ' + char + ']')

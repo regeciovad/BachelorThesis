@@ -1,0 +1,10 @@
+program UNKNOWN;
+{This FUN program is for testing unknonw lexems.}
+
+
+integer u;
+begin
+	read(u);
+	u = u @ 2;
+	write (u);
+end.

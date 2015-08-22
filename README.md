@@ -39,6 +39,9 @@ Instalace
     
 * Otevřete webový prohlížeč na adrese: http://127.0.0.1:8000/
 
+* Spuštění testů
+	`python3 manage.py test alan`
+
 URL adresy
 =============
 

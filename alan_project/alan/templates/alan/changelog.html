@@ -1,0 +1,24 @@
+<!-- Bachelor Thesis GUI -->
+<!-- changelog.html -->
+<!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
+{% block title %} Projekt Alan {% endblock %}
+
+{% block body_block %}
+<h2>Stránka změn k projektu Alan </h2>
+<p>
+{% if changelog %}
+{% for change in changelog %}
+{% if '##' in change %}
+    </p><p><strong style="color:#215868">{{ change }}</strong>
+{% elif '*' in change %}
+   	<br>{{ change }}
+{% else %}
+    {{ change }}
+{% endif %}
+{% endfor %}
+{% endif %}
+</p>
+{% endblock %}
