@@ -9,23 +9,26 @@
 {% block body_block %}
 <h2>Manuálové stránky k projektu Alan </h2>
 
+<p>
 <h3>Načtení zdrojového programu</h3>
-<p>
-Zdrojový kód lze zadat více způsoby.<br>
-Lze jej načíst z textového souboru (pozn.: momentálně je veškerá diakritika ignorována),
+Zdrojový kód lze zadat více způsoby. <br>
+Lze jej načíst z textového souboru (pozn.: veškerá diakritika je ignorována),
 také je možno soubor zkopírovat či program přímo vepsat. <br>
-Ve všech případech lze kód přes zpuštěním lexikální analýzy upravit.<br>
-Pro potřeby projektu byl také vytvořen <a href="{% url 'download' %}">archiv</a> ukázkových souborů.
+Ve všech případech lze kód přes spuštěním lexikální analýzy upravit. <br>
+Pro potřeby projektu byl také vytvořen <a href="{% url 'download' %}">archiv</a> 
+ukázkových souborů.
 </p>
 
-<h3>Lexikální analýza</h3>
 <p>
-Lexikální analýza zpracovává vstup na jednou, ne tedy pomocí běžné metody GetNextToken.
-Výsledkem je seznam tokenů ve tvaru [lexém, další informace].<br>
-Další informací se rozumí například hodnota čísla, či jméno identifikátoru.<br>
-Oproti originálnímu jazyku FUN analýza přijímá pouze celá čísla.
+<h3>Lexikální analýza</h3>
+Lexikální analýza zpracovává vstup najednou, ne tedy pomocí běžné metody 
+<i>GetNextToken</i>. Výsledkem je seznam tokenů ve tvaru [lexém, další informace]. <br>
+Další informací se rozumí například hodnota čísla, či jméno identifikátoru. <br>
+Oproti originálnímu jazyku FUN analýza přijímá pouze celá čísla a také byla 
+odstraněna podpora labelů a příkazu <i>goto</i>.
 </p>
 
+<p>
 <h3>Kontakt</h3>
 Dominika Regéciová<br>
 xregec00@stud.fit.vutbr.cz<br>
