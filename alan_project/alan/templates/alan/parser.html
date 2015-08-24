@@ -15,12 +15,11 @@
 <th>Syntaktická analýza</th>
 <tr>
 
-<td>
-<textarea name="fun_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
-{% if code %}{{ code }}
+<td name="fun_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+{% if code %}
+<pre>{{ code }}</pre>
 {% else %}{ Zde napiste svuj kod }
 {% endif %}
-</textarea>
 </td>
 
 <td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">

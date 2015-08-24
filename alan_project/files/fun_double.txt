@@ -1,5 +1,6 @@
 program DOUBLE;
-{This FUN program reads and integer value and multiple it by two.}
+{This FUN program reads and integer value 
+and multiple it by two.}
 
 integer u;
 begin
