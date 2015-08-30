@@ -57,7 +57,7 @@ def populate():
     add_rule('<statement>', 'if <condition> then <statement>')
     add_rule('<statement>', 'if <condition> then <statement> else <statement>')
     add_rule(
-        '<statement>', 'for i = <expression> through expression'
+        '<statement>', 'for i = <expression> through <expression> '
         'iterate <statement>')
     add_rule('<statement>', 'begin <statement list> end')
     add_rule('<input list>', 'i, <input list>')
