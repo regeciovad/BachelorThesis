@@ -10,7 +10,14 @@ class Stack(object):
 		self._stack.append(item)
 
 	def pop(self):
-		return self._stack.pop()
+		if not self.is_empty():
+			return self._stack.pop()
 
 	def get_stack(self):
 		return self._stack
+
+	def get_topmost(self):
+		if self.is_empty():
+			return None
+		else:
+			return self._stack[-1]
