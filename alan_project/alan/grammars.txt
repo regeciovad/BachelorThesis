@@ -1,0 +1,21 @@
+E' -> E
+E -> E - T
+E -> T
+T -> T + F
+T -> F
+F -> ( E )
+F -> i
+
+S' -> S
+S -> S + A
+S -> A
+A -> i
+A -> ( S )
+
+S' -> A
+A -> A + B
+A -> a
+B -> b
+
+
+
