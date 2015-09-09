@@ -1,9 +1,6 @@
 class Scanner(object):
     _code = ''
     _scanner = []
-    _keywords = {'begin', 'declaration', 'else', 'end', 'execution', 'for',
-                 'if', 'integer', 'iterate', 'program', 'read', 'then',
-                 'through', 'write'}
 
     def get_next(self, input):
         """ Return next char of input or error """
@@ -21,7 +18,8 @@ class Scanner(object):
         iter_input = iter(input)
         char = ''
         get_new = True
-        while(True):
+        run = True
+        while(run):
             # Read new char
             if get_new:
                 char = self.get_next(iter_input)
@@ -43,13 +41,10 @@ class Scanner(object):
                     lexeme = lexeme + char
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        self._scanner.append('[chyba, za ' + lexeme + ']')
-                        return self._scanner
+                        run = False
+                        break
                 lexeme = lexeme.lower()
-                if lexeme in self._keywords:
-                    token = '[k, ' + lexeme + ']'
-                else:
-                    token = '[i, ' + lexeme + ']'
+                token = '[i, ' + lexeme + ']'
                 self._scanner.append(token)
                 get_new = False
             # Number
@@ -59,31 +54,11 @@ class Scanner(object):
                     lexeme = lexeme + char
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        self._scanner.append('[chyba, za ' + lexeme + ']')
-                        return self._scanner
+                        run = False
+                        break
                 token = '[#, ' + lexeme + ']'
                 self._scanner.append(token)
                 get_new = False
-            # Text literal
-            elif char == "'":
-                lexeme = ''
-                while (True):
-                    char = self.get_next(iter_input)
-                    if char == '[chyba]':
-                        self._scanner.append("[chyba, chybi ']")
-                        return self._scanner
-                    if char == "'":
-                        break
-                    lexeme = lexeme + char
-                token = '[t, ' + lexeme + ']'
-                self._scanner.append(token)
-                get_new = True
-            elif char == ',':
-                self._scanner.append('[,]')
-                get_new = True
-            elif char == ';':
-                self._scanner.append('[;]')
-                get_new = True
             elif char == '(':
                 self._scanner.append('[(]')
                 get_new = True
@@ -108,37 +83,34 @@ class Scanner(object):
             elif char == '|':
                 self._scanner.append('[|]')
                 get_new = True
-            elif char == '.':
-                self._scanner.append('[.]')
-                get_new = True
-            elif char == '=':
-                char = self.get_next(iter_input)
-                if char == '[chyba]':
-                    self._scanner.append('[chyba, neukonceny program]')
-                    return self._scanner
-                if char == '=':
-                    self._scanner.append('[r, ==]')
-                    get_new = True
-                else:
-                    self._scanner.append('[=]')
-                    get_new = False
             elif char == '!':
                 char = self.get_next(iter_input)
                 if char == '[chyba]':
-                    self._scanner.append('[chyba, neukonceny program]')
-                    return self._scanner
-                if char == '=':
+                    run = False
+                    self._scanner.append('[!]')
+                elif char == '=':
                     self._scanner.append('[r, !=]')
                     get_new = True
                 else:
                     self._scanner.append('[!]')
                     get_new = False
+            elif char == '=':
+                char = self.get_next(iter_input)
+                if char == '[chyba]':
+                    self._scanner.append('[chyba, neznami lexem =]')
+                    run = False
+                elif char == '=':
+                    self._scanner.append('[r, ==]')
+                    get_new = True
+                else:
+                    self._scanner.append('[chyba, neznami lexem =]')
+                    return self._scanner
             elif char == '>':
                 char = self.get_next(iter_input)
                 if char == '[chyba]':
-                    self._scanner.append('[chyba, neukonceny program]')
-                    return self._scanner
-                if char == '=':
+                    run = False
+                    self._scanner.append('[r, >]')
+                elif char == '=':
                     self._scanner.append('[r, >=]')
                     get_new = True
                 else:
@@ -147,9 +119,9 @@ class Scanner(object):
             elif char == '<':
                 char = self.get_next(iter_input)
                 if char == '[chyba]':
-                    self._scanner.append('[chyba, neukonceny program]')
-                    return self._scanner
-                if char == '=':
+                    run = False
+                    self._scanner.append('[r, <]')
+                elif char == '=':
                     self._scanner.append('[r, <=]')
                     get_new = True
                 else:
@@ -160,3 +132,4 @@ class Scanner(object):
             else:
                 get_new = True
                 self._scanner.append('[chyba, neznami lexem ' + char + ']')
+        return self._scanner

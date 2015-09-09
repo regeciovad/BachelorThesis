@@ -1,9 +1,12 @@
+## v0.3
+* New scanner
+* Simplification of grammar
+
 ## v0.2
 * First complete version of scanner (FUN grammar)
 * Update of grammar 
 * Upgrade of populate script
 * Man page created
-* First version of parser
 * Download of files added
 * Tests of scanner added (100% cover)
 

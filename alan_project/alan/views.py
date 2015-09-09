@@ -72,10 +72,8 @@ def grammar(request):
     t_list = ', '.join([t.char for t in terminals])
     nonterminals = Nonterminal.objects.order_by('id')
     n_list = ', '.join([n.char for n in nonterminals])
-    keywords = scanner._keywords
     return render(request, 'alan/grammar.html', {'grammar': grammar,
-                  'terminals': t_list, 'nonterminals': n_list,
-                  'keywords': keywords})
+                  'terminals': t_list, 'nonterminals': n_list})
 
 
 def download(request):
