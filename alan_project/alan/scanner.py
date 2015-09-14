@@ -59,6 +59,9 @@ class Scanner(object):
                 token = '[#, ' + lexeme + ']'
                 self._scanner.append(token)
                 get_new = False
+            elif char == ';':
+                self._scanner.append('[;]')
+                get_new = True
             elif char == '(':
                 self._scanner.append('[(]')
                 get_new = True
