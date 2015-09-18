@@ -54,8 +54,8 @@ def add_terminal(char):
     Terminal.objects.get_or_create(char=char)[0]
 
 
-def add_rule(left_side, right_side):
-    Rule.objects.get_or_create(left_side=left_side, right_side=right_side)[0]
+def add_rule(left_hand_side, right_hand_side):
+    Rule.objects.get_or_create(left_hand_side=left_hand_side, right_hand_side=right_hand_side)[0]
 
 if __name__ == '__main__':
     print('Starting Alan population script...')

@@ -1,5 +1,5 @@
 <!-- Bachelor Thesis GUI -->
-<!-- about.html -->
+<!-- grammar.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 {% extends 'alan/base.html' %}
 {% load staticfiles %}
@@ -19,6 +19,9 @@
     <h3>Terminály: </h3>
     { {{ terminals }} }
   {% endif %}
+  <br>
+  <strong>i</strong> reprezentuje celá čísla <br>
+  <strong>r</strong> reprezentuje {>, <, <=, >=, !=, ==}
 
 {% if grammar %}
     <h3>Pravidla: </h3>

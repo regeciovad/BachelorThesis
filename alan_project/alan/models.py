@@ -1,6 +1,6 @@
 # Alan project
 # Models.py
-# Version 0.1
+# Version 0.3
 # Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
 
 from django.db import models
@@ -21,8 +21,8 @@ class Terminal(models.Model):
 
 
 class Rule (models.Model):
-    left_side = models.CharField(max_length=1, verbose_name='Left side')
-    right_side = models.CharField(max_length=42, verbose_name='Right side')
+    left_hand_side = models.CharField(max_length=1, verbose_name='Left hand side')
+    right_hand_side = models.CharField(max_length=42, verbose_name='Right hand side')
 
     def __str__(self):
-        return self.left_side + " \u2192 " + self.right_side
+        return self.left_hand_side + " \u2192 " + self.right_hand_side
