@@ -12,6 +12,7 @@
 <table align="center">
 <th>Program</th>
 <th>Lexikální analýza</th>
+<th>Zásobník</th>
 <th>Syntaktická analýza</th>
 <tr>
 
@@ -34,6 +35,12 @@
 {% endif %}
 {% endfor %}
 {% else %}{ Zde bude výsledek Lexikální analýzy }
+{% endif %}
+</td>
+
+<td name="stack_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
+{% if stack %}{{ stack }}
+{% else %}{ Zde bude zásobník }
 {% endif %}
 </td>
 

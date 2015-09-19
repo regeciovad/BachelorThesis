@@ -61,9 +61,10 @@ def run_parser(request):
     if request.method == 'POST':
         code = scanner._code
         lex_code = scanner._scanner
-        parser_code = parser.parser_analysis(lex_code)
+        parser_code, stack = parser.parser_analysis(lex_code)
     return render(request, 'alan/parser.html', {'code': code,
-                  'lex_code': lex_code, 'parser_code': parser_code})
+                  'lex_code': lex_code, 'parser_code': parser_code,
+                  'stack':stack})
 
 
 def grammar(request):

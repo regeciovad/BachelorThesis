@@ -1,10 +1,22 @@
 from .scanner import Scanner
+from .stack import Stack
 class Parser(object):
 
-	def parser_analysis(self, input):
+	def parser_analysis(self, input=''):
+		stack = Stack()
 		action, goto = self.generate_table()
-		for token in input:
-			print(token)
+		#myinput = ['[i, a]', '[+]', '[i, b]', '[;]']
+		myinput = ['[i, a]']
+		output = []
+		stack.push('$0')
+		state = 0
+		for token in myinput:
+			a = token[1]
+			pokus = action[state][a]
+			stack.push(token)
+			if pokus == 's8':
+				output.append('success')
+		return output, stack.get_stack()
 
 	def generate_table(self):
 		action = []
