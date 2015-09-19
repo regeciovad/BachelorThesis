@@ -75,6 +75,11 @@ def grammar(request):
     return render(request, 'alan/grammar.html', {'grammar': grammar,
                   'terminals': t_list, 'nonterminals': n_list})
 
+def lrtable(request):
+    table_action, table_goto = parser.generate_table()
+    return render(request, 'alan/lrtable.html', {'table_action': table_action,
+                  'table_goto':table_goto})
+
 
 def download(request):
     zipf = zipfile.ZipFile('alanfiles.zip', 'w')

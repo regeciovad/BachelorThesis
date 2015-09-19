@@ -125,12 +125,16 @@ tr {
    background-color:white;
 }
 
-table#t01 {
-    width:100%;
+table#t01, table#t01 td, table#t01 th {
+    border: 1px solid black;
+    border-collapse:collapse;
 }
 
-table#t01, table#t01 th, table#t01 td {
-    border:0px;
+ table#t01 th {
+    background-color:#61497A;
+    color:white;
+    font-size:14px;
+    padding:5px 10px;
 }
 
 h2 {
@@ -138,4 +142,9 @@ h2 {
     font-weight:bold;
     text-align:left;
     margin-top:0em;
+}
+
+table#t02, table#t02 th, table#t02 td {
+    border:0px;
+    max-width:auto;
 }

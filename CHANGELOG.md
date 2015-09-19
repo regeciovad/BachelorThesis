@@ -1,6 +1,7 @@
 ## v0.3
 * New scanner
 * Simplification of grammar
+* LR table added
 
 ## v0.2
 * First complete version of scanner (FUN grammar)
