@@ -50,6 +50,13 @@ html, body {
     padding-bottom:2em;
 }
 
+h2 {
+    font-size:1.5em;
+    font-weight:bold;
+    text-align:left;
+    margin-top:0em;
+}
+
 a {
   color:orange;
   font-weight: bold;
@@ -104,27 +111,12 @@ ul#menu li a:hover {
 }
 
 table, th td {
-    border: 1px solid black;
-    border-collapse:collapse;
+    border:0px;
+    max-width:auto;
     text-align:center;
-    padding:10px;
 }
 
-table th a {
-    color:white;
-}
-
-th {
-    background-color:#61497A;
-    color:white;
-    font-size:24px;
-    padding:5px 10px;
-}
-
-tr {
-   background-color:white;
-}
-
+/* Table - t01*/
 table#t01, table#t01 td, table#t01 th {
     border: 1px solid black;
     border-collapse:collapse;
@@ -133,18 +125,7 @@ table#t01, table#t01 td, table#t01 th {
  table#t01 th {
     background-color:#61497A;
     color:white;
-    font-size:14px;
+    font-size:16px;
     padding:5px 10px;
 }
 
-h2 {
-    font-size:1.5em;
-    font-weight:bold;
-    text-align:left;
-    margin-top:0em;
-}
-
-table#t02, table#t02 th, table#t02 td {
-    border:0px;
-    max-width:auto;
-}
