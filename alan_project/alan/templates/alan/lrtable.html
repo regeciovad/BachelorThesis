@@ -31,10 +31,11 @@
 {% if table_goto %}
 <table id="t01">
   <tr>
-    <th>Stav</th><th>statement_list</th><th>condition</th><th>expression</th><th>term</th><th>factor</th></tr>
+    <th>Stav</th><th>&lt;statement_list&gt;</th><th>&lt;condition&gt;</th><th>&lt;expression&gt;</th>
+    <th>&lt;term&gt;</th><th>&lt;factor&gt;</th></tr>
 {% for row in table_goto %}
 <tr>
-  <td>{{row.pk}}</td><td>{{row.statement}}</td><td>{{row.condition}}</td><td>{{row.expression}}</td>
+  <td>{{row.pk}}</td><td>{{row.statement_list}}</td><td>{{row.condition}}</td><td>{{row.expression}}</td>
   <td>{{row.term}}</td><td>{{row.factor}}</td>
 </tr>
 {% endfor %}

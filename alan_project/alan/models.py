@@ -25,4 +25,5 @@ class Rule (models.Model):
     right_hand_side = models.CharField(max_length=42, verbose_name='Right hand side')
 
     def __str__(self):
-        return self.left_hand_side + " \u2192 " + self.right_hand_side
+        arrow = ' \u2192 '
+        return self.left_hand_side + arrow + self.right_hand_side

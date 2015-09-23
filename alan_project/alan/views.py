@@ -58,13 +58,20 @@ def run_parser(request):
     code = ''
     lex_code = ''
     parser_code = ''
+    grammar = Rule.objects.order_by('id')
+    grammar_list = []
+    grammar_list.append({'id':0, 'left':'', 'right':''})
+    for g in grammar:
+        grammar_list.append({'id':g.id, 'left':g.left_hand_side, 'right':g.right_hand_side})
     if request.method == 'POST':
         code = scanner._code
         lex_code = scanner._scanner
-        parser_code, stack = parser.parser_analysis(lex_code)
+        #lex_code = ['[i, a]', '[+]', '[i, b]']
+        #lex_code = ['[i, a]', '[+]', '[i, b]', '[;]', '[i, b]', '[-]', '[i, c]']
+        stack, state, parser_code = parser.parser_analysis(lex_code, grammar_list)
     return render(request, 'alan/parser.html', {'code': code,
                   'lex_code': lex_code, 'parser_code': parser_code,
-                  'stack':stack})
+                  'stack':stack, 'state':state})
 
 
 def grammar(request):
@@ -77,7 +84,7 @@ def grammar(request):
                   'terminals': t_list, 'nonterminals': n_list})
 
 def lrtable(request):
-    table_action, table_goto = parser.generate_table()
+    table_action, table_goto = parser.generate_table_print()
     return render(request, 'alan/lrtable.html', {'table_action': table_action,
                   'table_goto':table_goto})
 

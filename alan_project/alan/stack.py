@@ -14,7 +14,7 @@ class Stack(object):
 			return self._stack.pop()
 
 	def get_stack(self):
-		return self._stack
+		return str(self._stack)
 
 	def get_topmost(self):
 		if self.is_empty():

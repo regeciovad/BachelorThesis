@@ -13,6 +13,7 @@
 <th>Program</th>
 <th>Lexikální analýza</th>
 <th>Zásobník</th>
+<th>Stav</th>
 <th>Syntaktická analýza</th>
 <tr>
 
@@ -39,13 +40,32 @@
 </td>
 
 <td name="stack_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
-{% if stack %}{{ stack }}
+{% if stack %}
+{% for s in stack %}
+{{ s }}<br>
+{% endfor %}
 {% else %}{ Zde bude zásobník }
 {% endif %}
 </td>
 
+<td name="state_code_area" rows="10" cols="42" style="padding:10px; font-size:16px;">
+{% if state %}
+{% for s in state %}
+{{ s }}<br>
+{% endfor %}
+{% else %}{ Zde bude stav }
+{% endif %}
+</td>
+
 <td name="parser_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
-{% if parser_code %}{{ parser_code }}
+{% if parser_code %}
+{% for parser in parser_code %}
+{% if 'success' in parser %}
+    <strong style="color:green">{{ parser }}</strong><br>
+{% else %}
+{{ parser }}<br>
+{% endif %}
+{% endfor %}
 {% else %}{ Zde bude SA }
 {% endif %}
 </td>
