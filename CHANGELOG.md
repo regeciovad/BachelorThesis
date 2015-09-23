@@ -3,6 +3,7 @@
 * Simplification of grammar
 * LR table added
 * Fisrt version of parser
+* Update of grammar and LR table (shift/reduce conflicts)
 
 ## v0.2
 * First complete version of scanner (FUN grammar)

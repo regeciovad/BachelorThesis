@@ -9,6 +9,7 @@ from alan.models import Nonterminal, Terminal, Rule
 
 def populate():
     add_nonterminal('<statement_list>')
+    add_nonterminal('<statement>')
     add_nonterminal('<condition>')
     add_nonterminal('<expression>')
     add_nonterminal('<term>')
@@ -28,11 +29,12 @@ def populate():
     add_terminal(')')
     add_terminal(';')
 
-    add_rule('<statement_list>', '<condition> ; <statement_list>')
-    add_rule('<statement_list>', '<condition>')
-    add_rule('<condition>', '<condition> r <condition>')
-    add_rule('<condition>', '<condition> & <condition>')
-    add_rule('<condition>', '<condition> | <condition>')
+    add_rule('<statement_list>', '<statement> ; <statement_list>')
+    add_rule('<statement_list>', '<statement>')
+    add_rule('<statement>', '<statement> r <condition>')
+    add_rule('<statement>', '<statement> & <condition>')
+    add_rule('<statement>', '<statement> | <condition>')
+    add_rule('<statement>', '<condition>')
     add_rule('<condition>', '! <condition>')
     add_rule('<condition>', '<expression>')
     add_rule('<expression>', '<expression> + <term>')
