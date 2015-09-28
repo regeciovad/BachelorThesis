@@ -58,7 +58,7 @@ h2 {
 }
 
 a {
-  color:orange;
+  color:#31849B;
   font-weight: bold;
   text-decoration:none;
   padding:5px;
@@ -66,7 +66,7 @@ a {
 }
 
 a:hover {
-  color:green;
+  color:orange;
 
 }
 

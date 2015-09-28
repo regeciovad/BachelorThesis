@@ -24,7 +24,7 @@
 {% endif %}
 </td>
 
-<td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
+<td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if lex_code %}
 {% for lex in lex_code %}
 {% if '[chyba' in lex %}
@@ -39,7 +39,7 @@
 {% endif %}
 </td>
 
-<td name="stack_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
+<td name="stack_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if stack %}
 {% for s in stack %}
 {{ s }}<br>
@@ -48,7 +48,7 @@
 {% endif %}
 </td>
 
-<td name="state_code_area" rows="10" cols="42" style="padding:10px; font-size:16px;">
+<td name="state_code_area" rows="10" cols="42" style="padding:10px; font-size:16px;vertical-align: text-top;">
 {% if state %}
 {% for s in state %}
 {{ s }}<br>
@@ -57,7 +57,7 @@
 {% endif %}
 </td>
 
-<td name="parser_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
+<td name="parser_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if parser_code %}
 {% for parser in parser_code %}
 {% if 'success' in parser %}
