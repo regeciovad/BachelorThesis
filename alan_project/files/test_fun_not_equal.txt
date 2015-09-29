@@ -1,0 +1,3 @@
+{This FUN program is for testing unknown lexem.}
+
+result = var

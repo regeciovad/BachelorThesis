@@ -1,20 +1,14 @@
-program OPERATORS;
 {This FUN program is for relational operators.}
 
-integer u;
-begin
-    read(u);
-    if u == 2 then
-        u=u * 2;
-    if u> 2 then
-        u = u+ 4;
-    if u != 42 then
-        u = u - 0;
-    if u >= 42 then
-        u = u/42;
-    if u <42 then
-        u = u * 5;
-    if u <= 42 then
-        u = u * 5 ;
-    write(u);
-end.
+u == 2;
+u * 2;
+u> 2;
+u+ 4;
+u != 42;
+u - 0;
+u >= 42;
+u/42;
+u <42;
+u * 5;
+u <= 42; 
+u * 5

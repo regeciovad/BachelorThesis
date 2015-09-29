@@ -31,7 +31,7 @@ class Scanner(object):
                 while char != '}':
                     char = self.get_next(iter_input)
                     if char == '[chyba]':
-                        self._scanner.append('[chyba, chybi }]')
+                        self._scanner.append('[chyba, chybí }]')
                         return self._scanner
                 get_new = True
             # Identifiers
@@ -100,13 +100,13 @@ class Scanner(object):
             elif char == '=':
                 char = self.get_next(iter_input)
                 if char == '[chyba]':
-                    self._scanner.append('[chyba, neznami lexem =]')
+                    self._scanner.append('[chyba, neznámý lexém =]')
                     run = False
                 elif char == '=':
                     self._scanner.append('[r, ==]')
                     get_new = True
                 else:
-                    self._scanner.append('[chyba, neznami lexem =]')
+                    self._scanner.append('[chyba, neznámý lexém =]')
                     return self._scanner
             elif char == '>':
                 char = self.get_next(iter_input)
@@ -134,5 +134,5 @@ class Scanner(object):
                 get_new = True
             else:
                 get_new = True
-                self._scanner.append('[chyba, neznami lexem ' + char + ']')
+                self._scanner.append('[chyba, neznámý lexém ' + char + ']')
         return self._scanner

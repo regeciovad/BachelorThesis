@@ -1,6 +1,0 @@
-program STRING;
-{ This FUN program print Hello World }
-
-begin
-	write('Hello World!');
-end.

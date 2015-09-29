@@ -1,10 +1,6 @@
-program LOGIC;
 { This FUN program is for logical operators }
-integer u, v, result;
-begin
-	result = u & v;
-	result = u | v;
-	result = !result;
-	write (result);
 
-end.
+u & v;
+u | v;
+!result;
+(result)

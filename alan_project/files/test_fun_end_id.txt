@@ -1,5 +1,4 @@
-program NUMBER;
-{This FUN program is for testing incorrect end of the code.}
+{This FUN program contains only variable.}
 
 
-integer result
+result

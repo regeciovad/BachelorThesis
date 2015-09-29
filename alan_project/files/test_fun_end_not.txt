@@ -1,7 +1,2 @@
-program NUMBER;
-{This FUN program is for testing incorrect end of the code.}
-
-
-integer result;
-begin
-	result = !
+{This FUN program is for testing syntax error in end of the code.}
+result == !

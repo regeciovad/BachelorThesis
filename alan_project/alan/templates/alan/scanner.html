@@ -19,7 +19,7 @@
 {% else %}{ Zde napiste svuj kod }
 {% endif %}
 </td>
-<td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">
+<td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;;text-align:left;vertical-align: text-top;">
 {% if lex_code %}
 {% for lex in lex_code %}
 {% if '[chyba' in lex %}
@@ -36,8 +36,11 @@
 </tr>
 </table>
 
+
 <p style="text-align:center">
+{% if next %}
 <input type="submit" name="parser" formaction="{% url 'parser' %}" value="Spustit syntaktickou analýzu">
+{% endif %}
 </p>
 </form>
 

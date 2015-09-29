@@ -4,6 +4,7 @@
 * LR table added
 * Fisrt version of parser
 * Update of grammar and LR table (shift/reduce conflicts)
+* New tests of scanner added (100% cover)
 
 ## v0.2
 * First complete version of scanner (FUN grammar)
