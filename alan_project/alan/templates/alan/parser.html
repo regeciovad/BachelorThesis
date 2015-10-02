@@ -62,6 +62,8 @@
 {% for parser in parser_code %}
 {% if 'success' in parser %}
     <strong style="color:green">{{ parser }}</strong><br>
+{% elif 'chyba' in parser %}
+	<strong style="color:red">{{ parser }}</strong><br>
 {% else %}
 {{ parser }}<br>
 {% endif %}
@@ -71,9 +73,5 @@
 </td>
 </tr>
 </table>
-
-<p style="text-align:center">
-<input type="submit" name="parser" formaction="{% url 'parser' %}" value="Spustit syntaktickou analýzu">
-</p>
 </form>
 {% endblock %}

@@ -1,6 +1,9 @@
 from django.test import TestCase
 from .scanner import Scanner
 from .stack import Stack
+from .parser import Parser
+from .models import Rule
+from populate_alan_newbie import populate
 
 class ScannerMethodTests(TestCase):
 
@@ -176,7 +179,7 @@ class StackMethodTests(TestCase):
 			Testing initialization of stack
 		'''
 		stack = Stack()
-		output = '[]'
+		output = []
 		stack_output = stack.get_stack()
 		self.assertEqual(stack_output, output)
 
@@ -193,7 +196,7 @@ class StackMethodTests(TestCase):
 		'''
 		stack = Stack()
 		stack.push('42')
-		output = "['42']"
+		output = ['42']
 		stack_output = stack.get_stack()
 		self.assertEqual(stack_output, output)
 		self.assertFalse(stack.is_empty())
@@ -206,7 +209,7 @@ class StackMethodTests(TestCase):
 		stack.push('42')
 		stack.push('14')
 		stack.push('1')
-		output = "['42', '14', '1']"
+		output = ['42', '14', '1']
 		stack_output = stack.get_stack()
 		self.assertEqual(stack_output, output)
 		self.assertFalse(stack.is_empty())
@@ -270,7 +273,84 @@ class StackMethodTests(TestCase):
 		stack_output = stack.get_topmost()
 		self.assertEqual(stack_output, output)
 		self.assertFalse(stack.is_empty())
-		output = "['42', '14', '1']"
+		output = ['42', '14', '1']
 		stack_output = stack.get_stack()
 		self.assertEqual(stack_output, output)
+
+class ParserMethodTests(TestCase):
+
+	def test_parser_empty_code(self):
+		'''
+			Testing of empty code for parser. It should be error.
+		'''
+		parser = Parser()
+		output = ([], [], ['Syntaktická chyba - prázdný program'])
+		parser_output = parser.parser_analysis()
+		self.assertEqual(parser_output, output)
+
+	def test_parser_empty_grammar_list(self):
+		'''
+			Testing of empty list of grammar rules for parser. It should be error.
+		'''
+		parser = Parser()
+		lex_code = '[i, a]'
+		output = ([], [], ['Chyba programu - prázdná množina pravidel'])
+		parser_output = parser.parser_analysis(lex_code)
+		self.assertEqual(parser_output, output)
+
+	def test_parser_a(self):
+		'''
+			Testing of code: a
+		'''
+		parser = Parser()
+		populate()
+		grammar = Rule.objects.order_by('id')
+		grammar_list = []
+		grammar_list.append({'id':0, 'left':'', 'right':''})
+		for g in grammar:
+			grammar_list.append({'id':g.id, 'left':g.left_hand_side, 'right':g.right_hand_side})
+		lex_code = ['[i, a]']
+		stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', ['<$, 0>', '<<factor>, 7>'], '',
+			['<$, 0>', '<<term>, 6>'], '', ['<$, 0>', '<<expression>, 5>'], '',
+			['<$, 0>', '<<condition>, 3>'], '', ['<$, 0>', '<<statement>, 2>'], '',
+			['<$, 0>', '<<statement_list>, 1>'], '']
+		state_expected = [0, 9, '', 7, '', 6, '', 5, '', 3, '', 2, '', 1, '']
+		output_expected = ['action[0, i] = s9', 'action[9, $] = r16', 'ruled by 16: <factor> -> i',
+			'action[7, $] = r14', 'ruled by 14: <term> -> <factor>', 'action[6, $] = r11',
+			'ruled by 11: <expression> -> <term>', 'action[5, $] = r8', 
+			'ruled by 8: <condition> -> <expression>', 'action[3, $] = r6',
+			'ruled by 6: <statement> -> <condition>', 'action[2, $] = r2',
+			'ruled by 2: <statement_list> -> <statement>', 'action[1, $] = acc', 'success']
+		stack, state, parser_output = parser.parser_analysis(lex_code, grammar_list)
+		self.assertEqual(parser_output, output_expected)
+		self.assertEqual(stack, stack_expected)
+		self.assertEqual(state, state_expected)
+
+	def test_parser_a_less(self):
+		'''
+			Testing of code: a <, which is a syntax error
+		'''
+		parser = Parser()
+		populate()
+		grammar = Rule.objects.order_by('id')
+		grammar_list = []
+		grammar_list.append({'id':0, 'left':'', 'right':''})
+		for g in grammar:
+			grammar_list.append({'id':g.id, 'left':g.left_hand_side, 'right':g.right_hand_side})
+		lex_code = ['[i, a]', '[r, <]']
+		stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', ['<$, 0>', '<<factor>, 7>'], '',
+			['<$, 0>', '<<term>, 6>'], '', ['<$, 0>', '<<expression>, 5>'], '',
+			['<$, 0>', '<<condition>, 3>'], '', ['<$, 0>', '<<statement>, 2>'],
+			['<$, 0>', '<<statement>, 2>', '<r, 12>'], '']
+		state_expected = [0, 9, '', 7, '', 6, '', 5, '', 3, '', 2, 12, '']
+		output_expected = ['action[0, i] = s9', 'action[9, r] = r16', 'ruled by 16: <factor> -> i',
+			'action[7, r] = r14', 'ruled by 14: <term> -> <factor>', 'action[6, r] = r11',
+			'ruled by 11: <expression> -> <term>', 'action[5, r] = r8', 
+			'ruled by 8: <condition> -> <expression>', 'action[3, r] = r6',
+			'ruled by 6: <statement> -> <condition>', 'action[2, r] = s12',
+			'action[12, $] = ', 'synchyba']
+		stack, state, parser_output = parser.parser_analysis(lex_code, grammar_list)
+		self.assertEqual(parser_output, output_expected)
+		self.assertEqual(stack, stack_expected)
+		self.assertEqual(state, state_expected)
 

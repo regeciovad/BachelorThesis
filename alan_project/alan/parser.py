@@ -3,6 +3,14 @@ from .stack import Stack
 class Parser(object):
 
 	def parser_analysis(self, input='', grammar=''):
+		if input == '':
+			output = []
+			output.append('Syntaktická chyba - prázdný program')
+			return [], [], output
+		if grammar == '':
+			output = []
+			output.append('Chyba programu - prázdná množina pravidel')
+			return [], [], output
 		if input[-1] != '[$]':
 			input.append('[$]')
 		stack = Stack()
@@ -22,9 +30,7 @@ class Parser(object):
 			return stackHistory, stateHistory, output
 		while (run):
 			a = token[1]
-			print(state)
-			print(stack.get_stack())
-			cell = action[int(state)][a]
+			cell = action[state][a]
 			output.append('action[' + str(state) + ', ' + a + '] = ' + cell)
 			if cell.startswith('s'):
 				q = cell[1:]
@@ -34,11 +40,11 @@ class Parser(object):
 					token = input[token_number]
 					token_number += 1
 				except IndexError:
-					output.append('chyba')
+					output.append('syntaktická chyba')
 					break
 				a = token[1]
-				state = q
-				stateHistory.append(q)
+				state = int(q)
+				stateHistory.append(state)
 			elif cell.startswith('r'):
 				p = cell[1:]
 				left = grammar[int(p)]['left']
@@ -48,21 +54,20 @@ class Parser(object):
 				for x in range(len(handle)):
 					pop_stack.append(stack.pop().split(',')[0][1:])
 				pop_stack.reverse()
-				print(str(pop_stack))
 				if str(handle) == str(pop_stack):
 					output.append('ruled by ' + p + ': ' + left + ' -> ' + right)
 					stateHistory.append('')
 					stackHistory.append('')
-					actual_state = stack.get_topmost().split(',')[1][:-1]
+					actual_state = int(stack.get_topmost().split(',')[1][:-1])
 					if actual_state == '':
 						output.append('gotochyba')
 						run = False
-					state = goto[int(actual_state)][left]
+					state = int(goto[actual_state][left])
 					stateHistory.append(state)
-					stack.push(('<'+ left + ', '+ state + '>'))
+					stack.push(('<'+ left + ', '+ str(state) + '>'))
 					stackHistory.append(stack.get_stack())
 				else:
-					output.append('chyba')
+					output.append('syntaktická chyba')
 					run = False
 			elif cell.startswith('acc'):
 				output.append('success')
@@ -70,7 +75,7 @@ class Parser(object):
 				stateHistory.append('')
 				run = False
 			else:
-				output.append('synchyba')
+				output.append('syntaktická chyba')
 				stackHistory.append('')
 				stateHistory.append('')
 				run = False
