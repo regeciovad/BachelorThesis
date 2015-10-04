@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Nonterminal, Terminal, Rule
 from .scanner import Scanner
 from .parser import Parser
+from .lrtable import LRTable
 from .forms import UploadFileForm
 import os
 import zipfile
@@ -73,10 +74,10 @@ def run_parser(request):
         lex_code = scanner._scanner
         #lex_code = ['[i, a]', '[+]', '[i, b]']
         #lex_code = ['[i, a]', '[+]', '[i, b]', '[;]', '[i, b]', '[-]', '[i, c]']
-        stack, state, parser_code = parser.parser_analysis(lex_code, grammar_list)
+        stack, state, parser_code, exit_code = parser.parser_analysis(lex_code, grammar_list)
     return render(request, 'alan/parser.html', {'code': code,
                   'lex_code': lex_code, 'parser_code': parser_code,
-                  'stack':stack, 'state':state})
+                  'stack':stack, 'state':state, 'exit_code':exit_code})
 
 
 def grammar(request):
@@ -89,7 +90,8 @@ def grammar(request):
                   'terminals': t_list, 'nonterminals': n_list})
 
 def lrtable(request):
-    table_action, table_goto = parser.generate_table_print()
+    lrtable = LRTable()
+    table_action, table_goto = lrtable.generate_table_print()
     return render(request, 'alan/lrtable.html', {'table_action': table_action,
                   'table_goto':table_goto})
 

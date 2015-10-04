@@ -73,5 +73,10 @@
 </td>
 </tr>
 </table>
+<p style="text-align:center">
+{% if exit_code %}
+<input type="submit" name="parser" formaction="{% url 'parser' %}" value="Spustit Panic mode">
+{% endif %}
+</p>
 </form>
 {% endblock %}
