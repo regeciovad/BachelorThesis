@@ -1,4 +1,5 @@
 ## v0.3
+
 * New scanner
 * Simplification of grammar
 * LR table added
@@ -6,8 +7,10 @@
 * Update of grammar and LR table (shift/reduce conflicts)
 * New tests of scanner added (100% cover)
 * Tests of stack added (100% cover)
+* First version of Panic Mode added
 
 ## v0.2
+
 * First complete version of scanner (FUN grammar)
 * Update of grammar 
 * Upgrade of populate script
