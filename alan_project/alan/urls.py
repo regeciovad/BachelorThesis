@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^lrtable/$', views.lrtable, name='lrtable'),
     url(r'^scanner/$', views.run_scanner, name='scanner'),
     url(r'^parser/$', views.run_parser, name='parser'),
+    url(r'^panic_mode/$', views.run_panic_mode_parser, name='panic_mode'),
     url(r'^man/$', views.man, name='man'),
     url(r'^download/$', views.download, name='download'),
     url(r'^changelog/$', views.changelog, name='changelog'),

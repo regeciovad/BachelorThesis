@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import Nonterminal, Terminal, Rule
 from .scanner import Scanner
 from .parser import Parser
+from .panic_mode import PanicModeParser
 from .lrtable import LRTable
 from .forms import UploadFileForm
 import os
@@ -13,6 +14,7 @@ from io import StringIO
 
 scanner = Scanner()
 parser = Parser()
+panic_mode_parser = PanicModeParser()
 
 
 def about(request):
@@ -51,10 +53,10 @@ def run_scanner(request):
     if request.method == 'POST':
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
             code = request.POST['fun_code_area']
-            lex_code = scanner.scanner_analysis(code)
+            lex_code, exit_code = scanner.scanner_analysis(code)
             if not lex_code:
                 lex_code.append('[chyba, prazdny program]')
-            if any("chyba," in s for s in lex_code):
+            if exit_code:
                 next = False
     return render(request, 'alan/scanner.html', {'code': code,
                   'lex_code': lex_code, 'next': next})
@@ -78,6 +80,26 @@ def run_parser(request):
     return render(request, 'alan/parser.html', {'code': code,
                   'lex_code': lex_code, 'parser_code': parser_code,
                   'stack':stack, 'state':state, 'exit_code':exit_code})
+
+def run_panic_mode_parser(request):
+    code = ''
+    lex_code = ''
+    parser_code = ''
+    grammar = Rule.objects.order_by('id')
+    grammar_list = []
+    grammar_list.append({'id':0, 'left':'', 'right':''})
+    for g in grammar:
+        grammar_list.append({'id':g.id, 'left':g.left_hand_side, 'right':g.right_hand_side})
+    if request.method == 'POST':
+        code = scanner._code
+        lex_code = scanner._scanner
+        #lex_code = ['[i, a]', '[+]', '[i, b]']
+        #lex_code = ['[i, a]', '[+]', '[i, b]', '[;]', '[i, b]', '[-]', '[i, c]']
+        stack, state, parser_code, exit_code, panic_mode = panic_mode_parser.parser_analysis(lex_code, grammar_list)
+    return render(request, 'alan/panic_mode_parser.html', {'code': code,
+                  'lex_code': lex_code, 'parser_code': parser_code,
+                  'stack':stack, 'state':state, 'exit_code':exit_code,
+                  'panic_mode': panic_mode})
 
 
 def grammar(request):

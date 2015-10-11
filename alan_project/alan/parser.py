@@ -55,7 +55,7 @@ class Parser(object):
 					pop_stack.append(stack.pop().split(',')[0][1:])
 				pop_stack.reverse()
 				if str(handle) == str(pop_stack):
-					output.append('ruled by ' + p + ': ' + left + ' -> ' + right)
+					output.append('pravidlo ' + p + ': ' + left + ' -> ' + right)
 					stateHistory.append('')
 					stackHistory.append('')
 					actual_state = int(stack.get_topmost().split(',')[1][:-1])
