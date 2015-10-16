@@ -311,9 +311,9 @@ class ParserMethodTests(TestCase):
 		'''
 		parser = Parser()
 		exit_code = 1
-		output = ([], [], ['Syntaktická chyba - prázdný program'], exit_code)
-		parser_output = parser.parser_analysis()
-		self.assertEqual(parser_output, output)
+		output = (['Syntaktická chyba - prázdný program'], [], [], exit_code)
+		parser_result = parser.parser_analysis()
+		self.assertEqual(parser_result, output)
 
 	def test_parser_empty_grammar_list(self):
 		'''
@@ -322,9 +322,9 @@ class ParserMethodTests(TestCase):
 		parser = Parser()
 		exit_code = 1
 		lex_code = '[i, a]'
-		output = ([], [], ['Chyba programu - prázdná množina pravidel'], exit_code)
-		parser_output = parser.parser_analysis(lex_code)
-		self.assertEqual(parser_output, output)
+		output = (['Chyba programu - prázdná množina pravidel'], [], [], exit_code)
+		parser_result = parser.parser_analysis(lex_code)
+		self.assertEqual(parser_result, output)
 
 	def test_parser_a(self):
 		'''
@@ -350,8 +350,8 @@ class ParserMethodTests(TestCase):
 			'pravidlo 8: <condition> -> <expression>', 'action[3, $] = r6',
 			'pravidlo 6: <statement> -> <condition>', 'action[2, $] = r2',
 			'pravidlo 2: <statement_list> -> <statement>', 'action[1, $] = acc', 'success']
-		stack, state, parser_output, exit = parser.parser_analysis(lex_code, grammar_list)
-		self.assertEqual(parser_output, output_expected)
+		parser_result, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
+		self.assertEqual(parser_result, output_expected)
 		self.assertEqual(stack, stack_expected)
 		self.assertEqual(state, state_expected)
 		self.assertEqual(exit, exit_code)
@@ -380,8 +380,8 @@ class ParserMethodTests(TestCase):
 			'pravidlo 8: <condition> -> <expression>', 'action[3, r] = r6',
 			'pravidlo 6: <statement> -> <condition>', 'action[2, r] = s12',
 			'action[12, $] = ', 'syntaktická chyba']
-		stack, state, parser_output, exit = parser.parser_analysis(lex_code, grammar_list)
-		self.assertEqual(parser_output, output_expected)
+		parser_result, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
+		self.assertEqual(parser_result, output_expected)
 		self.assertEqual(stack, stack_expected)
 		self.assertEqual(state, state_expected)
 		self.assertEqual(exit, exit_code)

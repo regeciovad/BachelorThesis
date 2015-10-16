@@ -1,3 +1,7 @@
+# Advanced Error Recovery during Bottom-Up Parsing
+# File: panic_mode.py
+# Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
+
 from .scanner import Scanner
 from .stack import Stack
 from .lrtable import LRTable

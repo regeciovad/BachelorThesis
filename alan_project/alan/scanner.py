@@ -20,9 +20,10 @@ class Scanner:
         return char
 
     def scanner_analysis(self, source_code):
-        """ Lexical analysis of source_code.
+        """ Lexical analysis of source_code
             Input: source code of Alan program
-            Output: list of tokens """
+            Output: list of tokens and exit code """
+
         # Iterable source code
         iter_source_code = iter(source_code.rstrip())
         # Actual character from source code
@@ -31,6 +32,7 @@ class Scanner:
         get_new = True
         # Condition for main loop
         run = True
+
         # Main loop
         while(run):
             # Read new char
@@ -39,6 +41,7 @@ class Scanner:
                 # In this case error means end of source_code
                 if char == '[chyba]':
                     break
+
             # Comment in source_code
             if char == '{':
                 while char != '}':
@@ -49,6 +52,7 @@ class Scanner:
                         self.exit_code = 1
                         break
                 get_new = True
+
             # Identifiers
             elif char.isalpha():
                 lexeme = ''
@@ -62,6 +66,7 @@ class Scanner:
                 token = '[i, ' + lexeme + ']'
                 self.tokens.append(token)
                 get_new = False
+
             # Number
             elif char.isdigit():
                 lexeme = ''
@@ -74,33 +79,43 @@ class Scanner:
                 token = '[#, ' + lexeme + ']'
                 self.tokens.append(token)
                 get_new = False
+
             elif char == ';':
                 self.tokens.append('[;]')
                 get_new = True
+
             elif char == '(':
                 self.tokens.append('[(]')
                 get_new = True
+
             elif char == ')':
                 self.tokens.append('[)]')
                 get_new = True
+
             elif char == '+':
                 self.tokens.append('[+]')
                 get_new = True
+
             elif char == '-':
                 self.tokens.append('[-]')
                 get_new = True
+
             elif char == '*':
                 self.tokens.append('[*]')
                 get_new = True
+
             elif char == '/':
                 self.tokens.append('[/]')
                 get_new = True
+
             elif char == '&':
                 self.tokens.append('[&]')
                 get_new = True
+
             elif char == '|':
                 self.tokens.append('[|]')
                 get_new = True
+
             # ! or !=
             elif char == '!':
                 char = self.get_next_char(iter_source_code)
@@ -113,6 +128,7 @@ class Scanner:
                 else:
                     self.tokens.append('[!]')
                     get_new = False
+
             # In FUN grammar there is only ==, not =
             elif char == '=':
                 char = self.get_next_char(iter_source_code)
@@ -127,6 +143,7 @@ class Scanner:
                     self.tokens.append('[chyba, neznámý lexém =]')
                     self.exit_code = 1
                     break
+
             # > or >=
             elif char == '>':
                 char = self.get_next_char(iter_source_code)
@@ -139,6 +156,7 @@ class Scanner:
                 else:
                     self.tokens.append('[r, >]')
                     get_new = False
+
             # < or <=
             elif char == '<':
                 char = self.get_next_char(iter_source_code)
@@ -151,12 +169,15 @@ class Scanner:
                 else:
                     self.tokens.append('[r, <]')
                     get_new = False
+
             # Skipping whitespaces
             elif char.isspace():
                 get_new = True
+
             # Lexeme was not recognized
             else:
                 get_new = True
                 self.tokens.append('[chyba, neznámý lexém ' + char + ']')
                 self.exit_code = 1
+
         return self.tokens, self.exit_code

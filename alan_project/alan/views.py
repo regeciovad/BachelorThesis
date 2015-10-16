@@ -59,7 +59,7 @@ def index(request):
 
 def run_scanner(request):
     """ This view is called by button 'Spustit lexikalni analyzu'
-        in index.html """
+        in index.html and return results of Lexical analysis """
     scanner = Scanner()
     tokens = []
     next = True
@@ -74,21 +74,23 @@ def run_scanner(request):
                 request.session['tokens'] = tokens
             if exit_code:
                 next = False
-    return render(request, 'alan/scanner.html', {'code': source_code,
+    return render(request, 'alan/scanner.html', {'source_code': source_code,
                   'tokens': tokens, 'next': next})
 
 
 def run_parser(request):
+    """ This view is called by button 'Spustit syntaktickou analyzu'
+        in index.html and return results of Lexical analysis """
     parser = Parser()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
-    parser_code = ''
+    parser_result = ''
     grammar_list = get_grammar()
     if request.method == 'POST':
-        stack, state, parser_code, exit_code = parser.parser_analysis(
+        parser_result, stack, state, exit_code = parser.parser_analysis(
             tokens, grammar_list)
-    return render(request, 'alan/parser.html', {'code': source_code,
-                  'tokens': tokens, 'parser_code': parser_code,
+    return render(request, 'alan/parser.html', {'source_code': source_code,
+                  'tokens': tokens, 'parser_result': parser_result,
                   'stack': stack, 'state': state, 'exit_code': exit_code})
 
 
