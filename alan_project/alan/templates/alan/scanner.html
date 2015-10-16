@@ -1,6 +1,7 @@
-<!-- Bachelor Thesis GUI -->
-<!-- scanner.html -->
+<!-- Advanced Error Recovery during Bottom-Up Parsing -->
+<!-- File: scanner.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+
 {% extends 'alan/base.html' %}
 {% load staticfiles %}
 
@@ -20,14 +21,14 @@
 {% endif %}
 </td>
 <td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;;text-align:left;vertical-align: text-top;">
-{% if lex_code %}
-{% for lex in lex_code %}
-{% if '[chyba' in lex %}
-    <strong style="color:red">{{ lex }}</strong><br>
-{% elif '[k' in lex %}
-    <strong style="color:green">{{ lex }}</strong><br>
+{% if tokens %}
+{% for token in tokens %}
+{% if '[chyba' in token %}
+    <strong style="color:red">{{ token }}</strong><br>
+{% elif '[k' in token %}
+    <strong style="color:green">{{ token }}</strong><br>
 {% else %}
-    {{ lex }}<br>
+    {{ token }}<br>
 {% endif %}
 {% endfor %}
 {% else %}{ Zde bude výsledek Lexikální analýzy }
