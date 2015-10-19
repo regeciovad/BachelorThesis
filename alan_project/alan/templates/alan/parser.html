@@ -76,7 +76,8 @@
 </table>
 <p style="text-align:center">
 {% if exit_code %}
-<input type="submit" name="parser" formaction="{% url 'panic_mode' %}" value="Spustit Panic mode">
+<input type="submit" name="parser" formaction="{% url 'panic_mode' %}" value="Spustit Panic mode (follow)">
+<input type="submit" name="parser" formaction="{% url 'panic_mode_first' %}" value="Spustit Panic mode (first)">
 {% endif %}
 </p>
 </form>

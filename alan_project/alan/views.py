@@ -10,6 +10,7 @@ from .models import Nonterminal, Terminal, Rule
 from .scanner import Scanner
 from .parser import Parser
 from .panic_mode import PanicModeParser
+from .panic_mode_first import PanicModeParserFirst
 from .lrtable import LRTable
 from .forms import UploadFileForm
 import os
@@ -80,7 +81,7 @@ def run_scanner(request):
 
 def run_parser(request):
     """ This view is called by button 'Spustit syntaktickou analyzu'
-        in index.html and return results of Lexical analysis """
+        in scanner.html and return results of basic syntax analysis """
     parser = Parser()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
@@ -95,18 +96,37 @@ def run_parser(request):
 
 
 def run_panic_mode_parser(request):
+    """ This view is called by button 'Spustit Panic mode'
+        in parser.html and return results of the first advanced 
+        syntax analysis """
     parser = PanicModeParser()
-    code = ''
-    tokens = ''
+    source_code = request.session.get('source_code', '')
+    tokens = request.session.get('tokens', '')
     parser_code = ''
     grammar_list = get_grammar()
     if request.method == 'POST':
-        code = request.session.get('source_code', '')
-        tokens = request.session.get('tokens', '')
-        stack, state, parser_code, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
-    return render(request, 'alan/panic_mode_parser.html', {'code': code,
-                  'tokens': tokens, 'parser_code': parser_code,
-                  'stack': stack, 'state': state, 'exit_code': exit_code,
+        parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
+    return render(request, 'alan/panic_mode_parser.html', {
+                  'source_code': source_code, 'tokens': tokens,
+                  'parser_result': parser_result, 'stack': stack,
+                  'state': state, 'exit_code': exit_code,
+                  'panic_mode': panic_mode})
+
+def run_panic_mode_parser_first(request):
+    """ This view is called by button 'Spustit Panic mode'
+        in parser.html and return results of the first advanced 
+        syntax analysis """
+    parser = PanicModeParserFirst()
+    source_code = request.session.get('source_code', '')
+    tokens = request.session.get('tokens', '')
+    parser_code = ''
+    grammar_list = get_grammar()
+    if request.method == 'POST':
+        parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
+    return render(request, 'alan/panic_mode_parser.html', {
+                  'source_code': source_code, 'tokens': tokens,
+                  'parser_result': parser_result, 'stack': stack,
+                  'state': state, 'exit_code': exit_code,
                   'panic_mode': panic_mode})
 
 

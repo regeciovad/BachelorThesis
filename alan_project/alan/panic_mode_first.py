@@ -1,5 +1,5 @@
 # Advanced Error Recovery during Bottom-Up Parsing
-# File: panic_mode.py
+# File: panic_mode_first.py
 # Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
 
 from .stack import Stack
@@ -7,7 +7,7 @@ from .lrtable import LRTable
 import time
 
 
-class PanicModeParser(object):
+class PanicModeParserFirst(object):
 
     def __init__(self):
         # Output of syntax analysis
@@ -139,9 +139,9 @@ class PanicModeParser(object):
                 self.panic_time = self.panic_time + mytime
                 self.result.append(mytime)
                 self.result.append(self.panic_time)
-                self.stackHistory.append(self.stack.get_stack())
                 if panic_mode_exit == 1:
                     break
+                self.stackHistory.append(self.stack.get_stack())
 
         # Return results
         return (self.result, self.stackHistory, self.stateHistory,
@@ -149,69 +149,43 @@ class PanicModeParser(object):
 
     def panic_mode(self):
         """ Panic Mode recovery
-            There will be some comment """
-
-        self.panic_mode_result.append('Zahájení panického módu.')
-        synchronization_tokens = ['<term>', '<expression>', '<condition>',
-            '<statement>', '<statement_list>']
-
+                There will be some comment """
+        self.panic_mode_result.append(
+            'Zahájení panického módu s množinou first.')
+        first =  ['!', '(', 'i', '#']
+        self.panic_mode_result.append(
+            'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
+        self.panic_mode_result.append(
+            'Hledáme symbol z množiny first: ' + str(first))
+        while True:
+            if self.token[1] in first:
+                    break
+            else:
+                    try:
+                        self.token = self.tokens[self.token_number]
+                        self.token_number += 1
+                    except IndexError:
+                        self.panic_mode_result.append(
+                            'Panicka metoda na tuto chybu nestaciV.')
+                        return 1
+        self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
+        synchronization_tokens = ['<condition>', '<statement>',
+            '<statement_list>']
+        if self.token != '!':
+            synchronization_tokens.append('<expression>')
         while True:
             popped = self.stack.pop()
             if str(popped) == '<$, 0>' or None:
                 self.panic_mode_result.append(
-                    'Panicka metoda na tuto chybu nestaci.')
+                    'Panicka metoda na tuto chybu nestaciS.')
                 return 1
             popped_token = popped.split(',')[0][1:]
             if popped_token in synchronization_tokens:
                 break
-
         self.panic_mode_result.append(
             'Zásobník vyprázdněn až po: ' + str(self.stack.get_stack()))
         self.panic_mode_result.append(
             'Nalezen neterminál: ' + popped_token)
-
-        if popped_token == '<term>':
-            follow = ['$', ';', 'r', '&', '|', '+', '-', ')']
-            next = '<expression>'
-        if popped_token == '<expression>':
-            follow = ['$', ';', 'r', '&', '|']
-            next = '<condition>'
-        elif popped_token == '<condition>':
-            follow = ['$', ';', 'r', '&', '|']
-            next = '<statement>'
-        elif popped_token == '<statement>':
-            follow = ['$']
-            next = '<statement_list>'
-        elif popped_token == '<statement_list>':
-            follow = ['$']
-            next = '<statement_list>'
-
-        self.panic_mode_result.append(
-            'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
-        self.panic_mode_result.append(
-            'Hledáme symbol z množiny follow(' + next + '): ' + str(follow))
-
-        while True:
-            if self.token[1] in follow:
-                break
-            else:
-                try:
-                    self.token = self.tokens[self.token_number]
-                    self.token_number += 1
-                except IndexError:
-                    self.panic_mode_result.append(
-                        'Panicka metoda na tuto chybu nestaciV.')
-                    return 1
-
-        self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
-        state = int(self.stack.get_topmost().split(',')[1][:-1])
-        self.state = int(self.goto[state][next])
-        self.panic_mode_result.append(
-            'goto[' + str(state) + ', ' + str(next) + '] = ' + str(self.state))
-        self.stack.push('<' + str(next) + ', ' + str(self.state) + '>')
-        self.panic_mode_result.append(
-            'Vloženo na zásobník: ' + '<' + str(next) + ', ' +
-            str(self.state) + '>')
         self.panic_mode_result.append('Ukončení panického módu.')
         self.panic_mode_result.append('')
         return 0
