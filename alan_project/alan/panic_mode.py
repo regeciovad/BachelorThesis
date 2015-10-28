@@ -26,7 +26,7 @@ class PanicModeParser(object):
         self.panic_time = 0
 
 
-    def parser_analysis(self, tokens='', grammar=''):
+    def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Panic Mode recovery
             Input: list of tokens, grammar rules
             Output: result of syntax analysis, stack history, state history
@@ -34,21 +34,21 @@ class PanicModeParser(object):
 
         self.tokens = tokens
         # List of tokens are missing
-        if self.tokens == '':
+        if self.tokens == []:
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
                     self.exit_code, self.panic_mode_result)
 
         # List of grammar rules are missing
-        if grammar == '':
+        if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
                     self.exit_code, self.panic_mode_result)
 
         # Adding end
-        if self.tokens[-1] != '[$]':
+        if self.tokens[-1:] != '[$]':
             self.tokens.append('[$]')
         # Get LR Table
         self.action, self.goto = self.lrtable.generate_table()

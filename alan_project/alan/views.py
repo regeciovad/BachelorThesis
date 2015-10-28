@@ -70,10 +70,10 @@ def run_scanner(request):
             source_code = request.POST['fun_code_area']
             request.session['source_code'] = source_code
             tokens, exit_code = scanner.scanner_analysis(source_code)
-            if not tokens:
-                tokens.append('[chyba, prazdny program]')
-            else:
-                request.session['tokens'] = tokens
+            #if not tokens:
+                #tokens.append('[chyba, prazdny program]')
+            #else:
+            request.session['tokens'] = tokens
             if exit_code:
                 next = False
     return render(request, 'alan/scanner.html', {'source_code': source_code,

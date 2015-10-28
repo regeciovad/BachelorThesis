@@ -21,28 +21,21 @@ class ParserAdHoc(object):
         # LR Table
         self.lrtable = LRTable()
 
-    def parser_analysis(self, tokens='', grammar=''):
+    def parser_analysis(self, tokens=[], grammar=[]):
         """ Basic syntax analysis
             Input: list of tokens, grammar rules
             Output: result of syntax analysis, stack history, state history
                     and exit code"""
 
-        # List of tokens are missing
-        if tokens == '':
-            self.result.append('Syntaktická chyba - prázdný program')
-            self.exit_code = 1
-            return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code)
-
         # List of grammar rules are missing
-        if grammar == '':
+        if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
                     self.exit_code)
 
         # Adding end
-        if tokens[-1] != '[$]':
+        if tokens[-1:] != '[$]':
             tokens.append('[$]')
         # Get LR Table
         action, goto = self.lrtable.genereate_ad_hoc_action()
