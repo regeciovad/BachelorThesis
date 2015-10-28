@@ -139,13 +139,15 @@ def run_parser_ad_hoc(request):
     tokens = request.session.get('tokens', '')
     parser_code = ''
     grammar_list = get_grammar()
+    lrtable = LRTable()
+    table_action, table_goto = lrtable.generate_ad_hoc_table_print()
     if request.method == 'POST':
         parser_result, stack, state, exit_code = parser.parser_analysis(tokens, grammar_list)
-    return render(request, 'alan/panic_mode_parser.html', {
+    return render(request, 'alan/ad_hoc_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
                   'parser_result': parser_result, 'stack': stack,
                   'state': state, 'exit_code': exit_code,
-                  'panic_mode': ''})
+                  'table_action': table_action, 'table_goto': table_goto})
 
 
 def grammar(request):

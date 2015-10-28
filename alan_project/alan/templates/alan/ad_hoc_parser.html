@@ -1,0 +1,132 @@
+<!-- Advanced Error Recovery during Bottom-Up Parsing -->
+<!-- File: ad_hoc_parser.html -->
+<!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
+{% block title %} Projekt Alan {% endblock %}
+
+{% block body_block %}
+<form id="parser_form" method="post" action="">
+{% csrf_token %}
+<table id="t01" align="center">
+<th>Program</th>
+<th>Lexikální analýza</th>
+<th>Zásobník</th>
+<th>Stav</th>
+<th>Syntaktická analýza</th>
+<tr>
+
+<td name="fun_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+{% if source_code %}
+<pre>{{ source_code }}</pre>
+{% else %}{ Zde napiste svuj kod }
+{% endif %}
+</td>
+
+<td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+{% if tokens %}
+{% for token in tokens %}
+{% if '[chyba' in token %}
+    <strong style="color:red">{{ token }}</strong><br>
+{% elif '[k' in token %}
+    <strong style="color:green">{{ token }}</strong><br>
+{% else %}
+    {{ token }}<br>
+{% endif %}
+{% endfor %}
+{% else %}{ Zde bude výsledek Lexikální analýzy }
+{% endif %}
+</td>
+
+<td name="stack_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+{% if stack %}
+{% for s in stack %}
+{{ s }}<br>
+{% endfor %}
+{% else %}{ Zde bude zásobník }
+{% endif %}
+</td>
+
+<td name="state_code_area" rows="10" cols="42" style="padding:10px; font-size:16px;vertical-align: text-top;">
+{% if state %}
+{% for s in state %}
+{{ s }}<br>
+{% endfor %}
+{% else %}{ Zde bude stav }
+{% endif %}
+</td>
+
+<td name="parser_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+{% if parser_result %}
+{% for parser in parser_result %}
+{% if 'success' in parser %}
+    <strong style="color:green">{{ parser }}</strong><br>
+{% elif 'chyba' in parser %}
+	<strong style="color:red">{{ parser }}</strong><br>
+{% elif '= f' in parser %}
+    <strong style="color:red">{{ parser }}</strong><br>
+{% else %}
+{{ parser }}<br>
+{% endif %}
+{% endfor %}
+{% else %}{ Zde bude SA }
+{% endif %}
+</td>
+
+</tr>
+</table>
+</form>
+<p>
+    <h3>Vysvětlivka:</h3>
+    Principem <strong>Ad hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
+    Ty zaplníme množinou modifikací (diagnostikou), které mají zajistit zotavení z chyby. Jedná se například o přidání,
+    či odebrání tokenu do vstupu, odebrání tokenu ze zásobníku, nebo úpravu vstupního tokenu.<br>
+    U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br> 
+    Autor syntaktické analýzy si také musí dávat pozor na hrozbu zacyklení.<br>
+
+    <h4>Projekt Alan má tyto diagnostiky:</h4>
+    <strong>F1:</strong> Odebrání tokenu ze zásobníku<br>
+    <strong>F2:</strong> Přidání proměnné <strong>i</strong> do vstupního řetězce<br>
+    <strong>F3:</strong> Odstranění tokenu ze vstupního řetězce<br>
+    <strong>F4:</strong> Přidání uzavírací <strong>)</strong> do vstupního řetězce<br>
+    <strong>F5:</strong> Přidání <strong>)</strong> do vstupního řetězce<br><br>
+
+    Níže je k nahlédnutí upravená tabulka, diagnostiky jsou označeny číslem v kroužku.<br><br>
+
+<table>
+<tr>
+<td>
+{% if table_action %}
+<table id="t01">
+  <tr>
+    <th>Stav</th><th>;</th><th>i</th><th>#</th><th>r</th><th>+</th><th>-</th><th>*</th><th>/</th><th>&</th><th>|</th>
+    <th>!</th><th>(</th><th>)</th><th>$</th>
+{% for row in table_action %}
+<tr>
+  <td>{{row.pk}}</td><td>{{row.s}}</td><td>{{row.i}}</td><td>{{row.h}}</td><td>{{row.r}}</td><td>{{row.p}}</td>
+  <td>{{row.m}}</td><td>{{row.t}}</td><td>{{row.d}}</td><td>{{row.a}}</td><td>{{row.o}}</td><td>{{row.n}}</td>
+  <td>{{row.b}}</td><td>{{row.e}}</td><td>{{row.end}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+</td><td>
+{% if table_goto %}
+<table id="t01">
+  <tr>
+    <th>Stav</th><th>&lt;statement_list&gt;</th><th>&lt;statement&gt;</th><th>&lt;condition&gt;</th><th>&lt;expression&gt;</th>
+    <th>&lt;term&gt;</th><th>&lt;factor&gt;</th></tr>
+{% for row in table_goto %}
+<tr>
+  <td>{{row.pk}}</td><td>{{row.statement_list}}</td><td>{{row.statement}}</td><td>{{row.condition}}</td><td>{{row.expression}}</td>
+  <td>{{row.term}}</td><td>{{row.factor}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+</td></tr>
+</table>
+</p>
+{% endblock %}

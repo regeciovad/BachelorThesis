@@ -100,7 +100,7 @@ ul#menu li a {
 }
 
 ul#menu li a:hover {
-    background-color:#CDCDCD;
+    background-color:white;
     color:black;
     padding:10px 10px;
 }
