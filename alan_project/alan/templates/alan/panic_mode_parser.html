@@ -86,20 +86,20 @@
 </table>
 </form>
 <p>
-    <strong>Vysvětlivka:</strong><br>
-    Principem Panického módu je nalezení co nejkratšího chybového řetezce, jeho přeskočení a pokračování v analýze.<br><br>
-    Nejdříve si definujeme množinu neterminálů, které označují logický celek programu:<br>
-    {&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>
-    Také si musíme určit jejich množiny follow:<br>
-    &lt;statement_list&gt;: {$}<br>
-	&lt;statement&gt;:{$, ;, r, &, |}<br>
-	&lt;condition&gt;:{$, ;, r, &, |}<br>
-	&lt;expression&gt;:{$, ;, r, &, |, +, -, )}<br><br>
+    <h3>Vysvětlivka:</h3>
+    &emsp;Principem Panického módu je nalezení co nejkratšího chybového řetezce, jeho přeskočení a pokračování v analýze.<br><br>
+    &emsp;Nejdříve si definujeme množinu neterminálů, které označují logický celek programu:<br>
+    &emsp;{&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>
+    &emsp;Také si musíme určit jejich množiny follow:<br>
+    &emsp; &lt;statement_list&gt;: {$}<br>
+	&emsp; &lt;statement&gt;:{$, ;, r, &, |}<br>
+	&emsp; &lt;condition&gt;:{$, ;, r, &, |}<br>
+	&emsp; &lt;expression&gt;:{$, ;, r, &, |, +, -, )}<br><br>
 
-	Při úpravě vstupu prohledáváme jak vstup, tak zásobník. Ten vyprazďnujeme dokud nezískáme z vrcholu neterminál z množiny.<br>
-	Určíme si náhradní neterminál, jehož follow() použijeme při čtení vstupu, dokud nenalezneme shodu.<br>
-	Celý takto přečtený řetězec přeskočíme.<br>
-	Nahlednutím do LR tabulky goto[stav na vrcholu zásobníku, náhradní neterminál] získáme nový stav.<br>
-	Vložíme na zásobník &lt;náhradní neterminál, nový stav&gt; a pokračujeme v analýze podle action[novy stav, symbol na vstupu].<br>
+	&emsp;Při úpravě vstupu prohledáváme jak vstup, tak zásobník. Ten vyprazďnujeme dokud nezískáme z vrcholu neterminál z množiny.<br>
+	&emsp;Určíme si náhradní neterminál, jehož follow() použijeme při čtení vstupu, dokud nenalezneme shodu.<br>
+	&emsp;Celý takto přečtený řetězec přeskočíme.<br>
+	&emsp;Nahlednutím do LR tabulky goto[stav na vrcholu zásobníku, náhradní neterminál] získáme nový stav.<br>
+	&emsp;Vložíme na zásobník &lt;náhradní neterminál, nový stav&gt; a pokračujeme v analýze podle action[novy stav, symbol na vstupu].<br>
 </p>
 {% endblock %}

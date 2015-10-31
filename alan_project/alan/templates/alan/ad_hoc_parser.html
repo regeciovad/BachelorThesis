@@ -80,22 +80,22 @@
 </form>
 <p>
     <h3>Vysvětlivka:</h3>
-    Principem <strong>Ad hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
-    Ty zaplníme množinou modifikací (diagnostikou), které mají zajistit zotavení z chyby. Jedná se například o přidání,
+    &emsp;Principem <strong>Ad hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
+    &emsp;Ty zaplníme množinou modifikací (diagnostikami), které mají zajistit zotavení z chyby. Jedná se například o přidání,
     či odebrání tokenu do vstupu, odebrání tokenu ze zásobníku, nebo úpravu vstupního tokenu.<br>
-    U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br> 
-    Autor syntaktické analýzy si také musí dávat pozor na hrozbu zacyklení.<br>
+    &emsp;U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br> 
+    &emsp;Autor syntaktické analýzy si také musí dávat pozor na hrozbu zacyklení.<br><br>
 
-    <h4>Projekt Alan má tyto diagnostiky:</h4>
-    <strong>F1:</strong> Odebrání tokenu ze zásobníku<br>
-    <strong>F2:</strong> Přidání proměnné <strong>i</strong> do vstupního řetězce<br>
-    <strong>F3:</strong> Odstranění tokenu ze vstupního řetězce<br>
-    <strong>F4:</strong> Přidání uzavírací <strong>)</strong> do vstupního řetězce<br>
-    <strong>F5:</strong> Přidání <strong>)</strong> do vstupního řetězce<br><br>
+    &emsp;<strong>Projekt Alan má tyto diagnostiky:</strong><br><br>
+    &emsp;<strong>F1:</strong> Odebrání tokenu ze zásobníku<br>
+    &emsp;<strong>F2:</strong> Přidání proměnné <strong>i</strong> do vstupního řetězce<br>
+    &emsp;<strong>F3:</strong> Odstranění tokenu ze vstupního řetězce<br>
+    &emsp;<strong>F4:</strong> Přidání uzavírací <strong>)</strong> do vstupního řetězce<br>
+    &emsp;<strong>F5:</strong> Přidání <strong>)</strong> do vstupního řetězce<br><br>
 
-    Níže je k nahlédnutí upravená tabulka, diagnostiky jsou označeny číslem v kroužku.<br><br>
+    &emsp;Níže je k nahlédnutí upravená tabulka, diagnostiky jsou označeny číslem v kroužku.<br><br>
 
-<table>
+<table align="center">
 <tr>
 <td>
 {% if table_action %}
@@ -112,7 +112,7 @@
 {% endfor %}
 </table>
 {% endif %}
-</td><td>
+</td><td>&emsp;</td><td>
 {% if table_goto %}
 <table id="t01">
   <tr>

@@ -66,7 +66,10 @@ class ParserAdHoc(object):
                 self.stackHistory.append(self.stack.get_stack())
                 try:
                     token = tokens[token_number]
+                    print(token)
+                    print(token_number)
                     token_number += 1
+                    print(token_number)
                 except IndexError:
                     self.result.append('syntaktická chyba')
                     break
