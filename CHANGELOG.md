@@ -1,3 +1,9 @@
+## v0.4
+
+* First version of Panic Mode (first) added
+* First version of Ad Hoc method added
+
+
 ## v0.3
 
 * New scanner

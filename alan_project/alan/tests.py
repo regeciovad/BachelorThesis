@@ -8,9 +8,9 @@ from populate_alan_newbie import populate
 class ScannerMethodTests(TestCase):
 
 	def test_scanner_empty_program(self):
-		'''
+		"""
 			Test of empty program to make sure scanner can handle this.
-		'''
+		"""
 		scanner = Scanner()
 		output = []
 		code = '{Zde je pouze komentar}'
@@ -20,10 +20,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_comment_without_end(self):
-		'''
+		"""
 			Test code of FUN to make sure scanner can detect lexical error - 
 			comment without end mark '}'.
-		'''
+		"""
 		scanner = Scanner()
 		output = ['[chyba, chybí }]']
 		exit_code = 1
@@ -34,10 +34,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_double_program(self):
-		'''
+		"""
 			Test code of FUN to make sure scanner can detect correct lexems.
 			Program Double is just a simple code printing double input value.
-		'''
+		"""
 		scanner = Scanner()
 		output = ['[i, variable]', '[*]', '[#, 2]'] 
 		exit_code = 0
@@ -48,10 +48,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_double_program_cz(self):
-		'''
+		"""
 			Program Double with diacritics which should be ignored.
 
-		'''
+		"""
 		scanner = Scanner()
 		output = ['[i, variable]', '[*]', '[#, 2]'] 
 		exit_code = 0
@@ -62,11 +62,11 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_relational_operators(self):
-		'''
+		"""
 			Program Operators to make sure scanner can recognize every operants
 			and doen't miss any character from input.
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 0
 		output = ['[i, u]', '[r, ==]', '[#, 2]', '[;]', '[i, u]',
@@ -83,11 +83,11 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_unknown_char(self):
-		'''
+		"""
 			Program Unknown to make sure scanner can correctly 
 			find unknow charcter.
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 1
 		output = ['[i, u]', '[chyba, neznámý lexém @]', '[#, 2]']
@@ -98,11 +98,11 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_logical_operators(self):
-		'''
+		"""
 			Program to make sure scanner can correctly 
 			find logical operators.
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 0
 		output = ['[i, u]', '[&]', '[i, v]', '[;]', '[i, u]', '[|]', '[i, v]',
@@ -114,10 +114,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_end_id(self):
-		'''
+		"""
 			Program to make sure scanner can correctly stop with the end of code.
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 0
 		output = ['[i, result]']
@@ -128,10 +128,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_end_not(self):
-		'''
+		"""
 			Program to make sure scanner can correctly stop with the end of code.
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 0
 		output = ['[i, result]', '[r, ==]', '[!]']
@@ -142,10 +142,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_end_bigger(self):
-		'''
+		"""
 			Program to make sure scanner can correctly stop with the end of code.
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 0
 		output = ['[i, result]', '[r, >]']
@@ -156,10 +156,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_end_smaller(self):
-		'''
+		"""
 			Program to make sure scanner can correctly stop with the end of code.
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 0
 		output = ['[i, result]', '[r, <]']
@@ -170,10 +170,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_end_equal(self):
-		'''
+		"""
 			Program Unknown to make sure scanner can find unknown lexem "=".
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 1
 		output = ['[i, result]', '[chyba, neznámý lexém =]']
@@ -184,10 +184,10 @@ class ScannerMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_scanner_not_equal(self):
-		'''
+		"""
 			Program Unknown to make sure scanner can find unknown lexem "=".
 
-		'''
+		"""
 		scanner = Scanner()
 		exit_code = 1
 		output = ['[i, result]', '[chyba, neznámý lexém =]']
@@ -201,25 +201,25 @@ class ScannerMethodTests(TestCase):
 class StackMethodTests(TestCase):
 
 	def test_stack_init(self):
-		'''
+		"""
 			Testing initialization of stack
-		'''
+		"""
 		stack = Stack()
 		output = []
 		stack_output = stack.get_stack()
 		self.assertEqual(stack_output, output)
 
 	def test_stack_empty(self):
-		'''
+		"""
 			Testing the stack is empty after initialization
-		'''
+		"""
 		stack = Stack()
 		self.assertTrue(stack.is_empty())
 
 	def test_stack_not_empty(self):
-		'''
+		"""
 			Testing the stack is not empty after push() and correction of push
-		'''
+		"""
 		stack = Stack()
 		stack.push('42')
 		output = ['42']
@@ -228,9 +228,9 @@ class StackMethodTests(TestCase):
 		self.assertFalse(stack.is_empty())
 
 	def test_stack_more_push(self):
-		'''
+		"""
 			Testing correction of multiple push
-		'''
+		"""
 		stack = Stack()
 		stack.push('42')
 		stack.push('14')
@@ -241,9 +241,9 @@ class StackMethodTests(TestCase):
 		self.assertFalse(stack.is_empty())
 
 	def test_stack_one_push_one_pop(self):
-		'''
+		"""
 			Testing correction of pop and is_empty
-		'''
+		"""
 		stack = Stack()
 		stack.push('42')
 		output = '42'
@@ -252,9 +252,9 @@ class StackMethodTests(TestCase):
 		self.assertTrue(stack.is_empty())
 
 	def test_stack_one_push_more_pop(self):
-		'''
+		"""
 			Testing correction of pop with empty stack
-		'''
+		"""
 		stack = Stack()
 		stack.push('42')
 		output = '42'
@@ -267,9 +267,9 @@ class StackMethodTests(TestCase):
 		self.assertTrue(stack.is_empty())
 
 	def test_get_topmost_empty(self):
-		'''
+		"""
 			Testing correction of get_topmost with empty stack
-		'''
+		"""
 		stack = Stack()
 		output = None
 		stack_output = stack.get_topmost()
@@ -277,9 +277,9 @@ class StackMethodTests(TestCase):
 		self.assertTrue(stack.is_empty())
 
 	def test_get_topmost_one(self):
-		'''
+		"""
 			Testing correction of get_topmost with one item on the stack
-		'''
+		"""
 		stack = Stack()
 		stack.push('42')
 		output = '42'
@@ -288,9 +288,9 @@ class StackMethodTests(TestCase):
 		self.assertFalse(stack.is_empty())
 
 	def test_get_topmost_more(self):
-		'''
+		"""
 			Testing correction of get_topmost with more items on the stack
-		'''
+		"""
 		stack = Stack()
 		stack.push('42')
 		stack.push('14')
@@ -306,9 +306,9 @@ class StackMethodTests(TestCase):
 class ParserMethodTests(TestCase):
 
 	def test_parser_empty_code(self):
-		'''
+		"""
 			Testing of empty code for parser. It should be error.
-		'''
+		"""
 		parser = Parser()
 		exit_code = 1
 		output = (['Syntaktická chyba - prázdný program'], [], [], exit_code)
@@ -316,9 +316,9 @@ class ParserMethodTests(TestCase):
 		self.assertEqual(parser_result, output)
 
 	def test_parser_empty_grammar_list(self):
-		'''
+		"""
 			Testing of empty list of grammar rules for parser. It should be error.
-		'''
+		"""
 		parser = Parser()
 		exit_code = 1
 		lex_code = '[i, a]'
@@ -327,9 +327,9 @@ class ParserMethodTests(TestCase):
 		self.assertEqual(parser_result, output)
 
 	def test_parser_a(self):
-		'''
+		"""
 			Testing of code: a
-		'''
+		"""
 		parser = Parser()
 		populate()
 		grammar = Rule.objects.order_by('id')
@@ -357,9 +357,9 @@ class ParserMethodTests(TestCase):
 		self.assertEqual(exit, exit_code)
 
 	def test_parser_a_less(self):
-		'''
+		"""
 			Testing of code: a <, which is a syntax error
-		'''
+		"""
 		parser = Parser()
 		populate()
 		grammar = Rule.objects.order_by('id')
