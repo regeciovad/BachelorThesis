@@ -174,6 +174,7 @@ class PanicModeParserFirst(object):
         if self.token != '!':
             synchronization_tokens.append('<expression>')
         while True:
+            #popped = self.stack.get_topmost()
             popped = self.stack.pop()
             if str(popped) == '<$, 0>' or None:
                 self.panic_mode_result.append(
@@ -182,8 +183,9 @@ class PanicModeParserFirst(object):
             popped_token = popped.split(',')[0][1:]
             if popped_token in synchronization_tokens:
                 break
+            #self.stack.pop()
         self.panic_mode_result.append(
-            'Zásobník vyprázdněn až po: ' + str(self.stack.get_stack()))
+            'Zásobník vyprázdněn až po: ' + str(self.stack.get_topmost()))
         self.panic_mode_result.append(
             'Nalezen neterminál: ' + popped_token)
         self.panic_mode_result.append('Ukončení panického módu.')
