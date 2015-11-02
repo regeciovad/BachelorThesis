@@ -136,9 +136,8 @@ class PanicModeParserFirst(object):
                 panic_mode_exit = self.panic_mode()
                 end = time.clock()
                 mytime = end - begin
-                self.panic_time = self.panic_time + mytime
-                self.result.append(mytime)
-                self.result.append(self.panic_time)
+                self.panic_mode_result.append("Čas zotavení: %f \u03BCs" % mytime)
+                self.panic_mode_result.append('')
                 if panic_mode_exit == 1:
                     break
                 self.stackHistory.append(self.stack.get_stack())
@@ -189,5 +188,4 @@ class PanicModeParserFirst(object):
         self.panic_mode_result.append(
             'Nalezen neterminál: ' + popped_token)
         self.panic_mode_result.append('Ukončení panického módu.')
-        self.panic_mode_result.append('')
         return 0

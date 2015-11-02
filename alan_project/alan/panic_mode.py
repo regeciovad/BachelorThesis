@@ -6,7 +6,6 @@ from .stack import Stack
 from .lrtable import LRTable
 import time
 
-
 class PanicModeParser(object):
 
     def __init__(self):
@@ -136,9 +135,10 @@ class PanicModeParser(object):
                 panic_mode_exit = self.panic_mode()
                 end = time.clock()
                 mytime = end - begin
-                self.panic_time = self.panic_time + mytime
-                self.result.append(mytime)
-                self.result.append(self.panic_time)
+                #self.panic_time = self.panic_time + mytime
+                self.panic_mode_result.append("Čas zotavení: %f \u03BCs" % mytime)
+                self.panic_mode_result.append('')
+                #self.result.append("%.2gs" % self.panic_time)
                 self.stackHistory.append(self.stack.get_stack())
                 if panic_mode_exit == 1:
                     break
@@ -213,5 +213,4 @@ class PanicModeParser(object):
             'Vloženo na zásobník: ' + '<' + str(next) + ', ' +
             str(self.state) + '>')
         self.panic_mode_result.append('Ukončení panického módu.')
-        self.panic_mode_result.append('')
         return 0

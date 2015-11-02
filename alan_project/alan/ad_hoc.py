@@ -4,6 +4,7 @@
 
 from .stack import Stack
 from .lrtable import LRTable
+import time
 
 
 class ParserAdHoc(object):
