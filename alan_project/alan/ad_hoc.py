@@ -163,6 +163,14 @@ class ParserAdHoc(object):
                     token_number -= 1
                     self.result.append('Byla použita ad hoc diagnostika číslo 5:')
                     self.result.append('Na vstup byl vložen token [+]')
+                
+                # function number 6
+                else:
+                    self.result.append('Tento stav je nedostupny.')
+                    self.exit_code = 1
+                    self.stackHistory.append('')
+                    self.stateHistory.append('')
+                    break
 
             # action[state][token] == blank, source code has some syntax error
             else:
