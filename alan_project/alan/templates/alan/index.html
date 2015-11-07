@@ -27,7 +27,7 @@
 <input type="submit" name="lex" formaction="{% url 'scanner' %}" value="Spustit lexikální analýzu">
 </p>
 </form>
-
+<br><br>
 <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
 {% csrf_token %}
 <p>

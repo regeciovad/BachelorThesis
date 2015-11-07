@@ -173,7 +173,7 @@ class PanicModeParser(object):
         if popped_token == '<term>':
             follow = ['$', ';', 'r', '&', '|', '+', '-', ')']
             next = '<expression>'
-        if popped_token == '<expression>':
+        elif popped_token == '<expression>':
             follow = ['$', ';', 'r', '&', '|']
             next = '<condition>'
         elif popped_token == '<condition>':

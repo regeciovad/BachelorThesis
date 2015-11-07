@@ -129,6 +129,8 @@ class PanicModeParserFirst(object):
             # action[state][token] == blank, source code has some syntax error
             else:
                 self.result.append('syntaktická chyba')
+                self.result.append('Zahájení panického módu s množinou fisrt.')
+                self.result.append('...')
                 self.exit_code = 1
                 self.stackHistory.append('')
                 self.stateHistory.append('')
@@ -139,6 +141,7 @@ class PanicModeParserFirst(object):
                 self.panic_mode_result.append("Čas zotavení: %f \u03BCs" % mytime)
                 self.panic_mode_result.append('')
                 if panic_mode_exit == 1:
+                    self.result.append('Syntaktická analýza nemůže dále pokračovat.')
                     break
                 self.stackHistory.append(self.stack.get_stack())
 
@@ -173,8 +176,8 @@ class PanicModeParserFirst(object):
         if self.token != '!':
             synchronization_tokens.append('<expression>')
         while True:
-            #popped = self.stack.get_topmost()
-            popped = self.stack.pop()
+            popped = self.stack.get_topmost()
+            #popped = self.stack.pop()
             if str(popped) == '<$, 0>' or None:
                 self.panic_mode_result.append(
                     'Panicka metoda na tuto chybu nestaciS.')
@@ -182,10 +185,35 @@ class PanicModeParserFirst(object):
             popped_token = popped.split(',')[0][1:]
             if popped_token in synchronization_tokens:
                 break
-            #self.stack.pop()
+            self.stack.pop()
         self.panic_mode_result.append(
             'Zásobník vyprázdněn až po: ' + str(self.stack.get_topmost()))
         self.panic_mode_result.append(
             'Nalezen neterminál: ' + popped_token)
+        self.panic_mode_result.append('Ukončení panického módu.')
+
+        if popped_token == '<expression>':
+            follow = ['$', ';', 'r', '&', '|']
+        elif popped_token == '<condition>':
+            follow = ['$', ';', 'r', '&', '|']
+        elif popped_token == '<statement>':
+            follow = ['$']
+        elif popped_token == '<statement_list>':
+            follow = ['$']
+
+        while True:
+            if self.token[1] in follow:
+                break
+            else:
+                try:
+                    self.token = self.tokens[self.token_number]
+                    self.token_number += 1
+                except IndexError:
+                    self.panic_mode_result.append(
+                        'Panicka metoda na tuto chybu nestaciV.')
+                    return 1
+        state = int(self.stack.get_topmost().split(',')[1][:-1])
+        self.state = state
+        self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
         self.panic_mode_result.append('Ukončení panického módu.')
         return 0

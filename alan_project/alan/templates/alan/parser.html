@@ -92,9 +92,26 @@
 
 <p>
     <h3>Vysvětlivka:</h3>
-    &emsp;<strong>i</strong> = identifikátor<br>
-    &emsp;<strong>r</strong> = relační operatory<br>
-    &emsp;<strong>#</strong> = integer (celé číslo)<br>
-    &emsp;<strong style="color:red">chyba</strong> = lexikální chyba
+    &emsp;<strong>Inicializace:</strong><br>
+    &emsp; Ke vstupnímu řetezci připojíme ukončující token <strong>[$]</strong>. 
+    Na zásobník vložíme <strong>&lt;$, 0&gt;</strong> a počáteční <strong>stav</strong> nastavíme na <strong>0</strong>.<br>
+
+    &emsp;<strong>Opakujeme:</strong><br>
+    &emsp; Přečteme aktuální token <strong>a</strong> na vstupu.<br>
+    &emsp; Podíváme se do <a target="_blank" href="{% url 'lrtable' %}">LR tabulky</a> na část action:
+    <strong>action[a, stav]</strong> a dle políčka provedeme následující:<br>
+
+    &emsp;&emsp; <strong>s</strong><strong style="color:orange">p</strong>
+    &emsp; na zásobník vložíme <strong>&lt;a, p&gt;</strong>, přečteme další token ze vstupu a stav aktualizujeme na <strong>p</strong>.<br>
+
+    &emsp;&emsp; <strong>r</strong><strong style="color:orange">q</strong>
+    &emsp; pokud existuje pravidlo <strong>A -> X</strong> a na zásobníku exituje <strong>&lt;?, p&gt;&lt;X, ?&gt;</strong>, 
+    pak aktualizujeme stav dle tabulky <strong>goto[A, p]</strong>.
+    Následně veměníme <strong>&lt;X, ?&gt;</strong> za <strong>&lt;A, nový stav&gt;</strong>. Jinak hlásíme <strong style="color:red">chybu</strong>.<br>
+
+    &emsp;&emsp; <strong style="color:green">Acc</strong>&emsp; Vypíšeme na výstup, že syntaktická analýza proběhla úspěšně.<br>
+    &emsp;&emsp; <strong style="color:red">Prázdné políčko</strong>&emsp; Vypíšeme na výstup, že jsme objevili syntaktickou chybu.<br>
+
+    &emsp;<strong>Dokud neuspějeme s analýzou, nebo neobjevíme chybu.</strong>
 </p>
 {% endblock %}
