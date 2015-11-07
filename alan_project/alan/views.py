@@ -124,7 +124,7 @@ def run_panic_mode_parser_first(request):
     grammar_list = get_grammar()
     if request.method == 'POST':
         parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
-    return render(request, 'alan/panic_mode_parser.html', {
+    return render(request, 'alan/panic_mode_parser_first.html', {
                   'source_code': source_code, 'tokens': tokens,
                   'parser_result': parser_result, 'stack': stack,
                   'state': state, 'exit_code': exit_code,
