@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^panic_mode/$', views.run_panic_mode_parser, name='panic_mode'),
     url(r'^panic_mode_first/$', views.run_panic_mode_parser_first, name='panic_mode_first'),
     url(r'^ad_hoc/$', views.run_parser_ad_hoc, name='ad_hoc'),
+    url(r'^alan_mode/$', views.run_alan_mode_parser, name='alan_mode'),
     url(r'^man/$', views.man, name='man'),
     url(r'^download/$', views.download, name='download'),
     url(r'^changelog/$', views.changelog, name='changelog'),

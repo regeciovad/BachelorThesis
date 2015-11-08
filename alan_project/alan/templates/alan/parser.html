@@ -78,7 +78,8 @@
 {% if exit_code %}
 <input type="submit" name="parser" formaction="{% url 'panic_mode' %}" value="Spustit Panic mode (follow)">&emsp;
 <input type="submit" name="parser" formaction="{% url 'panic_mode_first' %}" value="Spustit Panic mode (first)">&emsp;
-<input type="submit" name="parser" formaction="{% url 'ad_hoc' %}" value="Spustit Ad-hoc">
+<input type="submit" name="parser" formaction="{% url 'ad_hoc' %}" value="Spustit Ad-hoc">&emsp;
+<input type="submit" name="parser" formaction="{% url 'alan_mode' %}" value="Spustit Alan mode">
 {% endif %}
 </p>
 </form>

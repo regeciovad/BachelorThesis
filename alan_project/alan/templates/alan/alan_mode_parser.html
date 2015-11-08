@@ -1,5 +1,5 @@
 <!-- Advanced Error Recovery during Bottom-Up Parsing -->
-<!-- File: panic_mode_parser_first.html -->
+<!-- File: alan_mode_parser.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 
 {% extends 'alan/base.html' %}
@@ -87,29 +87,22 @@
 </form>
 <p>
     <h3>Vysvětlivka:</h3>
-    &emsp; Upravená metoda Panického módu.<br>
-    &emsp; Nejdříve hledáme na vstupu symbol z množiny <strong>first()</strong> a vše do tohoto symbolu přeskočíme.<br>
-    &emsp; Poté prohledáváme zásobník pro synchronizační neterminál, kterým chceme pokrýt následující symboly ze vstupu. 
-    Vše do tohoto neterminálu odstraníme. <br>
-    &emsp; Poté opět prohledáváme vstup, abychom našli symbol z množiny <strong>follow()</strong>, tedy zakončení řetězce, který pokryjeme synchronizačním neterminálem.<br>
-    &emsp; Tento řetězec odstraníme.<br>
-    &emsp; Nakonec aktualizujeme stav dle synchronizačního neterminálu.<br>
-    &emsp; Následně pokračujeme v analýze podle action[novy stav, symbol na vstupu].<br><br>
-
-    &emsp; <strong>Množina synchronizačním neterminálů:</strong><br>
-    &emsp; {&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>
-
-    &emsp; <strong>First():</strong><br>
-    &emsp; &lt;statement_list&gt;: {!, (, i, #}<br>
-    &emsp; &lt;statement&gt;: {!, (, i, #}<br>
-    &emsp; &lt;condition&gt;: {!, (, i, #}<br>
-    &emsp; &lt;expression&gt;: {(, i, #}<br><br>
+    &emsp; Originální metoda pro účely bakalářské práce.<br>
+    &emsp; Principem <strong>Alanovi metody</strong> je kontrola na zásobníku, kde předpokládáme neúplný handle (pravou stranu pravidla).<br>
+    &emsp; V seznamu <a target="_blank" href="{% url 'grammar' %}">gramatických pravidel</a> hledáme shodu, přičemž hledáme zdola nahoru (od největšího pořadového čísla).<br>
+    &emsp; Dle pravé strany nalezeného pravidla zásobník vyprázdníme, obdobně, jako bychom měli provést platnou redukci.<br>
+    &emsp;  Stejně jako v klasické analýze získáme nový stav pomocí <a target="_blank" href="{% url 'lrtable' %}">LR tabulky</a> goto[stav z vrcholu zásobníku, levá strana pravidla]. <br>
+    &emsp; Tento nový stav i s levou stranou pravidla vložíme na zásobník.<br>
+    &emsp; Aktualizujeme stav.<br>
+    &emsp; Nakonec dle levé strany pravidla zkontrolujeme vstup. Využíváme pro to množiny <strong>follow()</strong>. Vše do shody přeskočíme, abychom se vyhnuli nekonzistentnímu stavu.<br>
+    &emsp; Následně pokračujeme v analýze podle <strong>action[novy stav, symbol na vstupu]</strong>.<br><br>
 
     &emsp; <strong>Follow():</strong><br>
     &emsp; &lt;statement_list&gt;: {$}<br>
-	&emsp; &lt;statement&gt;: {$, ;, r, &, |}<br>
-	&emsp; &lt;condition&gt;: {$, ;, r, &, |}<br>
-	&emsp; &lt;expression&gt;: {$, ;, r, &, |, +, -, )}<br><br>
-
+    &emsp; &lt;statement&gt;: {$, ;, r, &, |}<br>
+    &emsp; &lt;condition&gt;: {$, ;, r, &, |}<br>
+    &emsp; &lt;expression&gt;: {$, ;, r, &, |, +, -, )}<br>
+    &emsp; &lt;term&gt;: {$, ;, r, &, |, +, -, *, /, )}<br>
+    &emsp; &lt;factor&gt;: {$, ;, r, &, |, +, -, *, /, )}<br><br>
 </p>
 {% endblock %}

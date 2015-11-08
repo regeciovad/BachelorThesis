@@ -1,5 +1,5 @@
 # Advanced Error Recovery during Bottom-Up Parsing
-# File: panic_mode_first.py
+# File: alan_mode.py
 # Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
 
 from .stack import Stack
@@ -7,13 +7,13 @@ from .lrtable import LRTable
 import time
 
 
-class PanicModeParserFirst(object):
+class AlanModeParser(object):
 
     def __init__(self):
         # Output of syntax analysis
         self.result = []
         # Output of recovery method Panic Mode
-        self.panic_mode_result = []
+        self.alan_mode_result = []
         # Exit code: 0 == ok, 1 == error
         self.exit_code = 0
         # Stack and it's records
@@ -23,11 +23,11 @@ class PanicModeParserFirst(object):
         self.stateHistory = []
         # LR Table
         self.lrtable = LRTable()
-        self.panic_time = 0
+        self.alan_time = 0
 
 
     def parser_analysis(self, tokens=[], grammar=[]):
-        """ Advanced syntax analysis with Panic Mode recovery
+        """ Advanced syntax analysis with Alan Mode recovery
             Input: list of tokens, grammar rules
             Output: result of syntax analysis, stack history, state history
                     panic mode recovery records and exit code"""
@@ -38,14 +38,15 @@ class PanicModeParserFirst(object):
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.panic_mode_result)
+                    self.exit_code, self.alan_mode_result)
 
         # List of grammar rules are missing
         if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.panic_mode_result)
+                    self.exit_code, self.alan_mode_result)
+        self.grammar = grammar
 
         # Adding end
         if self.tokens[-1:] != '[$]':
@@ -91,8 +92,8 @@ class PanicModeParserFirst(object):
             # Apply rule, change stack and state
             elif cell.startswith('r'):
                 p = cell[1:]
-                left = grammar[int(p)]['left']
-                right = grammar[int(p)]['right']
+                left = self.grammar[int(p)]['left']
+                right = self.grammar[int(p)]['right']
                 handle = right.split(' ')
                 pop_stack = []
                 for x in range(len(handle)):
@@ -142,78 +143,86 @@ class PanicModeParserFirst(object):
                 self.stateHistory.append('')
                 self.stateHistory.append('')
                 begin = time.clock()
-                panic_mode_exit = self.panic_mode()
+                alan_mode_exit = self.alan_mode()
                 end = time.clock()
                 mytime = end - begin
-                self.panic_mode_result.append("Čas zotavení: %f \u03BCs" % mytime)
-                self.panic_mode_result.append('')
-                if panic_mode_exit == 1:
+                self.alan_mode_result.append("Čas zotavení: %f \u03BCs" % mytime)
+                self.alan_mode_result.append('')
+                if alan_mode_exit == 1:
                     self.result.append('Syntaktická analýza nemůže dále pokračovat.')
                     break
-                self.stackHistory.append(self.stack.get_stack())
 
         # Return results
         return (self.result, self.stackHistory, self.stateHistory,
-                self.exit_code, self.panic_mode_result)
+                self.exit_code, self.alan_mode_result)
 
-    def panic_mode(self):
-        """ Panic Mode recovery
+    def alan_mode(self):
+        """ Alan Mode recovery
                 There will be some comment """
-        self.panic_mode_result.append(
-            'Zahájení panického módu s množinou first.')
-        first =  ['!', '(', 'i', '#']
-        self.panic_mode_result.append(
-            'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
-        self.panic_mode_result.append(
-            'Hledáme symbol z množiny first: ' + str(first))
-        while True:
-            if self.token[1] in first:
-                    break
-            else:
-                    try:
-                        self.token = self.tokens[self.token_number]
-                        self.token_number += 1
-                    except IndexError:
-                        self.panic_mode_result.append(
-                            'Na vstupu nebyl nalezen žádný symbol z této množiny.')
-                        self.panic_mode_result.append(
-                            'Panicka metoda na tuto chybu nestaci.')
-                        return 1
-        self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
-        synchronization_tokens = ['<condition>', '<statement>',
-            '<statement_list>']
-        if self.token != '!':
-            synchronization_tokens.append('<expression>')
-        self.panic_mode_result.append(
-            'Hledáme v zásobníku synchronizační neterminál: ')
-        self.panic_mode_result.append(str(synchronization_tokens))
-        while True:
-            popped = self.stack.get_topmost()
-            if str(popped) == '<$, 0>' or popped == None:
-                self.panic_mode_result.append(
-                    'Nebyl nalezen synchronizační neterminál.')
-                self.panic_mode_result.append(
-                    'Panicka metoda na tuto chybu nestaci.')
-                return 1
-            popped_token = popped.split(',')[0][1:]
-            if popped_token in synchronization_tokens:
+        self.alan_mode_result.append(
+            'Zahájení Alanova módu.')
+        popped = self.stack.pop()
+        if str(popped) == '<$, 0>' or popped == None:
+            self.alan_mode_result.append(
+                'Nenalazen žádný záchytný token.')
+            self.alan_mode_result.append(
+                'Alanova metoda na tuto chybu nestaci.')
+            return 1
+        else:
+            popped = popped.split(',')[0][1:]
+
+        # Search popped token in right side of rules (reversed order)
+        right_side = ''
+        for rule in reversed(self.grammar):
+            right_side = rule['right']
+            if popped in right_side and popped!=rule['left']:
                 break
-            self.stack.pop()
-        self.panic_mode_result.append(
-            'Zásobník vyprázdněn do neterminálu: ' + str(self.stack.get_topmost()))
+        if right_side == '':
+            self.alan_mode_result.append(
+                'Nenalazeno žádné vhodné pravidlo.')
+            self.alan_mode_result.append(
+                'Alanova metoda na tuto chybu nestaci.')
+            return 1
+        self.alan_mode_result.append("Nalezeno pravidlo: ")
+        self.alan_mode_result.append(rule['left'] + " -> " + rule['right'])
 
-        if popped_token == '<expression>':
+        left = rule['left']
+        handle = rule['right'].split(' ')
+        position = handle.index(popped)
+
+        # position is saying how many token we have to pop from the stack
+        for x in range(position):
+            check = self.stack.pop()
+            if str(check) == '<$, 0>' or check == None:
+                self.alan_mode_result.append(
+                    'Konec zásobníku.')
+                self.alan_mode_result.append(
+                    'Alanova metoda na tuto chybu nestaci.')
+                return 1
+        self.alan_mode_result.append(
+            'Zásobník vyprázdněn do: ' + str(self.stack.get_topmost()))
+
+        # Get actual state and find out new state with goto part of tabel
+        actual_state = int(self.stack.get_topmost().split(',')[1][:-1])
+        self.state = int(self.goto[actual_state][left])
+        self.alan_mode_result.append('goto[' + str(actual_state) + ', ' + left + '] =' + str(self.state))
+        self.stateHistory.append(self.state)
+        self.stack.push('<' + left + ', ' + str(self.state) + '>')
+        self.stackHistory.append(self.stack.get_stack())
+
+        
+        if left == '<factor>':
+            follow = ['$', ';', 'r', '&', '|', '+', '-', ')', '*', '/']
+        elif left == '<term>':
+            follow = ['$', ';', 'r', '&', '|', '+', '-', ')', '*', '/']
+        elif left == '<expression>':
             follow = ['$', ';', 'r', '&', '|', '+', '-', ')']
-        elif popped_token == '<condition>':
+        elif left == '<condition>':
             follow = ['$', ';', 'r', '&', '|']
-        elif popped_token == '<statement>':
+        elif left == '<statement>':
             follow = ['$', ';', 'r', '&', '|']
-        elif popped_token == '<statement_list>':
+        elif left == '<statement_list>':
             follow = ['$']
-
-        self.panic_mode_result.append(
-            'Dále hledáme na vstupu symbol z follow(' + popped_token + '):')
-        self.panic_mode_result.append(str(follow))
 
         while True:
             if self.token[1] in follow:
@@ -228,10 +237,7 @@ class PanicModeParserFirst(object):
                     self.panic_mode_result.append(
                         'Panicka metoda na tuto chybu nestaci.')
                     return 1
-        self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
-        state = int(self.stack.get_topmost().split(',')[1][:-1])
-        self.state = state
-        self.stateHistory.append(state)
-        self.panic_mode_result.append('Aktualizace stavu: ' + str(self.state))
-        self.panic_mode_result.append('Ukončení panického módu.')
+
+        self.alan_mode_result.append('Aktualizace stavu: ' + str(self.state))
+        self.alan_mode_result.append('Ukončení Alanovi módu.')
         return 0
