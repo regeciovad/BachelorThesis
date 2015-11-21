@@ -18,14 +18,13 @@ html, body {
     color:white;
     text-align:center;
     padding:5px;
-    height:5px;
+    height:35px;
 }
 
 #navigation {
     background-color:#215868;
     clear:both;
     padding:5px;
-    margin:0px;
     height:40px;
 }
 
@@ -92,7 +91,7 @@ ul#menu li a {
     background-color:#215868;
     font-weight: bold;
     color: white;
-    padding: 5px 10px;
+    padding: 5px 8px;
     text-decoration: none;
     margin:2px;
     text-transform:uppercase;
@@ -102,7 +101,7 @@ ul#menu li a {
 ul#menu li a:hover {
     background-color:white;
     color:black;
-    padding:10px 10px;
+    padding:10px 8px;
 }
 
 /* Table - basic*/

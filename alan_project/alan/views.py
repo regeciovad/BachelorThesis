@@ -17,6 +17,7 @@ from .lrtable import LRTable
 from .forms import UploadFileForm
 import os
 import zipfile
+import time
 
 
 def get_grammar():
@@ -106,8 +107,13 @@ def run_panic_mode_parser(request):
     tokens = request.session.get('tokens', '')
     parser_code = ''
     grammar_list = get_grammar()
+    begin = time.clock()
     if request.method == 'POST':
         parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
+    end = time.clock()
+    mytime = end - begin
+    parser_result.append("Čas zotavení: %f \u03BCs" % mytime)
+    parser_result.append('')
     return render(request, 'alan/panic_mode_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
                   'parser_result': parser_result, 'stack': stack,
@@ -166,6 +172,9 @@ def run_alan_mode_parser(request):
                   'parser_result': parser_result, 'stack': stack,
                   'state': state, 'exit_code': exit_code,
                   'panic_mode': panic_mode})
+
+def comparison(request):
+    return render(request, 'alan/comparison.html', {})
 
 
 def grammar(request):

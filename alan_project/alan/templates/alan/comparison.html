@@ -1,0 +1,65 @@
+<!-- Bachelor Thesis GUI -->
+<!-- comparison.html -->
+<!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
+{% block title %} Porovnání metod zotavování {% endblock %}
+
+{% block body_block %}
+<h2>Porovnání metod zotavování</h2>
+
+<p>
+<table align="center">
+<tr>
+<td>
+<table id="t01">
+<tr>
+  <th></th><th>Chybný vstup</th><th>Panický mód (follow)</th><th>Panický mód (first)</th><th>Ad-Hoc metoda</th><th>Alanova metoda</th>
+</tr><tr>
+  <td>1</td><td></td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>2</td><td>a;</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>3</td><td>a;;b</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>4</td><td>a+</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>5</td><td>a b</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>6</td><td>a + + b</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>7</td><td>(a</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>8</td><td>(a))</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>9</td><td>)a;b</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>10</td><td>()</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr><tr>
+  <td>11</td><td>(!a)</td><td>ano / 2 / 0.009</td><td>ne / 3/ 0.00015</td><td>ne / 3 / 1.000</td><td>ano / 1 / 1.0000</td>
+</tr>
+</table>
+</td></tr>
+</table>
+</p>
+
+<h3>Vysvětlivka:</h3>
+    &emsp;<strong>Princip porovnávání:</strong><br>
+    &emsp; V tabulce nalezneme soubor testovacích chybných vstupů.<br>
+    &emsp; Každá metoda je zaznamenaná pomocí sloubce.<br>
+    &emsp; Výsledek testu je v následujícím pořadů:<br>
+    &emsp;&emsp; Zvládla metoda opravit chybu na vstupu? / Kolik cyklů metody bylo zapotřebí? / celkový čas analýzy / celkové hodnocení<br>
+    &emsp; Nejdříve se ptáme, zda je metoda schopna chybu vůbec opravit.<br>
+    &emsp; Poté zkoumáme počet oprav nutných pro další pokračování analýzy, tedy počet volání metody zotavení.<br> 
+    &emsp; Program zárověň měří čas analýzy, což je však orientační číslo zavislé na mnoha faktorech včetně hardwaru.<br>
+    &emsp; Důležité je konečné hodnoce, které zkoumá kvalitu opravy.<br>
+    &emsp; Hodnocení je inspirované dle * a obsahuje tří stupňové hodnocení:<br>
+    &emsp;&emsp; <strong>1</strong> neboli <strong>vynikající</strong> - metoda opravdí chybu tak, jak by učinil lidský čtenář.<br>
+    &emsp;&emsp; <strong>2</strong> neboli <strong>dobré</strong> - rozumná oprava, která nevede k nekonzistentnímu stavu.<br>
+    &emsp;&emsp; <strong>3</strong> neboli <strong>špatné</strong> - nedostatečná oprava, která může vést k vícero chybám.<br>
+
+ <p>
+* BURKE, Michael and FISHER, Gerald. A Practical Method for LR and LL Syntactic Error Diagnosis and Recovery. 
+</p>
+{% endblock %}
