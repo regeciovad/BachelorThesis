@@ -5,9 +5,10 @@
 {% extends 'alan/base.html' %}
 {% load staticfiles %}
 
-{% block title %} Alan - home {% endblock %}
+{% block title %} Lexikální analýza {% endblock %}
 
 {% block body_block %}
+<h2>Lexikální analýza</h2>
 <form id="lex_form" method="post" action="">
 {% csrf_token %}
 <table id="t01" align="center">

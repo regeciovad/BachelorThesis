@@ -29,12 +29,13 @@ class PanicModeParserFirst(object):
     def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Panic Mode recovery
             Input: list of tokens, grammar rules
-            Output: result of syntax analysis, stack history, state history
-                    panic mode recovery records and exit code"""
+            Output: result of syntax analysis, stack history, state history,
+            panic mode recovery records and exit code"""
 
         self.tokens = tokens
         # List of tokens are missing
         if self.tokens == []:
+            self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
@@ -42,6 +43,7 @@ class PanicModeParserFirst(object):
 
         # List of grammar rules are missing
         if grammar == []:
+            self.panic_mode_result.append(" ")
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
@@ -158,7 +160,10 @@ class PanicModeParserFirst(object):
 
     def panic_mode(self):
         """ Panic Mode recovery
-                There will be some comment """
+            This method is looking for the shortest substring in input. 
+            Panic mode skips it and continues in parsing. 
+            This classic version is using synchronization tokens 
+            with their sets first(). """
         self.panic_mode_result.append(
             'Zahájení panického módu s množinou first.')
         first =  ['!', '(', 'i', '#']
@@ -177,7 +182,7 @@ class PanicModeParserFirst(object):
                         self.panic_mode_result.append(
                             'Na vstupu nebyl nalezen žádný symbol z této množiny.')
                         self.panic_mode_result.append(
-                            'Panicka metoda na tuto chybu nestaci.')
+                            'Panická metoda na tuto chybu nestaci.')
                         return 1
         self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
         synchronization_tokens = ['<condition>', '<statement>',
@@ -193,7 +198,7 @@ class PanicModeParserFirst(object):
                 self.panic_mode_result.append(
                     'Nebyl nalezen synchronizační neterminál.')
                 self.panic_mode_result.append(
-                    'Panicka metoda na tuto chybu nestaci.')
+                    'Panická metoda na tuto chybu nestaci.')
                 return 1
             popped_token = popped.split(',')[0][1:]
             if popped_token in synchronization_tokens:
@@ -226,7 +231,7 @@ class PanicModeParserFirst(object):
                     self.panic_mode_result.append(
                         'Na vstupu nebyl nalezen žádný symbol z této množiny.')
                     self.panic_mode_result.append(
-                        'Panicka metoda na tuto chybu nestaci.')
+                        'Panická metoda na tuto chybu nestaci.')
                     return 1
         self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
         state = int(self.stack.get_topmost().split(',')[1][:-1])

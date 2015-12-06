@@ -1,6 +1,7 @@
-<!-- Bachelor Thesis GUI -->
-<!-- comparison.html -->
+<!-- Advanced Error Recovery during Bottom-Up Parsing -->
+<!-- File: comparison.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+
 {% extends 'alan/base.html' %}
 {% load staticfiles %}
 
@@ -17,27 +18,27 @@
 <tr>
   <th></th><th>Chybný vstup</th><th>Panický mód (follow)</th><th>Panický mód (first)</th><th>Ad-Hoc metoda</th><th>Alanova metoda</th>
 </tr><tr>
-  <td>1</td><td></td><td>ne / 1x / 0.004 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
+  <td>1</td><td></td><td>ne / 1x / 0.015 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
 </tr><tr>
-  <td>2</td><td>a;</td><td>ano / 1x / 1 </td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>2</td><td>a;</td><td>ano / 1x / 0,262 ns / 1 </td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
 </tr><tr>
-  <td>3</td><td>a;;b</td><td>ano / 1x / 2</td><td>ano / 1x/ 2</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>3</td><td>a;;b</td><td>ano / 1x / 0,261 ns / 2</td><td>ano / 1x/ 2</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
 </tr><tr>
-  <td>4</td><td>a+</td><td>ano / 1x / 2</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>4</td><td>a+</td><td>ano / 1x / 0,263 ns / 2</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
 </tr><tr>
-  <td>5</td><td>a b</td><td>ne / 1x / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 2</td><td>ano / 1x / 2</td>
+  <td>5</td><td>a b</td><td>ne / 1x / 0,107 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 2</td><td>ano / 1x / 2</td>
 </tr><tr>
-  <td>6</td><td>a + + b</td><td>ano / 1x / 1</td><td>ano / 1x/ 2</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>6</td><td>a + + b</td><td>ano / 1x / 0,350 ns / 1</td><td>ano / 1x/ 2</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
 </tr><tr>
-  <td>7</td><td>(a</td><td>ne / 1x / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>7</td><td>(a</td><td>ne / 1x / 0,278 ns / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
 </tr><tr>
-  <td>8</td><td>(a))</td><td>ano / 1x / 1</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
+  <td>8</td><td>(a))</td><td>ano / 1x / 0,389 ns / 1</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
 </tr><tr>
-  <td>9</td><td>)a;b</td><td>ne / 1x / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
+  <td>9</td><td>)a;b</td><td>ne / 1x / 0,176 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
 </tr><tr>
-  <td>10</td><td>()</td><td>ne / 1x / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 2x / 3</td>
+  <td>10</td><td>()</td><td>ne / 1x / 0,126 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 2x / 3</td>
 </tr><tr>
-  <td>11</td><td>(!a)</td><td>ne / 1x / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ne / 2x / 3</td>
+  <td>11</td><td>(!a)</td><td>ne / 1x / 0,092 ns / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ne / 2x / 3</td>
 </tr>
 </table>
 </td></tr>
@@ -49,8 +50,7 @@
     &emsp; V tabulce nalezneme soubor testovacích chybných vstupů.<br>
     &emsp; Každá metoda je zaznamenaná pomocí sloupce.<br>
     &emsp; Výsledek testu je v následujícím pořadů:<br><br>
-    &emsp;&emsp; &emsp;&emsp;
-    Zvládla metoda opravit chybu na vstupu? / Kolik cyklů metody bylo zapotřebí? / celkový čas analýzy / celkové hodnocení<br><br>
+    &emsp;&emsp; Zvládla metoda opravit chybu na vstupu? / Kolik cyklů metody bylo zapotřebí? / Celkový čas analýzy [ns] / Celkové hodnocení<br><br>
     &emsp; Nejdříve se ptáme, zda je metoda schopna chybu vůbec opravit.<br>
     &emsp; Poté zkoumáme počet oprav nutných pro další pokračování analýzy, tedy počet volání metody zotavení.<br> 
     &emsp; Program zároveň měří čas analýzy, což je však orientační číslo závislé na mnoha faktorech včetně hardwaru.<br>

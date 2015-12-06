@@ -27,8 +27,8 @@ class PanicModeParser(object):
     def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Panic Mode recovery
             Input: list of tokens, grammar rules
-            Output: result of syntax analysis, stack history, state history
-                    panic mode recovery records and exit code"""
+            Output: result of syntax analysis, stack history, state history,
+            panic mode recovery records and exit code"""
 
         self.tokens = tokens
         # List of tokens are missing
