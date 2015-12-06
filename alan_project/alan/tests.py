@@ -1,3 +1,7 @@
+# Advanced Error Recovery during Bottom-Up Parsing
+# File: tests.py
+# Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
+
 from django.test import TestCase
 from .scanner import Scanner
 from .stack import Stack

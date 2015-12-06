@@ -1,5 +1,5 @@
 <!-- Advanced Error Recovery during Bottom-Up Parsing -->
-<!-- File: alan_mode_parser.html -->
+<!-- File: alan_method_parser.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 
 {% extends 'alan/base.html' %}
@@ -16,7 +16,7 @@
 <th>Zásobník</th>
 <th>Stav</th>
 <th>Syntaktická analýza</th>
-<th>Panický mód</th>
+<th>Alanova metoda</th>
 <tr>
 
 <td name="fun_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
@@ -75,11 +75,11 @@
 </td>
 
 <td name="panic_mode_code_area" rows="10" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-{% if panic_mode %}
-{% for p in panic_mode %}
-{{ p }}<br>
+{% if alan_method %}
+{% for a in alan_method %}
+{{ a }}<br>
 {% endfor %}
-{% else %}{ Zde bude panic mode }
+{% else %}{ Zde bude alanova metoda }
 {% endif %}
 </td>
 </tr>

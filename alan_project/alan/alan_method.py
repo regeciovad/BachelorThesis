@@ -1,5 +1,5 @@
 # Advanced Error Recovery during Bottom-Up Parsing
-# File: alan_mode.py
+# File: alan_method.py
 # Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
 
 from .stack import Stack
@@ -7,13 +7,13 @@ from .lrtable import LRTable
 import time
 
 
-class AlanModeParser(object):
+class AlanMethodParser(object):
 
     def __init__(self):
         # Output of syntax analysis
         self.result = []
-        # Output of recovery method Panic Mode
-        self.alan_mode_result = []
+        # Output of recovery method Panic method
+        self.alan_method_result = []
         # Exit code: 0 == ok, 1 == error
         self.exit_code = 0
         # Stack and it's records
@@ -27,10 +27,10 @@ class AlanModeParser(object):
 
 
     def parser_analysis(self, tokens=[], grammar=[]):
-        """ Advanced syntax analysis with Alan Mode recovery
+        """ Advanced syntax analysis with Alan Method recovery
             Input: list of tokens, grammar rules
             Output: result of syntax analysis, stack history, state history
-                    panic mode recovery records and exit code"""
+                    panic method recovery records and exit code"""
 
         self.tokens = tokens
         # List of tokens are missing
@@ -38,14 +38,14 @@ class AlanModeParser(object):
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.alan_mode_result)
+                    self.exit_code, self.alan_method_result)
 
         # List of grammar rules are missing
         if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.alan_mode_result)
+                    self.exit_code, self.alan_method_result)
         self.grammar = grammar
 
         # Adding end
@@ -142,31 +142,30 @@ class AlanModeParser(object):
                 self.stateHistory.append('')
                 self.stateHistory.append('')
                 self.stateHistory.append('')
-                begin = time.clock()
-                alan_mode_exit = self.alan_mode()
-                end = time.clock()
-                mytime = end - begin
-                self.alan_mode_result.append("Čas zotavení: %f \u03BCs" % mytime)
-                self.alan_mode_result.append('')
-                if alan_mode_exit == 1:
+                alan_method_exit = self.alan_method()
+                if alan_method_exit == 1:
                     self.result.append('Syntaktická analýza nemůže dále pokračovat.')
                     break
 
         # Return results
         return (self.result, self.stackHistory, self.stateHistory,
-                self.exit_code, self.alan_mode_result)
+                self.exit_code, self.alan_method_result)
 
-    def alan_mode(self):
-        """ Alan Mode recovery
-                There will be some comment """
-        self.alan_mode_result.append(
-            'Zahájení Alanova módu.')
+    def alan_method(self):
+        """ 
+            Alan method recovery
+            This method was created for purpose of this Bachelor Thesis.
+            The principle is finding an incomplete handle on the stack and reduce it 
+            according the suitable rule. For limitation of unstable condition 
+            it checks input for closest terminal from follow().
+        """
+        self.alan_method_result.append("Zahájení Alanovi metody.")
+        # Get first token
         popped = self.stack.pop()
+        # In case it was last token method can not work
         if str(popped) == '<$, 0>' or popped == None:
-            self.alan_mode_result.append(
-                'Nenalazen žádný záchytný token.')
-            self.alan_mode_result.append(
-                'Alanova metoda na tuto chybu nestaci.')
+            self.alan_method_result.append("Nenalazen žádný záchytný token.")
+            self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
             return 1
         else:
             popped = popped.split(',')[0][1:]
@@ -178,39 +177,37 @@ class AlanModeParser(object):
             if popped in right_side and popped!=rule['left']:
                 break
         if right_side == '':
-            self.alan_mode_result.append(
-                'Nenalazeno žádné vhodné pravidlo.')
-            self.alan_mode_result.append(
-                'Alanova metoda na tuto chybu nestaci.')
+            self.alan_method_result.append("Nenalazeno žádné vhodné pravidlo.")
+            self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
             return 1
-        self.alan_mode_result.append("Nalezeno pravidlo: ")
-        self.alan_mode_result.append(rule['left'] + " -> " + rule['right'])
+        self.alan_method_result.append("Nalezeno pravidlo: ")
+        self.alan_method_result.append(rule['left'] + " -> " + rule['right'])
 
         left = rule['left']
         handle = rule['right'].split(' ')
         position = handle.index(popped)
+        print(position)
 
         # position is saying how many token we have to pop from the stack
         for x in range(position):
             check = self.stack.pop()
             if str(check) == '<$, 0>' or check == None:
-                self.alan_mode_result.append(
-                    'Konec zásobníku.')
-                self.alan_mode_result.append(
-                    'Alanova metoda na tuto chybu nestaci.')
+                self.alan_method_result.append("Konec zásobníku.")
+                self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
                 return 1
-        self.alan_mode_result.append(
-            'Zásobník vyprázdněn do: ' + str(self.stack.get_topmost()))
+            # For case the handle is more incorrect than we expected
+            if str(check.split(',')[0][1:]) == handle[0]:
+                break
+        self.alan_method_result.append("Zásobník vyprázdněn do: " + str(self.stack.get_topmost()))
 
         # Get actual state and find out new state with goto part of tabel
         actual_state = int(self.stack.get_topmost().split(',')[1][:-1])
         self.state = int(self.goto[actual_state][left])
-        self.alan_mode_result.append('goto[' + str(actual_state) + ', ' + left + '] =' + str(self.state))
+        self.alan_method_result.append('goto[' + str(actual_state) + ', ' + left + '] =' + str(self.state))
         self.stateHistory.append(self.state)
         self.stack.push('<' + left + ', ' + str(self.state) + '>')
         self.stackHistory.append(self.stack.get_stack())
 
-        
         if left == '<factor>':
             follow = ['$', ';', 'r', '&', '|', '+', '-', ')', '*', '/']
         elif left == '<term>':
@@ -232,12 +229,12 @@ class AlanModeParser(object):
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
                 except IndexError:
-                    self.panic_mode_result.append(
+                    self.panic_method_result.append(
                         'Na vstupu nebyl nalezen žádný symbol z této množiny.')
-                    self.panic_mode_result.append(
+                    self.panic_method_result.append(
                         'Panicka metoda na tuto chybu nestaci.')
                     return 1
 
-        self.alan_mode_result.append('Aktualizace stavu: ' + str(self.state))
-        self.alan_mode_result.append('Ukončení Alanovi módu.')
+        self.alan_method_result.append('Aktualizace stavu: ' + str(self.state))
+        self.alan_method_result.append('Ukončení Alanovi metody.')
         return 0

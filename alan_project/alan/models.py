@@ -1,6 +1,6 @@
-# Alan project
-# Models.py
-# Version 0.3
+# Advanced Error Recovery during Bottom-Up Parsing
+# File: models.py
+# Version 0.4
 # Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
 
 from django.db import models

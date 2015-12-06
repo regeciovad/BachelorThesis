@@ -12,7 +12,7 @@ from .parser import Parser
 from .panic_mode import PanicModeParser
 from .panic_mode_first import PanicModeParserFirst
 from .ad_hoc import ParserAdHoc
-from .alan_mode import AlanModeParser
+from .alan_method import AlanMethodParser
 from .lrtable import LRTable
 from .forms import UploadFileForm
 import os
@@ -32,14 +32,17 @@ def get_grammar():
 
 
 def about(request):
+    """ Render of about page """
     return render(request, 'alan/about.html', {})
 
 
 def man(request):
+    """ Render of man page """
     return render(request, 'alan/man.html', {})
 
 
 def changelog(request):
+    """ Render of changelog page """
     changelog = []
     with open('../CHANGELOG.md') as f:
         for line in f.readlines():
@@ -48,6 +51,7 @@ def changelog(request):
 
 
 def index(request):
+    """ Render of index page for get input for scanner """
     code = ''
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
@@ -72,9 +76,6 @@ def run_scanner(request):
             source_code = request.POST['fun_code_area']
             request.session['source_code'] = source_code
             tokens, exit_code = scanner.scanner_analysis(source_code)
-            #if not tokens:
-                #tokens.append('[chyba, prazdny program]')
-            #else:
             request.session['tokens'] = tokens
             if exit_code:
                 next = False
@@ -112,7 +113,7 @@ def run_panic_mode_parser(request):
         parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
     end = time.clock()
     mytime = end - begin
-    parser_result.append("Čas zotavení: %f \u03BCs" % mytime)
+    parser_result.append("Celkový čas analýzy: %f \u03BCs" % mytime)
     parser_result.append('')
     return render(request, 'alan/panic_mode_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
@@ -156,22 +157,27 @@ def run_parser_ad_hoc(request):
                   'state': state, 'exit_code': exit_code,
                   'table_action': table_action, 'table_goto': table_goto})
 
-def run_alan_mode_parser(request):
-    """ This view is called by button 'Spustit Alan mode'
+def run_alan_method_parser(request):
+    """ This view is called by button 'Spustit Alan method'
         in parser.html and return results of the first advanced 
         syntax analysis """
-    parser = AlanModeParser()
+    parser = AlanMethodParser()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
     parser_code = ''
     grammar_list = get_grammar()
+    begin = time.clock()
     if request.method == 'POST':
-        parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
-    return render(request, 'alan/alan_mode_parser.html', {
+        parser_result, stack, state, exit_code, alan_method = parser.parser_analysis(tokens, grammar_list)
+    end = time.clock()
+    mytime = end - begin
+    parser_result.append("Čas zotavení: %f \u03BCs" % mytime)
+    parser_result.append('')
+    return render(request, 'alan/alan_method_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
                   'parser_result': parser_result, 'stack': stack,
                   'state': state, 'exit_code': exit_code,
-                  'panic_mode': panic_mode})
+                  'alan_method': alan_method})
 
 def comparison(request):
     return render(request, 'alan/comparison.html', {})

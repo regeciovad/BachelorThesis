@@ -8,6 +8,7 @@
 {% block title %} Projekt Alan {% endblock %}
 
 {% block body_block %}
+<h2>Panický mód s množinou follow</h2>
 <form id="parser_form" method="post" action="">
 {% csrf_token %}
 <table id="t01" align="center">
@@ -92,9 +93,9 @@
     &emsp;{&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>
     &emsp;Také si musíme určit jejich množiny follow:<br>
     &emsp; &lt;statement_list&gt;: {$}<br>
-	&emsp; &lt;statement&gt;:{$, ;, r, &, |}<br>
-	&emsp; &lt;condition&gt;:{$, ;, r, &, |}<br>
-	&emsp; &lt;expression&gt;:{$, ;, r, &, |, +, -, )}<br><br>
+	&emsp; &lt;statement&gt;: {$, ;, r, &, |}<br>
+	&emsp; &lt;condition&gt;: {$, ;, r, &, |}<br>
+	&emsp; &lt;expression&gt;: {$, ;, r, &, |, +, -, )}<br><br>
 
 	&emsp;Při úpravě vstupu prohledáváme jak vstup, tak zásobník. Ten vyprazdňujeme dokud nezískáme z vrcholu neterminál z množiny.<br>
 	&emsp;Určíme si náhradní neterminál, jehož follow() použijeme při čtení vstupu, dokud nenalezneme shodu.<br>

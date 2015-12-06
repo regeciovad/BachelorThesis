@@ -14,7 +14,7 @@ class PanicModeParser(object):
         self.panic_mode_result = []
         # Exit code: 0 == ok, 1 == error
         self.exit_code = 0
-        # Stack and it's records
+        # Stack and its records
         self.stack = Stack()
         self.stackHistory = []
         # State records
@@ -33,6 +33,7 @@ class PanicModeParser(object):
         self.tokens = tokens
         # List of tokens are missing
         if self.tokens == []:
+            self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
@@ -40,6 +41,7 @@ class PanicModeParser(object):
 
         # List of grammar rules are missing
         if grammar == []:
+            self.panic_mode_result.append(" ")
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
@@ -141,26 +143,27 @@ class PanicModeParser(object):
 
     def panic_mode(self):
         """ Panic Mode recovery
-            There will be some comment """
+            This method is looking for the shortest substring in input. 
+            Panic mode skips it and continues in parsing. 
+            This classic version is using synchronization tokens 
+            with their sets follow(). """
 
-        self.panic_mode_result.append('Zahájení panického módu.')
+        self.panic_mode_result.append("Zahájení panického módu.")
         synchronization_tokens = ['<term>', '<expression>', '<condition>',
             '<statement>', '<statement_list>']
 
         while True:
             popped = self.stack.pop()
-            if str(popped) == '<$, 0>' or None:
-                self.panic_mode_result.append(
-                    'Panicka metoda na tuto chybu nestaci.')
+            if str(popped) == '<$, 0>' or popped == None:
+                self.panic_mode_result.append("Zásobník byl plně vyprázdněn.")
+                self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
                 return 1
             popped_token = popped.split(',')[0][1:]
             if popped_token in synchronization_tokens:
                 break
 
-        self.panic_mode_result.append(
-            'Zásobník vyprázdněn až po: ' + str(self.stack.get_stack()))
-        self.panic_mode_result.append(
-            'Nalezen neterminál: ' + popped_token)
+        self.panic_mode_result.append("Zásobník vyprázdněn až po: " + str(self.stack.get_stack()))
+        self.panic_mode_result.append("Nalezen neterminál: " + popped_token)
 
         if popped_token == '<term>':
             follow = ['$', ';', 'r', '&', '|', '+', '-', ')']
@@ -178,10 +181,8 @@ class PanicModeParser(object):
             follow = ['$']
             next = '<statement_list>'
 
-        self.panic_mode_result.append(
-            'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
-        self.panic_mode_result.append(
-            'Hledáme symbol z množiny follow(' + next + '): ' + str(follow))
+        self.panic_mode_result.append("Aktuální vstup: " + str(self.tokens[self.token_number-1:]))
+        self.panic_mode_result.append("Hledáme symbol z množiny follow(" + next + "): " + str(follow))
 
         while True:
             if self.token[1] in follow:
@@ -191,12 +192,20 @@ class PanicModeParser(object):
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
                 except IndexError:
-                    self.panic_mode_result.append(
-                        'Panicka metoda na tuto chybu nestaciV.')
+                    self.panic_mode_result.append("Nebyl nalazen token z množiny follow.")
+                    self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
                     return 1
 
-        self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
+        self.panic_mode_result.append("Nalezen symbol: " + str(self.token))
+        print(self.stack.get_topmost())
         state = int(self.stack.get_topmost().split(',')[1][:-1])
+        print(state)
+        print(next)
+        goto_state = self.goto[state][next]
+        if goto_state == '':
+            self.panic_mode_result.append("Parser se dostal do nestandartního stavu.")
+            self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
+            return 1
         self.state = int(self.goto[state][next])
         self.panic_mode_result.append(
             'goto[' + str(state) + ', ' + str(next) + '] = ' + str(self.state))
