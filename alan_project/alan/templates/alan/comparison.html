@@ -14,31 +14,31 @@
 <table align="center">
 <tr>
 <td>
-<table id="t01">
+<table id="t02">
 <tr>
   <th></th><th>Chybný vstup</th><th>Panický mód (follow)</th><th>Panický mód (first)</th><th>Ad-Hoc metoda</th><th>Alanova metoda</th>
 </tr><tr>
-  <td>1</td><td></td><td>ne / 1x / 0.015 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
+<td>1</td><td></td><td>ne / 1x / 0.015 ns / 3</td><td>ne / 1x / 0.012 ns / 3</td><td>ano / 1x / 0,383 ns / 1</td><td>ne / 1x / 0,010 ns /3</td>
 </tr><tr>
-  <td>2</td><td>a;</td><td>ano / 1x / 0,262 ns / 1 </td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+<td>2</td><td>a;</td><td>ano / 1x / 0,262 ns / 1 </td><td>ne / 1x / 0,220 ns / 3</td><td>ano / 1x / 0,200 ns / 1</td><td>ano / 1x / 0,424 ns / 1</td>
 </tr><tr>
-  <td>3</td><td>a;;b</td><td>ano / 1x / 0,261 ns / 2</td><td>ano / 1x/ 2</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>3</td><td>a;;b</td><td>ano / 1x / 0,261 ns / 2</td><td>ano / 1x/ 2</td><td>ano / 1x / 0,298 ns / 1</td><td>ano / 1x / 0,520 ns / 1</td>
 </tr><tr>
-  <td>4</td><td>a+</td><td>ano / 1x / 0,263 ns / 2</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>4</td><td>a+</td><td>ano / 1x / 0,263 ns / 2</td><td>ne / 1x / 3</td><td>ano / 1x / 0,264 ns / 1</td><td>ano / 1x / 0,235 ns / 1</td>
 </tr><tr>
-  <td>5</td><td>a b</td><td>ne / 1x / 0,107 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 2</td><td>ano / 1x / 2</td>
+  <td>5</td><td>a b</td><td>ne / 1x / 0,107 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 0,201 ns / 2</td><td>ano / 1x / 0,368 ns / 2</td>
 </tr><tr>
-  <td>6</td><td>a + + b</td><td>ano / 1x / 0,350 ns / 1</td><td>ano / 1x/ 2</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>6</td><td>a + + b</td><td>ano / 1x / 0,350 ns / 1</td><td>ano / 1x/ 2</td><td>ano / 1x / 0,259 ns / 1</td><td>ano / 1x / 0,750 ns / 1</td>
 </tr><tr>
-  <td>7</td><td>(a</td><td>ne / 1x / 0,278 ns / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ano / 1x / 1</td>
+  <td>7</td><td>(a</td><td>ne / 1x / 0,278 ns / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 0,364 ns / 1</td><td>ano / 1x / 0,374 ns / 1</td>
 </tr><tr>
-  <td>8</td><td>(a))</td><td>ano / 1x / 0,389 ns / 1</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
+  <td>8</td><td>(a))</td><td>ano / 1x / 0,389 ns / 1</td><td>ne / 1x/ 3</td><td>ano / 1x / 0,481 ns / 1</td><td>ne / 1x / 0,288 ns / 3</td>
 </tr><tr>
-  <td>9</td><td>)a;b</td><td>ne / 1x / 0,176 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 1x / 3</td>
+  <td>9</td><td>)a;b</td><td>ne / 1x / 0,176 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 0,367 ns / 1</td><td>ne / 1x / 0,087 ns / 3</td>
 </tr><tr>
-  <td>10</td><td>()</td><td>ne / 1x / 0,126 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 1</td><td>ne / 2x / 3</td>
+  <td>10</td><td>()</td><td>ne / 1x / 0,126 ns / 3</td><td>ne / 1x / 3</td><td>ano / 1x / 0,507 ns / 1</td><td>ne / 2x / 0,398 ns / 3</td>
 </tr><tr>
-  <td>11</td><td>(!a)</td><td>ne / 1x / 0,092 ns / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 1</td><td>ne / 2x / 3</td>
+  <td>11</td><td>(!a)</td><td>ne / 1x / 0,092 ns / 3</td><td>ne / 1x/ 3</td><td>ano / 1x / 0,513 ns / 1</td><td>ne / 2x / 0,443 ns / 3</td>
 </tr>
 </table>
 </td></tr>

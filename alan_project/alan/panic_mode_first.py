@@ -4,7 +4,6 @@
 
 from .stack import Stack
 from .lrtable import LRTable
-import time
 
 
 class PanicModeParserFirst(object):
@@ -23,8 +22,6 @@ class PanicModeParserFirst(object):
         self.stateHistory = []
         # LR Table
         self.lrtable = LRTable()
-        self.panic_time = 0
-
 
     def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Panic Mode recovery
@@ -143,12 +140,7 @@ class PanicModeParserFirst(object):
                 self.stateHistory.append('')
                 self.stateHistory.append('')
                 self.stateHistory.append('')
-                begin = time.clock()
                 panic_mode_exit = self.panic_mode()
-                end = time.clock()
-                mytime = end - begin
-                self.panic_mode_result.append("Čas zotavení: %f \u03BCs" % mytime)
-                self.panic_mode_result.append('')
                 if panic_mode_exit == 1:
                     self.result.append('Syntaktická analýza nemůže dále pokračovat.')
                     break

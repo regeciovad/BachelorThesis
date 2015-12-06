@@ -140,3 +140,17 @@ table#t01, table#t01 td, table#t01 th {
     padding:7px 15px;
 }
 
+/* Table - t02*/
+table#t02, table#t02 td, table#t02 th {
+    border: 1px solid gray;
+    border-collapse:collapse;
+    padding:5px 15px;
+}
+
+ table#t02 th {
+    background-color:#61497A;
+    color:white;
+    font-size:16px;
+    padding:7px 15px;
+}
+
