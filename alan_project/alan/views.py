@@ -130,8 +130,13 @@ def run_panic_mode_parser_first(request):
     tokens = request.session.get('tokens', '')
     parser_code = ''
     grammar_list = get_grammar()
+    begin = time.clock()
     if request.method == 'POST':
         parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
+    end = time.clock()
+    mytime = end - begin
+    parser_result.append("Celkový čas analýzy: %f \u03BCs" % mytime)
+    parser_result.append('')
     return render(request, 'alan/panic_mode_parser_first.html', {
                   'source_code': source_code, 'tokens': tokens,
                   'parser_result': parser_result, 'stack': stack,
@@ -149,8 +154,13 @@ def run_parser_ad_hoc(request):
     grammar_list = get_grammar()
     lrtable = LRTable()
     table_action, table_goto = lrtable.generate_ad_hoc_table_print()
+    begin = time.clock()
     if request.method == 'POST':
         parser_result, stack, state, exit_code = parser.parser_analysis(tokens, grammar_list)
+    end = time.clock()
+    mytime = end - begin
+    parser_result.append("Celkový čas analýzy: %f \u03BCs" % mytime)
+    parser_result.append('')
     return render(request, 'alan/ad_hoc_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
                   'parser_result': parser_result, 'stack': stack,

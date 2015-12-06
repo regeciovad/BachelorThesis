@@ -5,9 +5,10 @@
 {% extends 'alan/base.html' %}
 {% load staticfiles %}
 
-{% block title %} Projekt Alan {% endblock %}
+{% block title %} Ad-Hoc Metoda {% endblock %}
 
 {% block body_block %}
+<h2>Ad-Hoc metoda</h2>
 <form id="parser_form" method="post" action="">
 {% csrf_token %}
 <table id="t01" align="center">
@@ -80,7 +81,7 @@
 </form>
 <p>
     <h3>Vysvětlivka:</h3>
-    &emsp;Principem <strong>Ad hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
+    &emsp;Principem <strong>Ad-Hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
     &emsp;Ty zaplníme množinou modifikací (diagnostikami), které mají zajistit zotavení z chyby. Jedná se například o přidání,
     či odebrání tokenu do vstupu, odebrání tokenu ze zásobníku, nebo úpravu vstupního tokenu.<br>
     &emsp;U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br> 
