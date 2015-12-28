@@ -70,6 +70,7 @@ def run_scanner(request):
         in index.html and return results of Lexical analysis """
     scanner = Scanner()
     tokens = []
+    source_code = ''
     next = True
     if request.method == 'POST':
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
@@ -89,7 +90,8 @@ def run_parser(request):
     parser = Parser()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
-    parser_result = ''
+    parser_result = stack = state = []
+    exit_code = 0
     grammar_list = get_grammar()
     if request.method == 'POST':
         parser_result, stack, state, exit_code = parser.parser_analysis(
@@ -101,12 +103,13 @@ def run_parser(request):
 
 def run_panic_mode_parser(request):
     """ This view is called by button 'Spustit Panic mode'
-        in parser.html and return results of the first advanced 
+        in parser.html and return results of the first advanced
         syntax analysis """
     parser = PanicModeParser()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
-    parser_code = ''
+    parser_result = stack = state = panic_mode = []
+    exit_code = 0
     grammar_list = get_grammar()
     begin = time.clock()
     if request.method == 'POST':
@@ -123,12 +126,13 @@ def run_panic_mode_parser(request):
 
 def run_panic_mode_parser_first(request):
     """ This view is called by button 'Spustit Panic mode'
-        in parser.html and return results of the first advanced 
+        in parser.html and return results of the first advanced
         syntax analysis """
     parser = PanicModeParserFirst()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
-    parser_code = ''
+    parser_result = stack = state = panic_mode = []
+    exit_code = 0
     grammar_list = get_grammar()
     begin = time.clock()
     if request.method == 'POST':
@@ -145,12 +149,13 @@ def run_panic_mode_parser_first(request):
 
 def run_parser_ad_hoc(request):
     """ This view is called by button 'Spustit Ad-hoc'
-        in parser.html and return results of the first advanced 
+        in parser.html and return results of the first advanced
         syntax analysis """
     parser = ParserAdHoc()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
-    parser_code = ''
+    parser_result = stack = state = []
+    exit_code = 0
     grammar_list = get_grammar()
     lrtable = LRTable()
     table_action, table_goto = lrtable.generate_ad_hoc_table_print()
@@ -169,12 +174,13 @@ def run_parser_ad_hoc(request):
 
 def run_alan_method_parser(request):
     """ This view is called by button 'Spustit Alan method'
-        in parser.html and return results of the first advanced 
+        in parser.html and return results of the first advanced
         syntax analysis """
     parser = AlanMethodParser()
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
-    parser_code = ''
+    parser_result = stack = state = alan_method = []
+    exit_code = 0
     grammar_list = get_grammar()
     begin = time.clock()
     if request.method == 'POST':

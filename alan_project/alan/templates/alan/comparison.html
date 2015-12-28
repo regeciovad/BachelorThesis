@@ -1,20 +1,19 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
 <!-- Advanced Error Recovery during Bottom-Up Parsing -->
 <!-- File: comparison.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
-
-{% extends 'alan/base.html' %}
-{% load staticfiles %}
 
 {% block title %} Porovnání metod zotavování {% endblock %}
 
 {% block body_block %}
 <h2>Porovnání metod zotavování</h2>
 
-<p>
 <table align="center">
 <tr>
 <td>
-<table id="t02">
+<table class="t02">
 <tr>
   <th></th><th>Chybný vstup</th><th>Panický mód (follow)</th><th>Panický mód (first)</th><th>Ad-Hoc metoda</th><th>Alanova metoda</th>
 </tr><tr>
@@ -43,7 +42,6 @@
 </table>
 </td></tr>
 </table>
-</p>
 
 <h3>Vysvětlivka:</h3>
     &emsp;<strong>Princip porovnávání:</strong><br>
@@ -52,7 +50,7 @@
     &emsp; Výsledek testu je v následujícím pořadů:<br><br>
     &emsp;&emsp; Zvládla metoda opravit chybu na vstupu? / Kolik cyklů metody bylo zapotřebí? / Celkový čas analýzy [ns] / Celkové hodnocení<br><br>
     &emsp; Nejdříve se ptáme, zda je metoda schopna chybu vůbec opravit.<br>
-    &emsp; Poté zkoumáme počet oprav nutných pro další pokračování analýzy, tedy počet volání metody zotavení.<br> 
+    &emsp; Poté zkoumáme počet oprav nutných pro další pokračování analýzy, tedy počet volání metody zotavení.<br>
     &emsp; Program zároveň měří čas analýzy, což je však orientační číslo závislé na mnoha faktorech včetně hardwaru.<br>
     &emsp; Důležité je konečné hodnocení, které zkoumá kvalitu opravy.<br>
     &emsp; Hodnocení je inspirované dle * a obsahuje tří stupňové hodnocení:<br>
@@ -61,6 +59,6 @@
     &emsp;&emsp; <strong>3</strong> neboli <strong>špatné</strong> - nedostatečná oprava, která může vést k vícero chybám.<br>
 
  <p>
-* BURKE, Michael and FISHER, Gerald. A Practical Method for LR and LL Syntactic Error Diagnosis and Recovery. 
+* BURKE, Michael and FISHER, Gerald. A Practical Method for LR and LL Syntactic Error Diagnosis and Recovery.
 </p>
 {% endblock %}

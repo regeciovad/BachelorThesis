@@ -1,27 +1,28 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
 <!-- Advanced Error Recovery during Bottom-Up Parsing -->
 <!-- File: scanner.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
-
-{% extends 'alan/base.html' %}
-{% load staticfiles %}
 
 {% block title %} Lexikální analýza {% endblock %}
 
 {% block body_block %}
 <h2>Lexikální analýza</h2>
-<form id="lex_form" method="post" action="">
+<form id="lex_form" method="post">
 {% csrf_token %}
-<table id="t01" align="center">
-<th>Program</th>
+<table class="t01" align="center">
+<tr><th>Program</th>
 <th>Lexikální analýza</th>
+</tr>
 <tr>
-<td name="fun_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+<td id="fun_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if source_code %}
 <pre>{{ source_code }}</pre>
 {% else %}{ Zde napiste svuj kod }
 {% endif %}
 </td>
-<td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;;text-align:left;vertical-align: text-top;">
+<td id="lex_code_area" style="padding:10px; font-size:16px;;text-align:left;vertical-align: text-top;">
 {% if tokens %}
 {% for token in tokens %}
 {% if '[chyba' in token %}
@@ -46,11 +47,9 @@
 </p>
 </form>
 
-<p>
     <h3>Vysvětlivka:</h3>
     &emsp;<strong>i</strong> = identifikátor<br>
     &emsp;<strong>r</strong> = relační operatory<br>
     &emsp;<strong>#</strong> = integer (celé číslo)<br>
     &emsp;<strong style="color:red">chyba</strong> = lexikální chyba
-</p>
 {% endblock %}

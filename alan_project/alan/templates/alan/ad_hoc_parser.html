@@ -1,32 +1,33 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
 <!-- Advanced Error Recovery during Bottom-Up Parsing -->
 <!-- File: ad_hoc_parser.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
-
-{% extends 'alan/base.html' %}
-{% load staticfiles %}
 
 {% block title %} Ad-Hoc Metoda {% endblock %}
 
 {% block body_block %}
 <h2>Ad-Hoc metoda</h2>
-<form id="parser_form" method="post" action="">
+<form id="parser_form" method="post">
 {% csrf_token %}
-<table id="t01" align="center">
-<th>Program</th>
+<table class="t01" align="center">
+<tr><th>Program</th>
 <th>Lexikální analýza</th>
 <th>Zásobník</th>
 <th>Stav</th>
 <th>Syntaktická analýza</th>
+</tr>
 <tr>
 
-<td name="fun_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+<td id="fun_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if source_code %}
 <pre>{{ source_code }}</pre>
 {% else %}{ Zde napiste svuj kod }
 {% endif %}
 </td>
 
-<td name="lex_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+<td id="lex_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if tokens %}
 {% for token in tokens %}
 {% if '[chyba' in token %}
@@ -41,7 +42,7 @@
 {% endif %}
 </td>
 
-<td name="stack_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+<td id="stack_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if stack %}
 {% for s in stack %}
 {{ s }}<br>
@@ -50,7 +51,7 @@
 {% endif %}
 </td>
 
-<td name="state_code_area" rows="10" cols="42" style="padding:10px; font-size:16px;vertical-align: text-top;">
+<td id="state_code_area" style="padding:10px; font-size:16px;vertical-align: text-top;">
 {% if state %}
 {% for s in state %}
 {{ s }}<br>
@@ -59,7 +60,7 @@
 {% endif %}
 </td>
 
-<td name="parser_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+<td id="parser_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
 {% if parser_result %}
 {% for parser in parser_result %}
 {% if 'success' in parser %}
@@ -79,12 +80,11 @@
 </tr>
 </table>
 </form>
-<p>
     <h3>Vysvětlivka:</h3>
     &emsp;Principem <strong>Ad-Hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
     &emsp;Ty zaplníme množinou modifikací (diagnostikami), které mají zajistit zotavení z chyby. Jedná se například o přidání,
     či odebrání tokenu do vstupu, odebrání tokenu ze zásobníku, nebo úpravu vstupního tokenu.<br>
-    &emsp;U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br> 
+    &emsp;U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br>
     &emsp;Autor syntaktické analýzy si také musí dávat pozor na hrozbu zacyklení.<br><br>
 
     &emsp;<strong>Projekt Alan má tyto diagnostiky:</strong><br><br>
@@ -101,7 +101,7 @@
 <tr>
 <td>
 {% if table_action %}
-<table id="t01">
+<table class="t01">
   <tr>
     <th>Stav</th><th>;</th><th>i</th><th>#</th><th>r</th><th>+</th><th>-</th><th>*</th><th>/</th><th>&</th><th>|</th>
     <th>!</th><th>(</th><th>)</th><th>$</th>
@@ -116,7 +116,7 @@
 {% endif %}
 </td><td>&emsp;</td><td>
 {% if table_goto %}
-<table id="t01">
+<table class="t01">
   <tr>
     <th>Stav</th><th>&lt;statement_list&gt;</th><th>&lt;statement&gt;</th><th>&lt;condition&gt;</th><th>&lt;expression&gt;</th>
     <th>&lt;term&gt;</th><th>&lt;factor&gt;</th></tr>
@@ -130,5 +130,4 @@
 {% endif %}
 </td></tr>
 </table>
-</p>
 {% endblock %}

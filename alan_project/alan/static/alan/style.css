@@ -40,11 +40,9 @@ html, body {
     text-align:left;
     padding:5px;
     font-size:12px;
-    width:auto;
 }
 
 #section{
-    float:center;
     padding:15px;
     padding-bottom:2em;
 }
@@ -123,17 +121,16 @@ ul#menu li a:hover {
 
 table, th td {
     border:0px;
-    max-width:auto;
     text-align:center;
 }
 
 /* Table - t01*/
-table#t01, table#t01 td, table#t01 th {
+table.t01, table.t01 td, table.t01 th {
     border: 1px solid gray;
     border-collapse:collapse;
 }
 
- table#t01 th {
+ table.t01 th {
     background-color:#61497A;
     color:white;
     font-size:16px;
@@ -141,13 +138,13 @@ table#t01, table#t01 td, table#t01 th {
 }
 
 /* Table - t02*/
-table#t02, table#t02 td, table#t02 th {
+table.t02, table.t02 td, table.t02 th {
     border: 1px solid gray;
     border-collapse:collapse;
     padding:5px 15px;
 }
 
- table#t02 th {
+ table.t02 th {
     background-color:#61497A;
     color:white;
     font-size:16px;

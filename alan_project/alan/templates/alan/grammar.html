@@ -1,15 +1,15 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
 <!-- Bachelor Thesis GUI -->
 <!-- grammar.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
-{% extends 'alan/base.html' %}
-{% load staticfiles %}
 
 {% block title %} Gramatika {% endblock %}
 
 {% block body_block %}
 <h2>Gramatika</h2>
 
-<p>
 {% if nonterminals %}
     <h3>Neterminály: </h3>
     { {{ nonterminals }} }
@@ -22,7 +22,7 @@
   <br>
   <strong>i</strong> reprezentuje proměnné <br>
   <strong>#</strong> reprezentuje celá čísla <br>
-  <strong>r</strong> reprezentuje {>, <, <=, >=, !=, ==}
+  <strong>r</strong> reprezentuje {>, &lt;, &lt;=, >=, !=, ==}
 
 {% if grammar %}
     <h3>Pravidla: </h3>
@@ -33,7 +33,6 @@
 
 <h3>Komentáře: </h3>
 <i>{ Komentar a muze byt i na vice radku }</i>
-</p>
 <p>
 <strong>Poznámka: </strong><br>
 Gramatika je převzatata z: MEDUNA, Alexander. Elements of compiler design. Boca Raton: Auerbach Publications, 2008, xiii, 286 s. ISBN 1420063235.

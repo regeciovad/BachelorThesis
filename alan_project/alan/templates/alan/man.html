@@ -1,38 +1,33 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
 <!-- Bachelor Thesis GUI -->
 <!-- man.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
-{% extends 'alan/base.html' %}
-{% load staticfiles %}
 
 {% block title %} Projekt Alan {% endblock %}
 
 {% block body_block %}
 <h2>Manuálové stránky k projektu Alan </h2>
 
-<p>
 <h3>Načtení zdrojového programu</h3>
 Zdrojový kód lze zadat více způsoby. <br>
 Program lze načíst z textového souboru, jehož cestu volíme pomocí <strong>Procházet</strong>.
 Samotný kód se načte po stisknutí tlačítka <strong>Nahrát</strong>.<br>
 Dále je možno využít kopírování, či přímého vepsání kódu do textového boxu.<br>
-Pro potřeby projektu byl také vytvořen <a href="{% url 'download' %}">archiv</a> 
+Pro potřeby projektu byl také vytvořen <a href="{% url 'download' %}">archiv</a>
 ukázkových souborů.
-</p>
 
-<p>
 <h3>Lexikální analýza</h3>
-Lexikální analýza zpracovává vstup najednou, ne tedy pomocí běžné metody 
+Lexikální analýza zpracovává vstup najednou, ne tedy pomocí běžné metody
 <i>GetNextToken</i>. Výsledkem je seznam tokenů ve tvaru [lexém, další informace]. <br>
 Další informací se rozumí například hodnota čísla, či jméno identifikátoru. <br>
-Oproti originálnímu jazyku FUN analýza přijímá pouze celá čísla a také byla 
+Oproti originálnímu jazyku FUN analýza přijímá pouze celá čísla a také byla
 odstraněna podpora labelů a příkazu <i>goto</i>.
-</p>
 
-<p>
 <h3>Kontakt</h3>
 Dominika Regéciová<br>
 xregec00@stud.fit.vutbr.cz<br>
 Bakalářská práce 2015/2016<br>
 FIT VUT
-</p>
 {% endblock %}

@@ -1,18 +1,18 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
 <!-- Advanced Error Recovery during Bottom-Up Parsing -->
 <!-- File: index.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 
-{% extends 'alan/base.html' %}
-{% load staticfiles %}
-
 {% block title %} Projekt Alan {% endblock %}
 
 {% block body_block %}
-<form id="fun_form" method="post" action="">
+<form id="fun_form" method="post">
 {% csrf_token %}
 
-<table id="t01" align="center">
-<th>Program</th>
+<table class="t01" align="center">
+<tr><th>Program</th></tr>
 <tr>
 <td>
 <textarea name="fun_code_area" rows="18" cols="42" style="padding:10px; font-size:16px;">

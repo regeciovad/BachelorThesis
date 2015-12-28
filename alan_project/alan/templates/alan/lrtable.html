@@ -1,20 +1,20 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
 <!-- Bachelor Thesis GUI -->
 <!-- lrtable.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
-{% extends 'alan/base.html' %}
-{% load staticfiles %}
 
 {% block title %} LR tabulka {% endblock %}
 
 {% block body_block %}
 <h2>LR tabulka</h2>
 
-<p>
 <table align="center">
 <tr>
 <td>
 {% if table_action %}
-<table id="t01">
+<table class="t01">
   <tr>
     <th>Stav</th><th>;</th><th>i</th><th>#</th><th>r</th><th>+</th><th>-</th><th>*</th><th>/</th><th>&</th><th>|</th>
     <th>!</th><th>(</th><th>)</th><th>$</th>
@@ -29,7 +29,7 @@
 {% endif %}
 </td><td>&emsp;</td><td>
 {% if table_goto %}
-<table id="t01">
+<table class="t01">
   <tr>
     <th>Stav</th><th>&lt;statement_list&gt;</th><th>&lt;statement&gt;</th><th>&lt;condition&gt;</th><th>&lt;expression&gt;</th>
     <th>&lt;term&gt;</th><th>&lt;factor&gt;</th></tr>
@@ -43,5 +43,4 @@
 {% endif %}
 </td></tr>
 </table>
-</p>
 {% endblock %}
