@@ -1,3 +1,0 @@
-{This FUN program is for testing syntax error in end of the code.}
-
-result =

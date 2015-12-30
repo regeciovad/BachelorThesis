@@ -55,16 +55,14 @@ h2 {
 }
 
 a {
-    color:#31849B;
+    color:#215868;
     font-weight: bold;
     text-decoration:none;
     padding:5px;
-
 }
 
 a:hover {
     color:orange;
-
 }
 
 input[type=submit] {

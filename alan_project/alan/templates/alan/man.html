@@ -10,6 +10,9 @@
 {% block body_block %}
 <h2>Manuálové stránky k projektu Alan </h2>
 
+<h3>Instalace</h3>
+Zde bude návod na instalaci projektu na lokální počítač.<br>
+
 <h3>Načtení zdrojového programu</h3>
 Zdrojový kód lze zadat více způsoby. <br>
 Program lze načíst z textového souboru, jehož cestu volíme pomocí <strong>Procházet</strong>.
@@ -19,11 +22,11 @@ Pro potřeby projektu byl také vytvořen <a href="{% url 'download' %}">archiv<
 ukázkových souborů.
 
 <h3>Lexikální analýza</h3>
-Lexikální analýza zpracovává vstup najednou, ne tedy pomocí běžné metody
-<i>GetNextToken</i>. Výsledkem je seznam tokenů ve tvaru [lexém, další informace]. <br>
-Další informací se rozumí například hodnota čísla, či jméno identifikátoru. <br>
-Oproti originálnímu jazyku FUN analýza přijímá pouze celá čísla a také byla
-odstraněna podpora labelů a příkazu <i>goto</i>.
+Lexikální analýza má za úkol zpracovávat vstupní program a rozdělit jej na <strong>lexémy</strong> (lexikální jednotky). <br>
+Ty pak posílá syntaktické analýze na zpracování v podobě <strong>tokenů</strong> ve tvaru [lexém, další informace].<br> Další informací se rozumí například hodnota čísla, či jméno identifikátoru. <br>
+Oproti originálnímu jazyku FUN přijímá tato lexikální analýza pouze celá čísla a byla také
+odstraněna podpora labelů a příkazu <i>goto</i>.<br>
+Vstup je na rozdíl od běžné implementace zpracován najednou, nikoliv tedy pomocí <i>GetNextToken</i>. 
 
 <h3>Kontakt</h3>
 Dominika Regéciová<br>

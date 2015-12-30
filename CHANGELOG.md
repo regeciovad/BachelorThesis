@@ -1,3 +1,8 @@
+## v1.0
+* Index page first official version completed
+* Scanner first official version completed
+* Tests of scanner first official version completed (100% cover)
+
 ## v0.4
 
 * First version of Panic Mode (first) added

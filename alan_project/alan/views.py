@@ -51,11 +51,17 @@ def changelog(request):
 
 
 def index(request):
-    """ Render of index page for get input for scanner """
-    code = ''
+    """ The page to obtain input for the scanner """
+    # Initialization of input
+    if 'source_code' in request.session:
+        code = request.session['source_code']
+    else:
+        code = ''
+    # Upload of file
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
+            code = ''
             path = (request.FILES['docfile'])
             for chunk in path.chunks():
                 code = code + str(chunk.decode('utf-8', 'ignore'))
@@ -68,20 +74,19 @@ def index(request):
 def run_scanner(request):
     """ This view is called by button 'Spustit lexikalni analyzu'
         in index.html and return results of Lexical analysis """
+    # Initialization
     scanner = Scanner()
     tokens = []
     source_code = ''
-    next = True
+    # Run of Lexical analysis
     if request.method == 'POST':
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
             source_code = request.POST['fun_code_area']
             request.session['source_code'] = source_code
             tokens, exit_code = scanner.scanner_analysis(source_code)
             request.session['tokens'] = tokens
-            if exit_code:
-                next = False
     return render(request, 'alan/scanner.html', {'source_code': source_code,
-                  'tokens': tokens, 'next': next})
+                  'tokens': tokens, 'exit_code': exit_code})
 
 
 def run_parser(request):
