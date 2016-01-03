@@ -31,7 +31,7 @@ class ScannerMethodTests(TestCase):
 		scanner = Scanner()
 		output = ['[chyba, chybí }]']
 		exit_code = 1
-		with open('files/test_fun_comment_le.txt') as f:
+		with open('files/le_test_fun_comment.txt') as f:
 			code = f.read()
 		lex_code, exit = scanner.scanner_analysis(code)
 		self.assertEqual(lex_code, output)
@@ -95,7 +95,7 @@ class ScannerMethodTests(TestCase):
 		scanner = Scanner()
 		exit_code = 1
 		output = ['[i, u]', '[chyba, neznámý lexém @]', '[#, 2]']
-		with open('files/test_fun_unknown_le.txt') as f:
+		with open('files/le_test_fun_unknown.txt') as f:
 			code = f.read()
 		lex_code, exit = scanner.scanner_analysis(code)
 		self.assertEqual(lex_code, output)
@@ -181,7 +181,7 @@ class ScannerMethodTests(TestCase):
 		scanner = Scanner()
 		exit_code = 1
 		output = ['[i, result]', '[chyba, neznámý lexém =]']
-		with open('files/test_fun_end_equal_le.txt') as f:
+		with open('files/le_test_fun_end_equal.txt') as f:
 			code = f.read()
 		lex_code, exit = scanner.scanner_analysis(code)
 		self.assertEqual(lex_code, output)
@@ -195,7 +195,7 @@ class ScannerMethodTests(TestCase):
 		scanner = Scanner()
 		exit_code = 1
 		output = ['[i, result]', '[chyba, neznámý lexém =]']
-		with open('files/test_fun_not_equal_le.txt') as f:
+		with open('files/le_test_fun_not_equal.txt') as f:
 			code = f.read()
 		lex_code, exit = scanner.scanner_analysis(code)
 		self.assertEqual(lex_code, output)
