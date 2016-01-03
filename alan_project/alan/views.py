@@ -78,6 +78,7 @@ def run_scanner(request):
     scanner = Scanner()
     tokens = []
     source_code = ''
+    exit_code = 0
     # Run of Lexical analysis
     if request.method == 'POST':
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
