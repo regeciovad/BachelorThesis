@@ -3,7 +3,7 @@
 # Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz
 
 from django.test import TestCase
-from .panic_mode import PanicModeParser
+from alan.panic_mode import PanicModeParser
 import time
 
 class PanicModeFollowMethodTests(TestCase):
@@ -12,7 +12,7 @@ class PanicModeFollowMethodTests(TestCase):
         """
             Test of empty program
         """
-        pass
+        self.assertTrue(True)
         """parser = PanicModeParser()
         tokens = []
         grammar_list = get_grammar()

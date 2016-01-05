@@ -100,18 +100,20 @@ class Parser(object):
                     actual_state = int(
                         self.stack.get_topmost().split(',')[1][:-1])
                     if actual_state == '':
-                        self.result.append('gotochyba')
+                        self.result.append(
+                            'Chyba: analýza se dostala do nedefinovaného stavu')
                         self.exit_code = 1
                         break
                     state = int(goto[actual_state][left])
-                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] =' + str(state))
+                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(state))
                     self.stateHistory.append('')
                     self.stackHistory.append('')
                     self.stateHistory.append(state)
                     self.stack.push(('<' + left + ', ' + str(state) + '>'))
                     self.stackHistory.append(self.stack.get_stack())
                 else:
-                    self.result.append('syntaktická chyba')
+                    self.result.append(
+                        'Chyba: analýza se dostala do nedefinovaného stavu')
                     self.exit_code = 1
                     break
 
