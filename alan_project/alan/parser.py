@@ -76,6 +76,7 @@ class Parser(object):
                     token_number += 1
                 except IndexError:
                     self.result.append('syntaktická chyba')
+                    self.exit_code = 1
                     break
                 a = token[1]
                 state = int(q)

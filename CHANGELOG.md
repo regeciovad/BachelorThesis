@@ -2,6 +2,8 @@
 * Index page first official version completed
 * Scanner first official version completed
 * Tests of scanner first official version completed (100% cover)
+* Parser first official version completed
+* Tests of parser first official version completed (88% cover - rest of it is insurance if something bad happens)
 
 ## v0.4
 

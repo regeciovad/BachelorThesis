@@ -9,85 +9,88 @@
 
 {% block body_block %}
 <h2>Syntaktická analýza</h2>
+
 <form id="parser_form" method="post">
 {% csrf_token %}
 <table class="t01" align="center">
-<tr><th>Program</th>
-<th>Lexikální analýza</th>
-<th>Zásobník</th>
-<th>Stav</th>
-<th>Syntaktická analýza</th>
-</tr>
 <tr>
+    <th>Program</th>
+    <th>Lexikální analýza</th>
+    <th>Zásobník</th>
+    <th>Stav</th>
+    <th>Syntaktická analýza</th>
+</tr><tr>
 
-<td id="fun_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-{% if source_code %}
-<pre>{{ source_code }}</pre>
-{% else %}{ Zde napiste svuj kod }
-{% endif %}
-</td>
+    <td id="fun_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+        {% if source_code %}
+            <pre>{{ source_code }}</pre>
+        {% else %}{ Zde napiste svuj kod }
+        {% endif %}
+    </td>
 
-<td id="lex_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-{% if tokens %}
-{% for token in tokens %}
-{% if '[chyba' in token %}
-    <strong style="color:red">{{ token }}</strong><br>
-{% elif '[k' in token %}
-    <strong style="color:green">{{ token }}</strong><br>
-{% else %}
-    {{ token }}<br>
-{% endif %}
-{% endfor %}
-{% else %}{ Zde bude výsledek Lexikální analýzy }
-{% endif %}
-</td>
+    <td id="lex_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+        {% if tokens %}
+        {% for token in tokens %}
+        {% if '[chyba' in token %}
+            <strong style="color:red">{{ token }}</strong><br>
+        {% elif '[k' in token %}
+            <strong style="color:green">{{ token }}</strong><br>
+        {% else %}
+            {{ token }}<br>
+        {% endif %}
+        {% endfor %}
+        {% else %}{ Zde bude výsledek Lexikální analýzy }
+        {% endif %}
+    </td>
 
-<td id="stack_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-{% if stack %}
-{% for s in stack %}
-{{ s }}<br>
-{% endfor %}
-{% else %}{ Zde bude zásobník }
-{% endif %}
-</td>
+    <td id="stack_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+        {% if stack %}
+        {% for s in stack %}
+            {{ s }}<br>
+        {% endfor %}
+        {% else %}{ Zde bude zásobník }
+        {% endif %}
+    </td>
 
-<td id="state_code_area" style="padding:10px; font-size:16px;vertical-align: text-top;">
-{% if state %}
-{% for s in state %}
-{{ s }}<br>
-{% endfor %}
-{% else %}{ Zde bude stav }
-{% endif %}
-</td>
+    <td id="state_code_area" style="padding:10px; font-size:16px;vertical-align: text-top;">
+        {% if state %}
+        {% for s in state %}
+            {{ s }}<br>
+        {% endfor %}
+        {% else %}{ Zde bude stav }
+        {% endif %}
+    </td>
 
-<td id="parser_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-{% if parser_result %}
-{% for parser in parser_result %}
-{% if 'success' in parser %}
-    <strong style="color:green">{{ parser }}</strong><br>
-{% elif 'chyba' in parser %}
-	<strong style="color:red">{{ parser }}</strong><br>
-{% else %}
-{{ parser }}<br>
-{% endif %}
-{% endfor %}
-{% else %}{ Zde bude SA }
-{% endif %}
-</td>
+    <td id="parser_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+        {% if parser_result %}
+        {% for parser in parser_result %}
+        {% if 'success' in parser %}
+            <strong style="color:green">{{ parser }}</strong><br>
+        {% elif 'chyba' in parser %}
+            <strong style="color:red">{{ parser }}</strong><br>
+        {% else %}
+            {{ parser }}<br>
+        {% endif %}
+        {% endfor %}
+        {% else %}{ Zde bude SA }
+        {% endif %}
+    </td>
 </tr>
 </table>
+
 <p style="text-align:center">
-{% if exit_code %}
-<input type="submit" name="parser" formaction="{% url 'panic_mode' %}" value="Panický mód (follow)">&emsp;
-<input type="submit" name="parser" formaction="{% url 'panic_mode_first' %}" value="Panický mód (first)">&emsp;
-<input type="submit" name="parser" formaction="{% url 'ad_hoc' %}" value="Ad-hoc metoda">&emsp;
-<input type="submit" name="parser" formaction="{% url 'alan_method' %}" value="Alanova metoda">
-{% endif %}
+    {% if exit_code %}
+    <input type="submit" name="parser" formaction="{% url 'panic_mode' %}" value="Panický mód (follow)">&emsp;
+    <input type="submit" name="parser" formaction="{% url 'panic_mode_first' %}" value="Panický mód (first)">&emsp;
+    <input type="submit" name="parser" formaction="{% url 'ad_hoc' %}" value="Ad-hoc metoda">&emsp;
+    <input type="submit" name="parser" formaction="{% url 'alan_method' %}" value="Alanova metoda">
+    {% endif %}
 </p>
 </form>
+
     <h3>Vysvětlivka:</h3>
     &emsp;<strong>Inicializace:</strong><br>
-    &emsp; Ke vstupnímu řetezci připojíme ukončující token <strong>[$]</strong>.
+    &emsp; Ke vstupnímu řetězci připojíme ukončující token <strong>[$]</strong>.
     Na zásobník vložíme <strong>&lt;$, 0&gt;</strong> a počáteční <strong>stav</strong> nastavíme na <strong>0</strong>.<br>
 
     &emsp;<strong>Opakujeme:</strong><br>
@@ -95,16 +98,32 @@
     &emsp; Podíváme se do <a target="_blank" href="{% url 'lrtable' %}">LR tabulky</a> na část action:
     <strong>action[a, stav]</strong> a dle políčka provedeme následující:<br>
 
-    &emsp;&emsp; <strong>s</strong><strong style="color:orange">p</strong>
-    &emsp; na zásobník vložíme <strong>&lt;a, p&gt;</strong>, přečteme další token ze vstupu a stav aktualizujeme na <strong>p</strong>.<br>
-
-    &emsp;&emsp; <strong>r</strong><strong style="color:orange">q</strong>
-    &emsp; pokud existuje pravidlo <strong>A -> X</strong> a na zásobníku exituje <strong>&lt;?, p&gt;&lt;X, ?&gt;</strong>,
-    pak aktualizujeme stav dle tabulky <strong>goto[A, p]</strong>.
-    Následně veměníme <strong>&lt;X, ?&gt;</strong> za <strong>&lt;A, nový stav&gt;</strong>. Jinak hlásíme <strong style="color:red">chybu</strong>.<br>
-
-    &emsp;&emsp; <strong style="color:green">Acc</strong>&emsp; Vypíšeme na výstup, že syntaktická analýza proběhla úspěšně.<br>
-    &emsp;&emsp; <strong style="color:red">Prázdné políčko</strong>&emsp; Vypíšeme na výstup, že jsme objevili syntaktickou chybu.<br>
+    <table style="text-align:left">
+    <tr>
+        <td>&emsp;&emsp; <strong>sp</strong></td>
+        <td>&emsp; Shift: na zásobník vložíme <strong>&lt;a, p&gt;</strong>, přečteme
+            další token ze vstupu a stav aktualizujeme na <strong>p</strong>.
+        </td>
+    </tr>
+    <tr>
+        <td>&emsp;&emsp; <strong>rq</strong></td>
+        <td>&emsp; Redukce: pokud existuje pravidlo <strong>A -> X</strong> a na vrcholu zásobníku nalezneme 
+            <strong>&lt;?, p&gt;&lt;X, ?&gt;</strong>, pak aktualizujeme stav dle tabulky <strong>goto[A, p]</strong>.<br>
+            &emsp; Následně vyměníme <strong>&lt;X, ?&gt;</strong> za <strong>&lt;A, nový stav&gt;</strong>.
+            Jinak hlásíme <strong style="color:red">chybu</strong>.
+        </td>
+    </tr>
+    <tr>
+        <td>&emsp;&emsp; <strong style="color:green">Acc</strong></td>
+        <td>&emsp; Vypíšeme na výstup, že syntaktická analýza proběhla úspěšně.</td>
+    </tr>
+    <tr>
+        <td>&emsp;&emsp; <strong style="color:red">Nic</strong></td>
+        <td>&emsp; Vypíšeme na výstup, že jsme objevili syntaktickou chybu.</td>
+    </tr>
+    </table>
 
     &emsp;<strong>Dokud neuspějeme s analýzou, nebo neobjevíme chybu.</strong>
+    <br>
+
 {% endblock %}
