@@ -4,7 +4,15 @@
 <html>
     <head>
         <title>{% block title %}{% endblock %}</title>
+        <link rel='icon' href='data:;base64,iVBORw0KGgo='>
         <link rel="stylesheet" type="text/css" href="{% static 'alan/style.css' %}"/>
+        <meta name='viewport' content='width=device-width' />
+        <style>
+        section {
+            position: absolute; top:0; bottom:0; left:0; right:0;
+            overflow: hidden;
+        }
+        </style>
     </head>
     <body>
         <div id="wrapper">

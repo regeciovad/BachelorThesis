@@ -66,8 +66,6 @@ a:hover {
 }
 
 input[type=submit] {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
     border-radius: 0px;
     -webkit-box-shadow: 0px 1px 3px #C0C0C0;
     -moz-box-shadow: 0px 1px 3px #C0C0C0;
