@@ -44,7 +44,7 @@ def man(request):
 def changelog(request):
     """ Render of changelog page """
     changelog = []
-    with open('../CHANGELOG.md') as f:
+    with open('./CHANGELOG.md') as f:
         for line in f.readlines():
             changelog.append(line)
     return render(request, 'alan/changelog.html', {'changelog': changelog})
