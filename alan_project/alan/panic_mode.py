@@ -110,6 +110,9 @@ class PanicModeParser(object):
                         self.exit_code = 1
                         break
                     self.state = int(self.goto[actual_state][left])
+                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(self.state))
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
                     self.stateHistory.append(self.state)
                     self.stack.push('<' + left + ', ' + str(self.state) + '>')
                     self.stackHistory.append(self.stack.get_stack())
@@ -197,10 +200,7 @@ class PanicModeParser(object):
                     return 1
 
         self.panic_mode_result.append("Nalezen symbol: " + str(self.token))
-        print(self.stack.get_topmost())
         state = int(self.stack.get_topmost().split(',')[1][:-1])
-        print(state)
-        print(next)
         goto_state = self.goto[state][next]
         if goto_state == '':
             self.panic_mode_result.append("Parser se dostal do nestandartního stavu.")

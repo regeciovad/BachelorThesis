@@ -98,6 +98,9 @@ class ParserAdHoc(object):
                         self.exit_code = 1
                         break
                     state = int(goto[actual_state][left])
+                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(state))
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
                     self.stateHistory.append(state)
                     self.stack.push(('<' + left + ', ' + str(state) + '>'))
                     self.stackHistory.append(self.stack.get_stack())

@@ -111,7 +111,7 @@ class AlanMethodParser(object):
                         self.exit_code = 1
                         break
                     self.state = int(self.goto[actual_state][left])
-                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] =' + str(self.state))
+                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(self.state))
                     self.stateHistory.append('')
                     self.stackHistory.append('')
                     self.stateHistory.append(self.state)
@@ -174,14 +174,16 @@ class AlanMethodParser(object):
         right_side = ''
         for rule in reversed(self.grammar):
             right_side = rule['right']
-            if popped in right_side and popped!=rule['left']:
+            if popped in right_side.split(' ') and popped!=rule['left']:
                 break
+        print(right_side)
         if right_side == '':
             self.alan_method_result.append("Nenalazeno žádné vhodné pravidlo.")
             self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
             return 1
         self.alan_method_result.append("Nalezeno pravidlo: ")
         self.alan_method_result.append(rule['left'] + " -> " + rule['right'])
+        print(rule['left'] + " -> " + rule['right'])
 
         left = rule['left']
         handle = rule['right'].split(' ')
@@ -203,7 +205,7 @@ class AlanMethodParser(object):
         # Get actual state and find out new state with goto part of tabel
         actual_state = int(self.stack.get_topmost().split(',')[1][:-1])
         self.state = int(self.goto[actual_state][left])
-        self.alan_method_result.append('goto[' + str(actual_state) + ', ' + left + '] =' + str(self.state))
+        self.alan_method_result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(self.state))
         self.stateHistory.append(self.state)
         self.stack.push('<' + left + ', ' + str(self.state) + '>')
         self.stackHistory.append(self.stack.get_stack())

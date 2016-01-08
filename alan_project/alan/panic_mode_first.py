@@ -109,7 +109,7 @@ class PanicModeParserFirst(object):
                         self.exit_code = 1
                         break
                     self.state = int(self.goto[actual_state][left])
-                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] =' + str(self.state))
+                    self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(self.state))
                     self.stateHistory.append('')
                     self.stackHistory.append('')
                     self.stateHistory.append(self.state)
