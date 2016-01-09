@@ -23,7 +23,6 @@ html, body {
 
 #navigation {
     background-color:#215868;
-    clear:both;
     padding:5px;
     height:40px;
 }
@@ -99,7 +98,6 @@ ul#menu li a {
     color: white;
     padding: 5px 8px;
     text-decoration: none;
-    margin:2px;
     text-transform:uppercase;
 
 }
@@ -109,6 +107,8 @@ ul#menu li a:hover {
     color:black;
     padding:10px 8px;
 }
+
+
 
 /* Table - basic*/
 .highlight {

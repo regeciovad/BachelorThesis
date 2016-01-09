@@ -88,18 +88,18 @@
 </table>
 </form>
     <h3>Vysvětlivka:</h3>
-    &emsp;Principem Panického módu je nalezení co nejkratšího chybového řetězce, jeho přeskočení a pokračování v analýze.<br><br>
-    &emsp;Nejdříve si definujeme množinu neterminálů, které označují logický celek programu:<br>
-    &emsp;{&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>
-    &emsp;Také si musíme určit jejich množiny follow:<br>
+    &emsp; Principem Panického módu je nalezení co nejkratšího chybového řetězce, jeho přeskočení a pokračování v analýze.<br><br>
+    &emsp; Nejdříve si definujeme množinu neterminálů, které označují logický celek programu:<br>
+    &emsp; {&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>
+    &emsp; Také si musíme určit jejich množiny follow:<br>
     &emsp; &lt;statement_list&gt;: {$}<br>
 	&emsp; &lt;statement&gt;: {$, ;, r, &, |}<br>
 	&emsp; &lt;condition&gt;: {$, ;, r, &, |}<br>
 	&emsp; &lt;expression&gt;: {$, ;, r, &, |, +, -, )}<br><br>
 
-	&emsp;Při úpravě vstupu prohledáváme jak vstup, tak zásobník. Ten vyprazdňujeme dokud nezískáme z vrcholu neterminál z množiny.<br>
-	&emsp;Určíme si náhradní neterminál, jehož follow() použijeme při čtení vstupu, dokud nenalezneme shodu.<br>
-	&emsp;Celý takto přečtený řetězec přeskočíme.<br>
-	&emsp;Nahlednutím do LR tabulky goto[stav na vrcholu zásobníku, náhradní neterminál] získáme nový stav.<br>
-	&emsp;Vložíme na zásobník &lt;náhradní neterminál, nový stav&gt; a pokračujeme v analýze podle action[novy stav, symbol na vstupu].<br>
+	&emsp; Při úpravě vstupu prohledáváme jak vstup, tak zásobník. Ten vyprazdňujeme dokud nezískáme z vrcholu neterminál z množiny.<br>
+	&emsp; Určíme si náhradní neterminál, jehož follow() použijeme při čtení vstupu, dokud nenalezneme shodu.<br>
+	&emsp; Celý takto přečtený řetězec přeskočíme.<br>
+	&emsp; Nahlednutím do LR tabulky goto[stav na vrcholu zásobníku, náhradní neterminál] získáme nový stav.<br>
+	&emsp; Vložíme na zásobník &lt;náhradní neterminál, nový stav&gt; a pokračujeme v analýze podle action[novy stav, symbol na vstupu].<br>
 {% endblock %}

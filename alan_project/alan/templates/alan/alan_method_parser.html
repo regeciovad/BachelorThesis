@@ -92,10 +92,11 @@
     &emsp; Principem <strong>Alanovi metody</strong> je kontrola na zásobníku, kde předpokládáme neúplný handle (pravou stranu pravidla).<br>
     &emsp; V seznamu <a target="_blank" href="{% url 'grammar' %}">gramatických pravidel</a> hledáme shodu, přičemž hledáme zdola nahoru (od největšího pořadového čísla).<br>
     &emsp; Dle pravé strany nalezeného pravidla zásobník vyprázdníme, obdobně, jako bychom měli provést platnou redukci.<br>
-    &emsp;  Stejně jako v klasické analýze získáme nový stav pomocí <a target="_blank" href="{% url 'lrtable' %}">LR tabulky</a> goto[stav z vrcholu zásobníku, levá strana pravidla]. <br>
+    &emsp; Stejně jako v klasické analýze získáme nový stav pomocí <a target="_blank" href="{% url 'lrtable' %}">LR tabulky</a> goto[stav z vrcholu zásobníku, levá strana pravidla]. <br>
     &emsp; Tento nový stav i s levou stranou pravidla vložíme na zásobník.<br>
     &emsp; Aktualizujeme stav.<br>
-    &emsp; Nakonec dle levé strany pravidla zkontrolujeme vstup. Využíváme pro to množiny <strong>follow()</strong>. Vše do shody přeskočíme, abychom se vyhnuli nekonzistentnímu stavu.<br>
+    &emsp; Nakonec dle levé strany pravidla zkontrolujeme vstup. Využíváme pro to množiny <strong>follow()</strong>. Vše do shody přeskočíme,<br>
+    &emsp; abychom se vyhnuli nekonzistentnímu stavu.<br>
     &emsp; Následně pokračujeme v analýze podle <strong>action[novy stav, symbol na vstupu]</strong>.<br><br>
 
     &emsp; <strong>Follow():</strong><br>
