@@ -6,19 +6,32 @@ from django.test import TestCase
 from alan.panic_mode import PanicModeParser
 import time
 
+
 class PanicModeFollowMethodTests(TestCase):
 
-    def test_scanner_empty_program(self):
+    def test_panic_mode_empty_program(self):
         """
-            Test of empty program
+            Testing of empty code for parser.
         """
-        self.assertTrue(True)
-        """parser = PanicModeParser()
-        tokens = []
-        grammar_list = get_grammar()
-        begin = time.clock()
-        parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
-        end = time.clock()
-        mytime = end - begin
-        parser_result.append("Čas zotavení: %f \u03BCs" % mytime)"""
+        parser = PanicModeParser()
+        exit_code = 1
+        output = 'Syntaktická chyba - prázdný program'
+        parser_result = ['Panická metoda na tuto chybu nestačí.']
+        output_expected, [], [], exit, parser_result_expected = parser.parser_analysis()
+        if not output in output_expected:
+            raise TypeError("Something is wrong with checking empty program.")
+        self.assertEqual(parser_result, parser_result_expected)
+        self.assertEqual(exit, exit_code)
 
+    def test_parser_empty_grammar_list(self):
+        """
+            Testing of empty list of grammar rules for parser.
+            It should be error.
+        """
+        parser = PanicModeParser()
+        exit_code = 1
+        lex_code = '[i, a]'
+        output = (
+            ['Chyba programu - prázdná množina pravidel'], [], [], exit_code, [])
+        parser_result = parser.parser_analysis(lex_code)
+        self.assertEqual(parser_result, output)

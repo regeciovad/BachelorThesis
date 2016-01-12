@@ -41,7 +41,6 @@ class PanicModeParser(object):
 
         # List of grammar rules are missing
         if grammar == []:
-            self.panic_mode_result.append(" ")
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,

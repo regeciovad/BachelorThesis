@@ -5,7 +5,7 @@
 from django.test import TestCase
 from alan.parser import Parser
 from alan.models import Rule
-from populate_alan_newbie import populate
+from populate_alan import populate
 
 
 class ParserMethodTests(TestCase):
