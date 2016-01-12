@@ -40,6 +40,12 @@ def man(request):
     """ Render of man page """
     return render(request, 'alan/man.html', {})
 
+def report(request):
+    with open('./report.pdf', 'rb') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+        return response
+    pdf.closed
 
 def index(request):
     """ The page to obtain input for the scanner """
