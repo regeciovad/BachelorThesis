@@ -15,5 +15,4 @@ urlpatterns = [
     url(r'^comparison/$', views.comparison, name='comparison'),
     url(r'^man/$', views.man, name='man'),
     url(r'^download/$', views.download, name='download'),
-    url(r'^changelog/$', views.changelog, name='changelog'),
 ]
