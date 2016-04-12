@@ -14,6 +14,18 @@ class ScannerMethodTests(TestCase):
         """
         scanner = Scanner()
         output = []
+        code = ''
+        exit_code = 0
+        lex_code, exit = scanner.scanner_analysis(code)
+        self.assertEqual(lex_code, output)
+        self.assertEqual(exit, exit_code)
+
+    def test_scanner_comment_program(self):
+        """
+            Test of program with only a comment in it, not an lexical error.
+        """
+        scanner = Scanner()
+        output = []
         code = '{Zde je pouze komentar}'
         exit_code = 0
         lex_code, exit = scanner.scanner_analysis(code)
@@ -35,7 +47,7 @@ class ScannerMethodTests(TestCase):
 
     def test_scanner_double_program(self):
         """
-            Test code of FUN to make sure scanner can detect correct lexems.
+            Test code of FUN to make sure scanner can detect lexems correctly.
             Program Double is just a simple code printing double input value.
         """
         scanner = Scanner()
