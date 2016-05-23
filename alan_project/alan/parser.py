@@ -95,7 +95,7 @@ class Parser(object):
                 pop_stack.reverse()
                 if str(handle) == str(pop_stack):
                     self.result.append(
-                        'pravidlo ' + p + ': ' + left + ' -> ' + right)
+                        'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
                     actual_state = int(

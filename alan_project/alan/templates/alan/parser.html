@@ -106,21 +106,21 @@
         </td>
     </tr>
     <tr>
-        <td>&emsp;&emsp; <strong>rq</strong></td>
-        <td>&emsp; Redukce: pokud existuje pravidlo <strong>A -> X</strong> a na vrcholu zásobníku nalezneme
+        <td><br>&emsp;&emsp; <strong>rq</strong><br></td>
+        <td><br>&emsp; Redukce: pokud existuje pravidlo <strong>A &rarr; X</strong> a na vrcholu zásobníku nalezneme
             <strong>&lt;?, p&gt;&lt;X, ?&gt;</strong>,<br>
             &emsp; pak aktualizujeme stav dle tabulky <strong>goto[A, p]</strong>.<br>
             &emsp; Následně vyměníme <strong>&lt;X, ?&gt;</strong> za <strong>&lt;A, nový stav&gt;</strong>.
-            Jinak hlásíme <strong style="color:red">chybu</strong>.
+            Jinak překladač zahlásí <strong style="color:red">chybu</strong>.
         </td>
     </tr>
     <tr>
-        <td>&emsp;&emsp; <strong style="color:green">Acc</strong></td>
-        <td>&emsp; Vypíšeme na výstup, že syntaktická analýza proběhla úspěšně.</td>
+        <td><br>&emsp;&emsp; <strong style="color:green">Acc</strong></td>
+        <td><br>&emsp; Syntaktická analýza proběhla úspěšně.</td>
     </tr>
     <tr>
-        <td>&emsp;&emsp; <strong style="color:red">Nic</strong></td>
-        <td>&emsp; Vypíšeme na výstup, že jsme objevili syntaktickou chybu.</td>
+        <td><br>&emsp;&emsp; <strong style="color:red">Nic</strong></td>
+        <td><br>&emsp; Překladač objevil syntaktickou chybu.</td>
     </tr>
     </table>
 

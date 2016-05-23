@@ -88,7 +88,7 @@ class ParserAdHoc(object):
                 pop_stack.reverse()
                 if str(handle) == str(pop_stack):
                     self.result.append(
-                        'pravidlo ' + p + ': ' + left + ' -> ' + right)
+                        'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
                     actual_state = int(
@@ -133,13 +133,13 @@ class ParserAdHoc(object):
                     """ Diagnostic no. 2: Add variable
                         Adds token [i, help] into input.
                         Example: a+ """
-                    token = '[i, help]' 
+                    token = '[i, help]'
                     token_number -= 1
                     self.result.append('Byla použita ad hoc diagnostika číslo 2:')
                     self.result.append('Na vstup byl vložen token [i, help]')
 
                 elif function == '3':
-                    """ Diagnostic no. 3: Remove token 
+                    """ Diagnostic no. 3: Remove token
                         Removes token from input.
                         Example: (a)) """
                     removed = token
@@ -166,7 +166,7 @@ class ParserAdHoc(object):
                     token_number -= 1
                     self.result.append('Byla použita ad hoc diagnostika číslo 5:')
                     self.result.append('Na vstup byl vložen token [+]')
-                
+
                 # function number 6
                 else:
                     self.result.append('Tento stav je nedostupny.')

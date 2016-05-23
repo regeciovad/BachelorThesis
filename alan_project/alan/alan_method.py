@@ -101,7 +101,7 @@ class AlanMethodParser(object):
                 pop_stack.reverse()
                 if str(handle) == str(pop_stack):
                     self.result.append(
-                        'pravidlo ' + p + ': ' + left + ' -> ' + right)
+                        'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
                     actual_state = int(
@@ -152,11 +152,11 @@ class AlanMethodParser(object):
                 self.exit_code, self.alan_method_result)
 
     def alan_method(self):
-        """ 
+        """
             Alan method recovery
             This method was created for purpose of this Bachelor Thesis.
-            The principle is finding an incomplete handle on the stack and reduce it 
-            according the suitable rule. For limitation of unstable condition 
+            The principle is finding an incomplete handle on the stack and reduce it
+            according the suitable rule. For limitation of unstable condition
             it checks input for closest terminal from follow().
         """
         self.alan_method_result.append("Zahájení Alanovi metody.")
@@ -182,8 +182,8 @@ class AlanMethodParser(object):
             self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
             return 1
         self.alan_method_result.append("Nalezeno pravidlo: ")
-        self.alan_method_result.append(rule['left'] + " -> " + rule['right'])
-        print(rule['left'] + " -> " + rule['right'])
+        self.alan_method_result.append(rule['left'] + " \u2192 " + rule['right'])
+        print(rule['left'] + " \u2192 " + rule['right'])
 
         left = rule['left']
         handle = rule['right'].split(' ')

@@ -99,7 +99,7 @@ class PanicModeParserFirst(object):
                 pop_stack.reverse()
                 if str(handle) == str(pop_stack):
                     self.result.append(
-                        'pravidlo ' + p + ': ' + left + ' -> ' + right)
+                        'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
                     actual_state = int(
@@ -152,9 +152,9 @@ class PanicModeParserFirst(object):
 
     def panic_mode(self):
         """ Panic Mode recovery
-            This method is looking for the shortest substring in input. 
-            Panic mode skips it and continues in parsing. 
-            This classic version is using synchronization tokens 
+            This method is looking for the shortest substring in input.
+            Panic mode skips it and continues in parsing.
+            This classic version is using synchronization tokens
             with their sets first(). """
         self.panic_mode_result.append(
             'Zahájení panického módu s množinou first.')
