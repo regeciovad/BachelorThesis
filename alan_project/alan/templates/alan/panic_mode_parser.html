@@ -5,10 +5,10 @@
 <!-- File: panic_mode_parser.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 
-{% block title %} Panický mód (follow) {% endblock %}
+{% block title %} Panický mód (Follow) {% endblock %}
 
 {% block body_block %}
-<h2>Panický mód s množinou follow</h2>
+<h2>Panický mód s množinou Follow</h2>
 <form id="parser_form" method="post">
 {% csrf_token %}
 <table class="t01" align="center">
@@ -91,14 +91,14 @@
     &emsp; Principem Panického módu je nalezení co nejkratšího chybového řetězce, jeho přeskočení a pokračování v analýze.<br><br>
     &emsp; Nejdříve si definujeme množinu neterminálů, které označují logický celek programu:<br>
     &emsp; {&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>
-    &emsp; Také si musíme určit jejich množiny follow:<br>
+    &emsp; Také si musíme určit jejich množiny Follow:<br>
     &emsp; &lt;statement_list&gt;: {$}<br>
 	&emsp; &lt;statement&gt;: {$, ;, r, &, |}<br>
 	&emsp; &lt;condition&gt;: {$, ;, r, &, |}<br>
 	&emsp; &lt;expression&gt;: {$, ;, r, &, |, +, -, )}<br><br>
 
 	&emsp; Při úpravě vstupu prohledáváme jak vstup, tak zásobník. Ten vyprazdňujeme dokud nezískáme z vrcholu neterminál z množiny.<br>
-	&emsp; Určíme si náhradní neterminál, jehož follow() použijeme při čtení vstupu, dokud nenalezneme shodu.<br>
+	&emsp; Určíme si náhradní neterminál, jehož Follow() použijeme při čtení vstupu, dokud nenalezneme shodu.<br>
 	&emsp; Celý takto přečtený řetězec přeskočíme.<br>
 	&emsp; Nahlédnutím do LR tabulky goto[stav na vrcholu zásobníku, náhradní neterminál] získáme nový stav.<br>
 	&emsp; Vložíme na zásobník &lt;náhradní neterminál, nový stav&gt; a pokračujeme v analýze podle action[novy stav, symbol na vstupu].<br>

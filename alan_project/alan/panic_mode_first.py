@@ -155,14 +155,14 @@ class PanicModeParserFirst(object):
             This method is looking for the shortest substring in input.
             Panic mode skips it and continues in parsing.
             This classic version is using synchronization tokens
-            with their sets first(). """
+            with their sets First(). """
         self.panic_mode_result.append(
-            'Zahájení panického módu s množinou first.')
+            'Zahájení panického módu s množinou First.')
         first =  ['!', '(', 'i', '#']
         self.panic_mode_result.append(
             'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
         self.panic_mode_result.append(
-            'Hledáme symbol z množiny first: ' + str(first))
+            'Hledáme symbol z množiny First: ' + str(first))
         while True:
             if self.token[1] in first:
                     break
@@ -209,7 +209,7 @@ class PanicModeParserFirst(object):
             follow = ['$']
 
         self.panic_mode_result.append(
-            'Dále hledáme na vstupu symbol z follow(' + popped_token + '):')
+            'Dále hledáme na vstupu symbol z Follow(' + popped_token + '):')
         self.panic_mode_result.append(str(follow))
 
         while True:

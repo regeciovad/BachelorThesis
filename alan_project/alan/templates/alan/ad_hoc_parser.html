@@ -5,10 +5,10 @@
 <!-- File: ad_hoc_parser.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 
-{% block title %} Ad-Hoc Metoda {% endblock %}
+{% block title %} Ad-hoc Metoda {% endblock %}
 
 {% block body_block %}
-<h2>Ad-Hoc metoda</h2>
+<h2>Ad-hoc metoda</h2>
 <form id="parser_form" method="post">
 {% csrf_token %}
 <table class="t01" align="center">
@@ -81,13 +81,13 @@
 </table>
 </form>
     <h3>Vysvětlivka:</h3>
-    &emsp; Principem <strong>Ad-Hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
-    &emsp; Ty zaplníme množinou modifikací (diagnostikami), které mají zajistit zotavení z chyby. Jedná se například o přidání,<br>
+    &emsp; Principem <strong>Ad-hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
+    &emsp; Ty zaplníme množinou modifikací (rutinami), které mají zajistit zotavení z chyby. Jedná se například o přidání,<br>
     &emsp; či odebrání tokenu do vstupu, odebrání tokenu ze zásobníku, nebo úpravu vstupního tokenu.<br>
     &emsp; U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br>
     &emsp; Autor syntaktické analýzy si také musí dávat pozor na hrozbu zacyklení.<br><br>
 
-    &emsp; <strong>Projekt Alan má tyto diagnostiky:</strong><br><br>
+    &emsp; <strong>Projekt Alan má tyto rutiny:</strong><br><br>
     &emsp; <strong>F1:</strong> Odebrání tokenu ze zásobníku<br>
     &emsp; <strong>F2:</strong> Přidání proměnné <strong>i</strong> do vstupního řetězce<br>
     &emsp; <strong>F3:</strong> Odstranění tokenu ze vstupního řetězce<br>
@@ -95,7 +95,7 @@
     &emsp; <strong>F5:</strong> Přidání <strong>+</strong> do vstupního řetězce<br>
     &emsp; <strong>F6:</strong> Nedostupný stav<br><br>
 
-    &emsp; Níže je k nahlédnutí upravená tabulka, diagnostiky jsou označeny číslem v kroužku.<br><br>
+    &emsp; Níže je k nahlédnutí upravená tabulka, rutiny jsou označeny číslem v kroužku.<br><br>
 
 {% if table_action %}
 <table class="t01" style="float: left;">

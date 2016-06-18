@@ -95,7 +95,7 @@
     &emsp; Stejně jako v klasické analýze získáme nový stav pomocí <a target="_blank" href="{% url 'lrtable' %}">LR tabulky</a> goto[stav z vrcholu zásobníku, levá strana pravidla]. <br>
     &emsp; Tento nový stav i s levou stranou pravidla vložíme na zásobník.<br>
     &emsp; Aktualizujeme stav.<br>
-    &emsp; Nakonec dle levé strany pravidla zkontrolujeme vstup. Využíváme pro to množiny <strong>follow()</strong>. Vše do shody přeskočíme,<br>
+    &emsp; Nakonec dle levé strany pravidla zkontrolujeme vstup. Využíváme pro to množiny <strong>Follow()</strong>. Vše do shody přeskočíme,<br>
     &emsp; abychom se vyhnuli nekonzistentnímu stavu.<br>
     &emsp; Následně pokračujeme v analýze podle <strong>action[novy stav, symbol na vstupu]</strong>.<br><br>
 

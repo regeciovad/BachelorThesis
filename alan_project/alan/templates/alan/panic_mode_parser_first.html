@@ -5,10 +5,10 @@
 <!-- File: panic_mode_parser_first.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 
-{% block title %} Panický mód (first) {% endblock %}
+{% block title %} Panický mód (First) {% endblock %}
 
 {% block body_block %}
-<h2>Panický mód s množinou first</h2>
+<h2>Panický mód s množinou First</h2>
 <form id="parser_form" method="post">
 {% csrf_token %}
 <table class="t01" align="center">
@@ -89,10 +89,10 @@
 </form>
     <h3>Vysvětlivka:</h3>
     &emsp; Upravená metoda Panického módu.<br>
-    &emsp; Nejdříve hledáme na vstupu symbol z množiny <strong>first()</strong> a vše do tohoto symbolu přeskočíme.<br>
+    &emsp; Nejdříve hledáme na vstupu symbol z množiny <strong>First()</strong> a vše do tohoto symbolu přeskočíme.<br>
     &emsp; Poté prohledáváme zásobník pro synchronizační neterminál, kterým chceme pokrýt následující symboly ze vstupu.<br>
     &emsp; Vše do tohoto neterminálu odstraníme. <br>
-    &emsp; Poté opět prohledáváme vstup, abychom našli symbol z množiny <strong>follow()</strong>, tedy zakončení řetězce, který pokryjeme<br>
+    &emsp; Poté opět prohledáváme vstup, abychom našli symbol z množiny <strong>Follow()</strong>, tedy zakončení řetězce, který pokryjeme<br>
     &emsp; synchronizačním neterminálem.<br>
     &emsp; Tento řetězec odstraníme.<br>
     &emsp; Nakonec aktualizujeme stav dle synchronizačního neterminálu.<br>

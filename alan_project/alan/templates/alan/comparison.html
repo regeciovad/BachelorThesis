@@ -15,7 +15,7 @@
 <td>
 <table class="t02">
 <tr>
-  <th></th><th>Chybný vstup</th><th>Panický mód (follow)</th><th>Panický mód (first)</th><th>Ad-Hoc metoda</th><th>Alanova metoda</th>
+  <th></th><th>Chybný vstup</th><th>Panický mód (Follow)</th><th>Panický mód (First)</th><th>Ad-hoc metoda</th><th>Alanova metoda</th>
 </tr><tr>
 <td>1</td><td></td><td>ne / 1x / 0.015 ns / 3</td><td>ne / 1x / 0.010 ns / 3</td><td>ano / 1x / 0,383 ns / 1</td><td>ne / 1x / 0,010 ns /3</td>
 </tr><tr>
@@ -61,9 +61,11 @@
     &emsp; Hodnocení je inspirované dle * a obsahuje tří stupňové hodnocení:<br>
     &emsp;&emsp; <strong>1</strong> neboli <strong>vynikající</strong> - metoda opraví chybu tak, jak by učinil lidský čtenář.<br>
     &emsp;&emsp; <strong>2</strong> neboli <strong>dobré</strong> - rozumná oprava, která nevede k nekonzistentnímu stavu.<br>
-    &emsp;&emsp; <strong>3</strong> neboli <strong>špatné</strong> - nedostatečná oprava, která může vést k vícero chybám.<br>
+    &emsp;&emsp; <strong>3</strong> neboli <strong>špatné</strong> - nedostatečná oprava, která může vést k vytvoření dalších chyb.<br>
 
  <p>
-* BURKE, Michael and FISHER, Gerald. A Practical Method for LR and LL Syntactic Error Diagnosis and Recovery.
+* Burke, M. G. a Fisher, G. A.: <i>A practical method for LR and LL syntactic error
+diagnosis and recovery</i>. ACM Transactions on Programming Languages and Systems
+(TOPLAS).
 </p>
 {% endblock %}

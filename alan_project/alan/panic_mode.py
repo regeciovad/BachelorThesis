@@ -148,7 +148,7 @@ class PanicModeParser(object):
             This method is looking for the shortest substring in input.
             Panic mode skips it and continues in parsing.
             This classic version is using synchronization tokens
-            with their sets follow(). """
+            with their sets Follow(). """
 
         self.panic_mode_result.append("Zahájení panického módu.")
         synchronization_tokens = ['<term>', '<expression>', '<condition>',
@@ -184,7 +184,7 @@ class PanicModeParser(object):
             next = '<statement_list>'
 
         self.panic_mode_result.append("Aktuální vstup: " + str(self.tokens[self.token_number-1:]))
-        self.panic_mode_result.append("Hledáme symbol z množiny follow(" + next + "): " + str(follow))
+        self.panic_mode_result.append("Hledáme symbol z množiny Follow(" + next + "): " + str(follow))
 
         while True:
             if self.token[1] in follow:
@@ -194,7 +194,7 @@ class PanicModeParser(object):
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
                 except IndexError:
-                    self.panic_mode_result.append("Nebyl nalazen token z množiny follow.")
+                    self.panic_mode_result.append("Nebyl nalazen token z množiny Follow.")
                     self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
                     return 1
 

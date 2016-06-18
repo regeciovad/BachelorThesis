@@ -157,7 +157,7 @@ class AlanMethodParser(object):
             This method was created for purpose of this Bachelor Thesis.
             The principle is finding an incomplete handle on the stack and reduce it
             according the suitable rule. For limitation of unstable condition
-            it checks input for closest terminal from follow().
+            it checks input for closest terminal from Follow().
         """
         self.alan_method_result.append("Zahájení Alanovi metody.")
         # Get first token
