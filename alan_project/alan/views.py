@@ -35,11 +35,6 @@ def about(request):
     """ Render of about page """
     return render(request, 'alan/about.html', {})
 
-
-def man(request):
-    """ Render of man page """
-    return render(request, 'alan/man.html', {})
-
 def report(request):
     with open('./report.pdf', 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
