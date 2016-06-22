@@ -125,7 +125,7 @@ class ParserAdHoc(object):
                         Example: a; """
                     popped = self.stack.pop()
                     state = int(self.stack.get_topmost().split(',')[1][:-1])
-                    self.result.append('Byla použita ad hoc diagnostika číslo 1:')
+                    self.result.append('Byla použita Ad-hoc rutina číslo 1:')
                     self.result.append('Ze zásobníku byl vyňat token '
                         + popped)
 
@@ -135,7 +135,7 @@ class ParserAdHoc(object):
                         Example: a+ """
                     token = '[i, help]'
                     token_number -= 1
-                    self.result.append('Byla použita ad hoc diagnostika číslo 2:')
+                    self.result.append('Byla použita Ad-hoc rutina číslo 2:')
                     self.result.append('Na vstup byl vložen token [i, help]')
 
                 elif function == '3':
@@ -145,7 +145,7 @@ class ParserAdHoc(object):
                     removed = token
                     token = tokens[token_number]
                     token_number += 1
-                    self.result.append('Byla použita ad hoc diagnostika číslo 3:')
+                    self.result.append('Byla použita Ad-hoc rutina číslo 3:')
                     self.result.append('Ze vstupu byl odstraněn token '
                         + removed)
 
@@ -155,7 +155,7 @@ class ParserAdHoc(object):
                         Example: (a """
                     token = '[)]'
                     token_number -= 1
-                    self.result.append('Byla použita ad hoc diagnostika číslo 4:')
+                    self.result.append('Byla použita Ad-hoc rutina číslo 4:')
                     self.result.append('Na vstup byl vložen token [)]')
 
                 elif function == '5':
@@ -164,12 +164,12 @@ class ParserAdHoc(object):
                         Example: 42 13 """
                     token = '[+]'
                     token_number -= 1
-                    self.result.append('Byla použita ad hoc diagnostika číslo 5:')
+                    self.result.append('Byla použita Ad-hoc rutina číslo 5:')
                     self.result.append('Na vstup byl vložen token [+]')
 
                 # function number 6
                 else:
-                    self.result.append('Tento stav je nedostupny.')
+                    self.result.append('Tento stav je nedostupný.')
                     self.exit_code = 1
                     self.stackHistory.append('')
                     self.stateHistory.append('')

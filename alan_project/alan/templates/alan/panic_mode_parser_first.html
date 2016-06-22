@@ -92,11 +92,11 @@
     &emsp; Nejdříve hledáme na vstupu symbol z množiny <strong>First()</strong> a vše do tohoto symbolu přeskočíme.<br>
     &emsp; Poté prohledáváme zásobník pro synchronizační neterminál, kterým chceme pokrýt následující symboly ze vstupu.<br>
     &emsp; Vše do tohoto neterminálu odstraníme. <br>
-    &emsp; Poté opět prohledáváme vstup, abychom našli symbol z množiny <strong>Follow()</strong>, tedy zakončení řetězce, který pokryjeme<br>
-    &emsp; synchronizačním neterminálem.<br>
+    &emsp; Poté opět prohledáváme vstup, abychom našli symbol z množiny <strong>Follow()</strong>, tedy zakončení řetězce, který pokryjeme
+    synchronizačním neterminálem.<br>
     &emsp; Tento řetězec odstraníme.<br>
     &emsp; Nakonec aktualizujeme stav dle synchronizačního neterminálu.<br>
-    &emsp; Následně pokračujeme v analýze podle action[novy stav, symbol na vstupu].<br><br>
+    &emsp; Následně pokračujeme v analýze podle <strong>action[novy stav, symbol na vstupu]</strong>.<br><br>
 
     &emsp; <strong>Množina synchronizačním neterminálů:</strong><br>
     &emsp; {&lt;expression&gt;, &lt;condition&gt;, &lt;statement&gt;, &lt;statement_list&gt;}<br><br>

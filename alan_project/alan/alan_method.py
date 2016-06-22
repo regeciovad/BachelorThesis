@@ -159,7 +159,7 @@ class AlanMethodParser(object):
             according the suitable rule. For limitation of unstable condition
             it checks input for closest terminal from Follow().
         """
-        self.alan_method_result.append("Zahájení Alanovi metody.")
+        self.alan_method_result.append("Zahájení Alanovy metody.")
         # Get first token
         popped = self.stack.pop()
         # In case it was last token method can not work
@@ -238,5 +238,5 @@ class AlanMethodParser(object):
                     return 1
 
         self.alan_method_result.append('Aktualizace stavu: ' + str(self.state))
-        self.alan_method_result.append('Ukončení Alanovi metody.')
+        self.alan_method_result.append('Ukončení Alanovy metody.')
         return 0

@@ -5,7 +5,7 @@
 <!-- File: ad_hoc_parser.html -->
 <!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
 
-{% block title %} Ad-hoc Metoda {% endblock %}
+{% block title %} Ad-hoc metoda {% endblock %}
 
 {% block body_block %}
 <h2>Ad-hoc metoda</h2>
@@ -81,10 +81,10 @@
 </table>
 </form>
     <h3>Vysvětlivka:</h3>
-    &emsp; Principem <strong>Ad-hoc metody</strong> je doplnění prázdných políček z části tabulky action.<br>
-    &emsp; Ty zaplníme množinou modifikací (rutinami), které mají zajistit zotavení z chyby. Jedná se například o přidání,<br>
-    &emsp; či odebrání tokenu do vstupu, odebrání tokenu ze zásobníku, nebo úpravu vstupního tokenu.<br>
-    &emsp; U každého prázdného políčka je nutné si stanovit nepravděpodobnější příčinu chyby a způsob zotavení.<br>
+    &emsp; Principem <strong>Ad-hoc metody</strong> je doplnění prázdných políček z části LR tabulky <i>action</i>.<br>
+    &emsp; Ty zaplníme množinou modifikací (<strong>rutinami</strong>), které mají zajistit zotavení z chyby. <br>
+    &emsp; Jedná se například o přidání, či odebrání tokenu ze vstupu, odebrání tokenu ze zásobníku, nebo úpravu vstupního tokenu.<br>
+    &emsp; U každého prázdného políčka je nutné stanovit si nepravděpodobnější příčinu chyby a způsob zotavení.<br>
     &emsp; Autor syntaktické analýzy si také musí dávat pozor na hrozbu zacyklení.<br><br>
 
     &emsp; <strong>Projekt Alan má tyto rutiny:</strong><br><br>
@@ -95,7 +95,10 @@
     &emsp; <strong>F5:</strong> Přidání <strong>+</strong> do vstupního řetězce<br>
     &emsp; <strong>F6:</strong> Nedostupný stav<br><br>
 
-    &emsp; Níže je k nahlédnutí upravená tabulka, rutiny jsou označeny číslem v kroužku.<br><br>
+    &emsp; Nedostupný stav neslouží k zotavení, ale zajišťuje kontrolu, zda se překladač nedostal do nedefinovaného stavu,
+    kdy již není možné dokončit syntaktickou analýzu. <br>
+    &emsp; Níže je k nahlédnutí upravená LR tabulka, rutiny jsou označeny číslem v kroužku.<br>
+    &emsp; LR tabulka je také k dispozici na odkaze <a target="_blank" href="{% url 'ahlrtable' %}">zde.</a><br><br>
 
 {% if table_action %}
 <table class="t01" style="float: left;">

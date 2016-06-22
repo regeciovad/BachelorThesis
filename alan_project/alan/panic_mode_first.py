@@ -157,7 +157,7 @@ class PanicModeParserFirst(object):
             This classic version is using synchronization tokens
             with their sets First(). """
         self.panic_mode_result.append(
-            'Zahájení panického módu s množinou First.')
+            'Zahájení Panického módu s množinou First.')
         first =  ['!', '(', 'i', '#']
         self.panic_mode_result.append(
             'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
@@ -174,7 +174,7 @@ class PanicModeParserFirst(object):
                         self.panic_mode_result.append(
                             'Na vstupu nebyl nalezen žádný symbol z této množiny.')
                         self.panic_mode_result.append(
-                            'Panická metoda na tuto chybu nestaci.')
+                            'Panická metoda na tuto chybu nestačí.')
                         return 1
         self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
         synchronization_tokens = ['<condition>', '<statement>',

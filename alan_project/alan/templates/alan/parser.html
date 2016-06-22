@@ -101,15 +101,14 @@
     <table style="text-align:left">
     <tr>
         <td>&emsp;&emsp; <strong>sp</strong></td>
-        <td>&emsp; Shift: na zásobník vložíme <strong>&lt;a, p&gt;</strong>, přečteme
+        <td>&emsp; <i>Shift</i>: na zásobník vložíme <strong>&lt;a, p&gt;</strong>, přečteme
             další token ze vstupu a stav aktualizujeme na <strong>p</strong>.
         </td>
     </tr>
     <tr>
         <td><br>&emsp;&emsp; <strong>rq</strong><br></td>
-        <td><br>&emsp; Redukce: pokud existuje pravidlo <strong>A &rarr; X</strong> a na vrcholu zásobníku nalezneme
-            <strong>&lt;?, p&gt;&lt;X, ?&gt;</strong>,<br>
-            &emsp; pak aktualizujeme stav dle tabulky <strong>goto[A, p]</strong>.<br>
+        <td><br>&emsp; <i>Redukce</i>: pokud existuje pravidlo <strong>A &rarr; X</strong> a na vrcholu zásobníku nalezneme
+            <strong>&lt;?, p&gt;&lt;X, ?&gt;</strong>, pak aktualizujeme stav dle tabulky <strong>goto[A, p]</strong>.<br>
             &emsp; Následně vyměníme <strong>&lt;X, ?&gt;</strong> za <strong>&lt;A, nový stav&gt;</strong>.
             Jinak překladač zahlásí <strong style="color:red">chybu</strong>.
         </td>
@@ -125,6 +124,6 @@
     </table>
 
     &emsp; <strong>Dokud neuspějeme s analýzou, nebo neobjevíme chybu.</strong>
-    <br>
+    <br><br>
 
 {% endblock %}

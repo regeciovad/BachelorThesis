@@ -150,7 +150,7 @@ class PanicModeParser(object):
             This classic version is using synchronization tokens
             with their sets Follow(). """
 
-        self.panic_mode_result.append("Zahájení panického módu.")
+        self.panic_mode_result.append("Zahájení Panického módu.")
         synchronization_tokens = ['<term>', '<expression>', '<condition>',
             '<statement>', '<statement_list>']
 
@@ -212,5 +212,5 @@ class PanicModeParser(object):
         self.panic_mode_result.append(
             'Vloženo na zásobník: ' + '<' + str(next) + ', ' +
             str(self.state) + '>')
-        self.panic_mode_result.append('Ukončení panického módu.')
+        self.panic_mode_result.append('Ukončení Panického módu.')
         return 0
