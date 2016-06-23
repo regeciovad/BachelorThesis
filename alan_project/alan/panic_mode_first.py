@@ -40,7 +40,6 @@ class PanicModeParserFirst(object):
 
         # List of grammar rules are missing
         if grammar == []:
-            self.panic_mode_result.append(" ")
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
@@ -131,18 +130,11 @@ class PanicModeParserFirst(object):
             # action[state][token] == blank, source code has some syntax error
             else:
                 self.result.append('syntaktická chyba')
-                self.result.append('Zahájení zotavovací metody')
-                self.result.append('...')
                 self.exit_code = 1
                 self.stackHistory.append('')
-                self.stackHistory.append('')
-                self.stackHistory.append('')
-                self.stateHistory.append('')
-                self.stateHistory.append('')
                 self.stateHistory.append('')
                 panic_mode_exit = self.panic_mode()
                 if panic_mode_exit == 1:
-                    self.result.append('Syntaktická analýza nemůže dále pokračovat.')
                     break
                 self.stackHistory.append(self.stack.get_stack())
 
@@ -190,7 +182,7 @@ class PanicModeParserFirst(object):
                 self.panic_mode_result.append(
                     'Nebyl nalezen synchronizační neterminál.')
                 self.panic_mode_result.append(
-                    'Panická metoda na tuto chybu nestaci.')
+                    'Panická metoda na tuto chybu nestačí.')
                 return 1
             popped_token = popped.split(',')[0][1:]
             if popped_token in synchronization_tokens:
@@ -223,12 +215,12 @@ class PanicModeParserFirst(object):
                     self.panic_mode_result.append(
                         'Na vstupu nebyl nalezen žádný symbol z této množiny.')
                     self.panic_mode_result.append(
-                        'Panická metoda na tuto chybu nestaci.')
+                        'Panická metoda na tuto chybu nestačí.')
                     return 1
         self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
         state = int(self.stack.get_topmost().split(',')[1][:-1])
         self.state = state
         self.stateHistory.append(state)
         self.panic_mode_result.append('Aktualizace stavu: ' + str(self.state))
-        self.panic_mode_result.append('Ukončení panického módu.')
+        self.panic_mode_result.append('Ukončení Panického módu.')
         return 0

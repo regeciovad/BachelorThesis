@@ -1,0 +1,2 @@
+{This FUN program is for testing syntax error}
+(a + b)c)

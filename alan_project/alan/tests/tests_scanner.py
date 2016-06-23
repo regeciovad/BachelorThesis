@@ -145,7 +145,7 @@ class ScannerMethodTests(TestCase):
         scanner = Scanner()
         exit_code = 0
         output = ['[i, result]', '[r, ==]', '[!]']
-        with open('files/test_fun_end_not.txt') as f:
+        with open('files/se_test_fun_end_not.txt') as f:
             code = f.read()
         lex_code, exit = scanner.scanner_analysis(code)
         self.assertEqual(lex_code, output)
@@ -159,7 +159,7 @@ class ScannerMethodTests(TestCase):
         scanner = Scanner()
         exit_code = 0
         output = ['[i, result]', '[r, >]']
-        with open('files/test_fun_end_bigger.txt') as f:
+        with open('files/se_test_fun_end_bigger.txt') as f:
             code = f.read()
         lex_code, exit = scanner.scanner_analysis(code)
         self.assertEqual(lex_code, output)
@@ -173,7 +173,7 @@ class ScannerMethodTests(TestCase):
         scanner = Scanner()
         exit_code = 0
         output = ['[i, result]', '[r, <]']
-        with open('files/test_fun_end_smaller.txt') as f:
+        with open('files/se_test_fun_end_smaller.txt') as f:
             code = f.read()
         lex_code, exit = scanner.scanner_analysis(code)
         self.assertEqual(lex_code, output)

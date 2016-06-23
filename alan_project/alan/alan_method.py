@@ -133,18 +133,11 @@ class AlanMethodParser(object):
             # action[state][token] == blank, source code has some syntax error
             else:
                 self.result.append('syntaktická chyba')
-                self.result.append('Zahájení zotavovací metody')
-                self.result.append('...')
                 self.exit_code = 1
                 self.stackHistory.append('')
-                self.stackHistory.append('')
-                self.stackHistory.append('')
-                self.stateHistory.append('')
-                self.stateHistory.append('')
                 self.stateHistory.append('')
                 alan_method_exit = self.alan_method()
                 if alan_method_exit == 1:
-                    self.result.append('Syntaktická analýza nemůže dále pokračovat.')
                     break
 
         # Return results
@@ -165,7 +158,7 @@ class AlanMethodParser(object):
         # In case it was last token method can not work
         if str(popped) == '<$, 0>' or popped == None:
             self.alan_method_result.append("Nenalazen žádný záchytný token.")
-            self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
+            self.alan_method_result.append("Alanova metoda na tuto chybu nestačí.")
             return 1
         else:
             popped = popped.split(',')[0][1:]
@@ -176,26 +169,23 @@ class AlanMethodParser(object):
             right_side = rule['right']
             if popped in right_side.split(' ') and popped!=rule['left']:
                 break
-        print(right_side)
         if right_side == '':
             self.alan_method_result.append("Nenalazeno žádné vhodné pravidlo.")
-            self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
+            self.alan_method_result.append("Alanova metoda na tuto chybu nestačí.")
             return 1
         self.alan_method_result.append("Nalezeno pravidlo: ")
         self.alan_method_result.append(rule['left'] + " \u2192 " + rule['right'])
-        print(rule['left'] + " \u2192 " + rule['right'])
 
         left = rule['left']
         handle = rule['right'].split(' ')
         position = handle.index(popped)
-        print(position)
 
         # position is saying how many token we have to pop from the stack
         for x in range(position):
             check = self.stack.pop()
             if str(check) == '<$, 0>' or check == None:
                 self.alan_method_result.append("Konec zásobníku.")
-                self.alan_method_result.append("Alanova metoda na tuto chybu nestaci.")
+                self.alan_method_result.append("Alanova metoda na tuto chybu nestačí.")
                 return 1
             # For case the handle is more incorrect than we expected
             if str(check.split(',')[0][1:]) == handle[0]:
@@ -234,7 +224,7 @@ class AlanMethodParser(object):
                     self.panic_method_result.append(
                         'Na vstupu nebyl nalezen žádný symbol z této množiny.')
                     self.panic_method_result.append(
-                        'Panicka metoda na tuto chybu nestaci.')
+                        'Panicka metoda na tuto chybu nestačí.')
                     return 1
 
         self.alan_method_result.append('Aktualizace stavu: ' + str(self.state))

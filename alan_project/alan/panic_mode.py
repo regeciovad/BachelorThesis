@@ -194,7 +194,7 @@ class PanicModeParser(object):
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
                 except IndexError:
-                    self.panic_mode_result.append("Nebyl nalazen token z množiny Follow.")
+                    self.panic_mode_result.append("Nebyl nalezen token z množiny Follow.")
                     self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
                     return 1
 
@@ -202,7 +202,7 @@ class PanicModeParser(object):
         state = int(self.stack.get_topmost().split(',')[1][:-1])
         goto_state = self.goto[state][next]
         if goto_state == '':
-            self.panic_mode_result.append("Parser se dostal do nestandartního stavu.")
+            self.panic_mode_result.append("Parser se dostal do nedefinovaného stavu.")
             self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
             return 1
         self.state = int(self.goto[state][next])
