@@ -4,9 +4,9 @@
 
 from django.test import TestCase
 from alan.panic_mode_first import PanicModeParserFirst
-import time
 from alan.models import Rule
 from populate_alan import populate
+
 
 class PanicModeFirstMethodTests(TestCase):
 
@@ -520,7 +520,7 @@ class PanicModeFirstMethodTests(TestCase):
                            'pravidlo 9: <expression> \u2192 <expression> + <term>',
                            'goto[8, <expression>] = 20', 'action[20, )] = s29', 'action[29, i] = ',
                            'syntaktická chyba', 'action[20, )] = s29', 'action[29, $] = r15',
-                           'pravidlo 15: <factor> \u2192 ( <expression> )', 
+                           'pravidlo 15: <factor> \u2192 ( <expression> )',
                            'goto[0, <factor>] = 7', 'action[7, $] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
                            'goto[0, <term>] = 6', 'action[6, $] = r11',

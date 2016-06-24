@@ -4,7 +4,6 @@
 
 from .stack import Stack
 from .lrtable import LRTable
-import time
 
 
 class AlanMethodParser(object):
@@ -24,7 +23,6 @@ class AlanMethodParser(object):
         # LR Table
         self.lrtable = LRTable()
         self.alan_time = 0
-
 
     def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Alan Method recovery
@@ -156,7 +154,7 @@ class AlanMethodParser(object):
         # Get first token
         popped = self.stack.pop()
         # In case it was last token method can not work
-        if str(popped) == '<$, 0>' or popped == None:
+        if str(popped) == '<$, 0>' or popped is None:
             self.alan_method_result.append("Nenalazen žádný záchytný token.")
             self.alan_method_result.append("Alanova metoda na tuto chybu nestačí.")
             return 1
@@ -167,7 +165,7 @@ class AlanMethodParser(object):
         right_side = ''
         for rule in reversed(self.grammar):
             right_side = rule['right']
-            if popped in right_side.split(' ') and popped!=rule['left']:
+            if popped in right_side.split(' ') and popped != rule['left']:
                 break
         if right_side == '':
             self.alan_method_result.append("Nenalazeno žádné vhodné pravidlo.")
@@ -183,7 +181,7 @@ class AlanMethodParser(object):
         # position is saying how many token we have to pop from the stack
         for x in range(position):
             check = self.stack.pop()
-            if str(check) == '<$, 0>' or check == None:
+            if str(check) == '<$, 0>' or check is None:
                 self.alan_method_result.append("Konec zásobníku.")
                 self.alan_method_result.append("Alanova metoda na tuto chybu nestačí.")
                 return 1

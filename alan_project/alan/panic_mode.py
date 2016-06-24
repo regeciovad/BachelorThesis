@@ -5,6 +5,7 @@
 from .stack import Stack
 from .lrtable import LRTable
 
+
 class PanicModeParser(object):
 
     def __init__(self):
@@ -22,7 +23,6 @@ class PanicModeParser(object):
         # LR Table
         self.lrtable = LRTable()
         self.panic_time = 0
-
 
     def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Panic Mode recovery
@@ -152,11 +152,11 @@ class PanicModeParser(object):
 
         self.panic_mode_result.append("Zahájení Panického módu.")
         synchronization_tokens = ['<term>', '<expression>', '<condition>',
-            '<statement>', '<statement_list>']
+                                  '<statement>', '<statement_list>']
 
         while True:
             popped = self.stack.pop()
-            if str(popped) == '<$, 0>' or popped == None:
+            if str(popped) == '<$, 0>' or popped is None:
                 self.panic_mode_result.append("Zásobník byl plně vyprázdněn.")
                 self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
                 return 1

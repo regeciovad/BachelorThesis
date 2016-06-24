@@ -4,9 +4,9 @@
 
 from django.test import TestCase
 from alan.ad_hoc import ParserAdHoc
-import time
 from alan.models import Rule
 from populate_alan import populate
+
 
 class AdHocMethodTests(TestCase):
 
@@ -24,7 +24,7 @@ class AdHocMethodTests(TestCase):
         exit_code = 0
         stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
-            ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'] , '', '',
+            ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'], '', '',
             ['<$, 0>', '<<statement_list>, 1>'], '']
         state_expected = [0, 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, '', '', 1, '']
         output_expected = ['action[0, $] = f2', 'Byla použita Ad-hoc rutina číslo 2:',
@@ -131,7 +131,7 @@ class AdHocMethodTests(TestCase):
                           'action[3, $] = r6', 'pravidlo 6: <statement> \u2192 <condition>', 'goto[11, <statement>] = 2',
                           'action[2, $] = r2', 'pravidlo 2: <statement_list> \u2192 <statement>', 'goto[11, <statement_list>] = 21',
                           'action[21, $] = r1', 'pravidlo 1: <statement_list> \u2192 <statement> ; <statement_list>',
-                          'goto[0, <statement_list>] = 1', 'action[1, $] = acc','success']
+                          'goto[0, <statement_list>] = 1', 'action[1, $] = acc', 'success']
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -157,10 +157,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[16, $] = f2'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_a_b(self):
@@ -179,10 +179,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[9, i] = f3'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_two_plus(self):
@@ -201,10 +201,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[16, +] = f3'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_a_less(self):
@@ -223,10 +223,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[12, $] = f2'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_bracket_without_end(self):
@@ -245,10 +245,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[20, $] = f4'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_bracket_two_in_end(self):
@@ -267,10 +267,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[5, )] = f3'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_wrong_bracket(self):
@@ -289,10 +289,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[0, )] = f3'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_empty_bracket(self):
@@ -311,10 +311,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[8, )] = f2'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_not_in_brackets(self):
@@ -333,10 +333,10 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[8, !] = f3'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_ad_hoc_bracket_and_op(self):
@@ -355,11 +355,11 @@ class AdHocMethodTests(TestCase):
         output_expected = 'success'
         routine_expected = 'action[29, i] = f5'
         output, stack, state, exit = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
         routine_expected = 'action[5, )] = f3'
-        if not output_expected in output:
-             raise TypeError("Ad-hoc did not fixed the error")
-        if not routine_expected in output:
-             raise TypeError("Ad-hoc did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Ad-hoc did not fixed the error")
+        if routine_expected not in output:
+            raise TypeError("Ad-hoc did not use expected routine")
         self.assertEqual(exit, exit_code)

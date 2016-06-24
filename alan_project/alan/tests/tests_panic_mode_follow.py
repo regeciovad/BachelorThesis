@@ -4,7 +4,6 @@
 
 from django.test import TestCase
 from alan.panic_mode import PanicModeParser
-import time
 from alan.models import Rule
 from populate_alan import populate
 

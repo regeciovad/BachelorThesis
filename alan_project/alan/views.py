@@ -35,12 +35,14 @@ def about(request):
     """ Render of about page """
     return render(request, 'alan/about.html', {})
 
+
 def report(request):
     with open('./report.pdf', 'rb') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=some_file.pdf'
         return response
     pdf.closed
+
 
 def index(request):
     """ The page to obtain input for the scanner """
@@ -122,6 +124,7 @@ def run_panic_mode_parser(request):
                   'state': state, 'exit_code': exit_code,
                   'panic_mode': panic_mode})
 
+
 def run_panic_mode_parser_first(request):
     """ This view is called by button 'Spustit Panic mode'
         in parser.html and return results of the first advanced
@@ -144,6 +147,7 @@ def run_panic_mode_parser_first(request):
                   'parser_result': parser_result, 'stack': stack,
                   'state': state, 'exit_code': exit_code,
                   'panic_mode': panic_mode})
+
 
 def run_parser_ad_hoc(request):
     """ This view is called by button 'Spustit Ad-hoc'
@@ -170,6 +174,7 @@ def run_parser_ad_hoc(request):
                   'state': state, 'exit_code': exit_code,
                   'table_action': table_action, 'table_goto': table_goto})
 
+
 def run_alan_method_parser(request):
     """ This view is called by button 'Spustit Alan method'
         in parser.html and return results of the first advanced
@@ -193,6 +198,7 @@ def run_alan_method_parser(request):
                   'state': state, 'exit_code': exit_code,
                   'alan_method': alan_method})
 
+
 def comparison(request):
     return render(request, 'alan/comparison.html', {})
 
@@ -212,6 +218,7 @@ def lrtable(request):
     table_action, table_goto = lrtable.generate_table_print()
     return render(request, 'alan/lrtable.html', {'table_action': table_action,
                   'table_goto': table_goto})
+
 
 def ad_hoc_lrtable(request):
     lrtable = LRTable()

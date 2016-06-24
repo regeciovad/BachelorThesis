@@ -4,7 +4,6 @@
 
 from .stack import Stack
 from .lrtable import LRTable
-import time
 
 
 class ParserAdHoc(object):
@@ -120,14 +119,14 @@ class ParserAdHoc(object):
                 function = cell[1:]
                 if function == '1':
                     """ Diagnostic no. 1: Pop stack
-                        Pops up one terminal from stack and returns actual state
-                        from top of the stack.
+                        Pops up one terminal from stack and returns actual
+                        state from top of the stack.
                         Example: a; """
                     popped = self.stack.pop()
                     state = int(self.stack.get_topmost().split(',')[1][:-1])
                     self.result.append('Byla použita Ad-hoc rutina číslo 1:')
                     self.result.append('Ze zásobníku byl vyňat token '
-                        + popped)
+                                       + popped)
 
                 elif function == '2':
                     """ Diagnostic no. 2: Add variable
@@ -147,7 +146,7 @@ class ParserAdHoc(object):
                     token_number += 1
                     self.result.append('Byla použita Ad-hoc rutina číslo 3:')
                     self.result.append('Ze vstupu byl odstraněn token '
-                        + removed)
+                                       + removed)
 
                 elif function == '4':
                     """ Diagnostic no. 4: Add '('

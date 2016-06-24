@@ -150,7 +150,7 @@ class PanicModeParserFirst(object):
             with their sets First(). """
         self.panic_mode_result.append(
             'Zahájení Panického módu s množinou First.')
-        first =  ['!', '(', 'i', '#']
+        first = ['!', '(', 'i', '#']
         self.panic_mode_result.append(
             'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
         self.panic_mode_result.append(
@@ -170,7 +170,7 @@ class PanicModeParserFirst(object):
                         return 1
         self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
         synchronization_tokens = ['<condition>', '<statement>',
-            '<statement_list>']
+                                  '<statement_list>']
         if self.token != '!':
             synchronization_tokens.append('<expression>')
         self.panic_mode_result.append(
@@ -178,7 +178,7 @@ class PanicModeParserFirst(object):
         self.panic_mode_result.append(str(synchronization_tokens))
         while True:
             popped = self.stack.get_topmost()
-            if str(popped) == '<$, 0>' or popped == None:
+            if str(popped) == '<$, 0>' or popped is None:
                 self.panic_mode_result.append(
                     'Nebyl nalezen synchronizační neterminál.')
                 self.panic_mode_result.append(

@@ -443,6 +443,3 @@ class ParserMethodTests(TestCase):
         self.assertEqual(stack, stack_expected)
         self.assertEqual(state, state_expected)
         self.assertEqual(exit, exit_code)
-
-
-

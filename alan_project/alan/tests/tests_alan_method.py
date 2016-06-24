@@ -4,9 +4,9 @@
 
 from django.test import TestCase
 from alan.alan_method import AlanMethodParser
-import time
 from alan.models import Rule
 from populate_alan import populate
+
 
 class AlanMethodTests(TestCase):
 
@@ -19,7 +19,7 @@ class AlanMethodTests(TestCase):
         output_expected = 'Syntaktická chyba - prázdný program'
         parser_result_expected = []
         output, [], [], exit, parser_result = parser.parser_analysis()
-        if not output_expected in output:
+        if output_expected not in output:
             raise TypeError("Something is wrong with checking empty program.")
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(exit, exit_code)
@@ -53,10 +53,10 @@ class AlanMethodTests(TestCase):
         output_expected = 'success'
         rule_expected = '<statement_list> \u2192 <statement> ; <statement_list>'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Alan method did not fixed the error")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Alan method did not fixed the error")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_two_semicolons(self):
@@ -75,10 +75,10 @@ class AlanMethodTests(TestCase):
         output_expected = 'success'
         rule_expected = '<statement_list> \u2192 <statement> ; <statement_list>'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Alan method did not fixed the error")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Alan method did not fixed the error")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_a_plus(self):
@@ -97,10 +97,10 @@ class AlanMethodTests(TestCase):
         output_expected = 'success'
         rule_expected = '<expression> \u2192 <expression> + <term>'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Alan method did not fixed the error")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Alan method did not fixed the error")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_a_b(self):
@@ -119,10 +119,10 @@ class AlanMethodTests(TestCase):
         output_expected = 'success'
         rule_expected = '<factor> \u2192 i'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Alan method did not fixed the error")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Alan method did not fixed the error")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_two_plus(self):
@@ -141,10 +141,10 @@ class AlanMethodTests(TestCase):
         output_expected = 'success'
         rule_expected = '<expression> \u2192 <expression> + <term>'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Alan method did not fixed the error")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Alan method did not fixed the error")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_a_less(self):
@@ -163,10 +163,10 @@ class AlanMethodTests(TestCase):
         output_expected = 'success'
         rule_expected = '<statement> \u2192 <statement> r <condition>'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Alan method did not fixed the error")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Alan method did not fixed the error")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_bracket_without_end(self):
@@ -185,10 +185,10 @@ class AlanMethodTests(TestCase):
         output_expected = 'success'
         rule_expected = '<factor> \u2192 ( <expression> )'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
-        if not output_expected in output:
-             raise TypeError("Alan method did not fixed the error")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+        if output_expected not in output:
+            raise TypeError("Alan method did not fixed the error")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_bracket_two_in_end(self):
@@ -208,9 +208,9 @@ class AlanMethodTests(TestCase):
         rule_expected = '<factor> \u2192 ( <expression> )'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
-             raise TypeError("Really?")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+            raise TypeError("Really?")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_wrong_bracket(self):
@@ -230,9 +230,9 @@ class AlanMethodTests(TestCase):
         rule_expected = 'Nenalazen žádný záchytný token.'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
-             raise TypeError("Really?")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+            raise TypeError("Really?")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_empty_bracket(self):
@@ -252,9 +252,9 @@ class AlanMethodTests(TestCase):
         rule_expected = '<factor> \u2192 ( <expression> )'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
-             raise TypeError("Really?")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+            raise TypeError("Really?")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_not_in_brackets(self):
@@ -274,9 +274,9 @@ class AlanMethodTests(TestCase):
         rule_expected = '<factor> \u2192 ( <expression> )'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
-             raise TypeError("Really?")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+            raise TypeError("Really?")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
 
     def test_alan_method_bracket_and_op(self):
@@ -296,10 +296,7 @@ class AlanMethodTests(TestCase):
         rule_expected = '<factor> \u2192 ( <expression> )'
         output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
-             raise TypeError("Really?")
-        if not rule_expected in parser_result:
-             raise TypeError("Alan method  did not use expected routine")
+            raise TypeError("Really?")
+        if rule_expected not in parser_result:
+            raise TypeError("Alan method  did not use expected routine")
         self.assertEqual(exit, exit_code)
-
-
-
