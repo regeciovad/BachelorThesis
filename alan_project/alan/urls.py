@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^ad_hoc/$', views.run_parser_ad_hoc, name='ad_hoc'),
     url(r'^alan_method/$', views.run_alan_method_parser, name='alan_method'),
     url(r'^comparison/$', views.comparison, name='comparison'),
+    url(r'^man/$', views.man, name='man'),
     url(r'^download/$', views.download, name='download'),
     url(r'^report/$', views.report, name='report'),
 ]

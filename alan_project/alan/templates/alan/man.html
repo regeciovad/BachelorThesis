@@ -1,0 +1,64 @@
+{% extends 'alan/base.html' %}
+{% load staticfiles %}
+
+<!-- Bachelor Thesis GUI -->
+<!-- man.html -->
+<!-- Author: Dominika Regeciova, xregec00@stud.fit.vutbr.cz -->
+
+{% block title %} Projekt Alan {% endblock %}
+
+{% block body_block %}
+<h2>Manuálové stránky k projektu Alan </h2>
+
+<h3>Požadavky</h3>
+Pro projekt Alan jsou zapotřebí tyto balíčky:<br>
+<ul>
+<li> python3 </li>
+<li> python3-devel </li>
+<li> pip </li>
+<li> django >= 1.8 </li>
+</ul>
+
+<h3>Instalace</h3>
+<ul>
+<li> Instalujte všechny požadavky </li>
+<li> Získejte projekt pomocí příkazu: </li>
+<code>
+    &emsp;&emsp;&emsp; git clone 
+    <a target="_blank" href="https://github.com/regeciovad/BachelorThesis.git">https://github.com/regeciovad/BachelorThesis.git</a> <br>
+    &emsp;&emsp;&emsp; cd BachelorThesis <br>
+</code>
+<li> Nastavte databázi </li>
+    <code>&emsp;&emsp;&emsp; python3 manage.py migrate<br></code>
+<li> Nahrajte data do databáze</li>
+    <code>&emsp;&emsp;&emsp; python3 populate_alan.py<br></code>
+<li> Nastavte administrátorský účet</li>
+<code>
+    &emsp;&emsp;&emsp; python3 manage.py createsuperuser<br>
+    (Nutno zadat uživatelské jméno, email a heslo(dvakrát))
+</code>
+<li> Spusťte server</li>
+    <code>&emsp;&emsp;&emsp; python3 manage.py runserver<br></code>
+<li> Otevřete webový prohlížeč na adrese: <a target="_blank" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></li>
+<li> Spuštění testů </li>
+    <code>&emsp;&emsp;&emsp; coverage run --source="." manage.py test alan/tests<br></code>
+</ul>
+
+<h3>URL adresy</h3>
+Projekt Alan má hierarchickou strukturu:<br>
+<ul>
+<li> <a target="_blank" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a> - Stránka o projektu </li>
+<li> <a target="_blank" href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a> - Administrátorská stránka </li>
+<li> <a target="_blank" href="http://127.0.0.1:8000/alan/">http://127.0.0.1:8000/alan/</a> - Projekt </li>
+</ul>
+
+<h3>Dokumentace</h3>
+Oficiální dokumentace pro Django: <a target="_blank" href="https://docs.djangoproject.com/en/1.8/">zde</a>
+
+
+<h3>Kontakt</h3>
+Dominika Regéciová<br>
+xregec00@stud.fit.vutbr.cz<br>
+Bakalářská práce 2015/2016<br>
+FIT VUT
+{% endblock %}
