@@ -35,9 +35,16 @@ def about(request):
     """ Render of about page """
     return render(request, 'alan/about.html', {})
 
+
 def man(request):
     """ Render of man page """
     return render(request, 'alan/man.html', {})
+
+
+def changelog(request):
+    """ Render of changelog page """
+    return render(request, 'alan/changelog.html', {})
+
 
 def report(request):
     with open('./report.pdf', 'rb') as pdf:
@@ -97,11 +104,12 @@ def run_parser(request):
     exit_code = 0
     grammar_list = get_grammar()
     if request.method == 'POST':
-        parser_result, stack, state, exit_code = parser.parser_analysis(
+        parser_result, stack, state, exit_code, lex_input = parser.parser_analysis(
             tokens, grammar_list)
     return render(request, 'alan/parser.html', {'source_code': source_code,
                   'tokens': tokens, 'parser_result': parser_result,
-                  'stack': stack, 'state': state, 'exit_code': exit_code})
+                  'stack': stack, 'state': state, 'exit_code': exit_code,
+                  'lex_input': lex_input})
 
 
 def run_panic_mode_parser(request):

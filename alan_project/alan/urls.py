@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^man/$', views.man, name='man'),
     url(r'^download/$', views.download, name='download'),
     url(r'^report/$', views.report, name='report'),
+    url(r'^changelog/$', views.changelog, name='changelog'),
 ]

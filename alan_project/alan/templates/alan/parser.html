@@ -15,31 +15,16 @@
 <table class="t01" align="center">
 <tr>
     <th>Program</th>
-    <th>Lexikální analýza</th>
     <th>Zásobník</th>
     <th>Stav</th>
     <th>Syntaktická analýza</th>
+    <th>Vstup</th>
 </tr><tr>
 
     <td id="fun_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
         {% if source_code %}
             <pre>{{ source_code }}</pre>
         {% else %}{ Zde napiste svuj kod }
-        {% endif %}
-    </td>
-
-    <td id="lex_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-        {% if tokens %}
-        {% for token in tokens %}
-        {% if '[chyba' in token %}
-            <strong style="color:red">{{ token }}</strong><br>
-        {% elif '[k' in token %}
-            <strong style="color:green">{{ token }}</strong><br>
-        {% else %}
-            {{ token }}<br>
-        {% endif %}
-        {% endfor %}
-        {% else %}{ Zde bude výsledek Lexikální analýzy }
         {% endif %}
     </td>
 
@@ -73,6 +58,15 @@
         {% endif %}
         {% endfor %}
         {% else %}{ Zde bude SA }
+        {% endif %}
+    </td>
+
+    <td id="lex_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
+        {% if lex_input %}
+        {% for l in lex_input %}
+            {{ l|safe }}<br>
+        {% endfor %}
+        {% else %}{ Zde bude vstup }
         {% endif %}
     </td>
 </tr>

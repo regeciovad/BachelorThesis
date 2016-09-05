@@ -18,6 +18,8 @@ class Parser(object):
         self.stackHistory = []
         # State records
         self.stateHistory = []
+        # Input lexems
+        self.lex_input = []
         # LR Table
         self.lrtable = LRTable()
 
@@ -32,14 +34,14 @@ class Parser(object):
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code)
+                    self.exit_code, self.lex_input)
 
         # List of grammar rules are missing
         if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code)
+                    self.exit_code, self.lex_input)
 
         # Adding end
         if tokens[-1:] != '[$]':
@@ -56,6 +58,10 @@ class Parser(object):
         token_number = 0
         token = tokens[token_number]
         token_number += 1
+        self.stackHistory.append('')
+        self.stateHistory.append('')
+        self.result.append('Read the first token')
+        self.lex_input.append('<strong style="color:orange">' + ''.join(token) + '</strong>' + ''.join(tokens[token_number:]))
 
         # Main loop
         while (True):
@@ -74,6 +80,7 @@ class Parser(object):
                 try:
                     token = tokens[token_number]
                     token_number += 1
+                    self.lex_input.append('<strong style="color:orange">' + ''.join(token) + '</strong>' + ''.join(tokens[token_number:]))
                 except IndexError:
                     self.result.append('syntaktická chyba')
                     self.exit_code = 1
@@ -85,6 +92,7 @@ class Parser(object):
             # action[state][token] == r(p), p is a number of rule
             # Apply rule, change stack and state
             elif cell.startswith('r'):
+                self.lex_input.append('')
                 p = cell[1:]
                 left = grammar[int(p)]['left']
                 right = grammar[int(p)]['right']
@@ -98,6 +106,7 @@ class Parser(object):
                         'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     actual_state = int(
                         self.stack.get_topmost().split(',')[1][:-1])
                     if actual_state == '':
@@ -109,6 +118,7 @@ class Parser(object):
                     self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(state))
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.stateHistory.append(state)
                     self.stack.push(('<' + left + ', ' + str(state) + '>'))
                     self.stackHistory.append(self.stack.get_stack())
@@ -123,6 +133,7 @@ class Parser(object):
                 self.result.append('success')
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 break
 
             # action[state][token] == blank, source code has some syntax error
@@ -131,8 +142,9 @@ class Parser(object):
                 self.exit_code = 1
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 break
 
         # Return results
         return (self.result, self.stackHistory, self.stateHistory,
-                self.exit_code)
+                self.exit_code, self.lex_input)
