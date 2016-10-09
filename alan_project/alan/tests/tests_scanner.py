@@ -66,7 +66,7 @@ class ScannerMethodTests(TestCase):
         scanner = Scanner()
         output = ['[i, variable]', '[*]', '[#, 2]']
         exit_code = 0
-        with open('files/fun_double_cz.txt') as f:
+        with open('files/fun_double_cz.txt', encoding='utf-8', errors='ignore') as f:
             code = f.read()
         lex_code, exit = scanner.scanner_analysis(code)
         self.assertEqual(lex_code, output)

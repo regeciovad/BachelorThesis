@@ -104,12 +104,11 @@ def run_parser(request):
     exit_code = 0
     grammar_list = get_grammar()
     if request.method == 'POST':
-        parser_result, stack, state, exit_code, lex_input = parser.parser_analysis(
-            tokens, grammar_list)
+        parser_result, stack, state, lex_input, exit_code = parser.parser_analysis(tokens, grammar_list)
     return render(request, 'alan/parser.html', {'source_code': source_code,
                   'tokens': tokens, 'parser_result': parser_result,
-                  'stack': stack, 'state': state, 'exit_code': exit_code,
-                  'lex_input': lex_input})
+                  'stack': stack, 'state': state, 'lex_input': lex_input,
+                  'exit_code': exit_code})
 
 
 def run_panic_mode_parser(request):

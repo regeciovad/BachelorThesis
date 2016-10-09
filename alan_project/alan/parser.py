@@ -33,15 +33,13 @@ class Parser(object):
         if tokens == []:
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
-            return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.lex_input)
+            return (self.result, self.stackHistory, self.stateHistory, self.lex_input, self.exit_code)
 
         # List of grammar rules are missing
         if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
-            return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.lex_input)
+            return (self.result, self.stackHistory, self.stateHistory, self.lex_input, self.exit_code)
 
         # Adding end
         if tokens[-1:] != '[$]':
@@ -146,5 +144,4 @@ class Parser(object):
                 break
 
         # Return results
-        return (self.result, self.stackHistory, self.stateHistory,
-                self.exit_code, self.lex_input)
+        return (self.result, self.stackHistory, self.stateHistory, self.lex_input, self.exit_code)

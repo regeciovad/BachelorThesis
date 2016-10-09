@@ -32,15 +32,15 @@ Instalace
 
     `python3 manage.py createsuperuser`
     * Enter username, email address and password (twice)
-    
+
 * Spusťte server
 
     `python3 manage.py runserver`
-    
+
 * Otevřete webový prohlížeč na adrese: http://127.0.0.1:8000/
 
 * Spuštění testů
-	`python3 manage.py test alan`
+	`coverage run --source="." manage.py test alan/tests`
 
 URL adresy
 =============
