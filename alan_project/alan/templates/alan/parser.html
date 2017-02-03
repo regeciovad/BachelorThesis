@@ -19,57 +19,34 @@
     <th>Stav</th>
     <th>Syntaktická analýza</th>
     <th>Vstup</th>
-</tr><tr>
-
-    <td id="fun_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-        {% if source_code %}
-            <pre>{{ source_code }}</pre>
-        {% else %}{ Zde napiste svuj kod }
-        {% endif %}
+</tr>
+{% if results %}
+<tr>
+    <td rowspan="{{ rows }}" style="text-align:left;vertical-align: text-top;font-size:16px;">
+        <pre>{{ source_code }}</pre>
     </td>
-
-    <td id="stack_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-        {% if stack %}
-        {% for s in stack %}
-            {{ s }}<br>
-        {% endfor %}
-        {% else %}{ Zde bude zásobník }
-        {% endif %}
+{% for stack, state, parser_result, lex_input in results %}
+    <td style="text-align:left;">
+         {{ stack }}
     </td>
-
-    <td id="state_code_area" style="padding:10px; font-size:16px;vertical-align: text-top;">
-        {% if state %}
-        {% for s in state %}
-            {{ s }}<br>
-        {% endfor %}
-        {% else %}{ Zde bude stav }
-        {% endif %}
+    <td style="text-align:center;">
+         {{ state }}
     </td>
-
-    <td id="parser_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-        {% if parser_result %}
-        {% for parser in parser_result %}
-        {% if 'success' in parser %}
-            <strong style="color:green">{{ parser }}</strong><br>
-        {% elif 'chyba' in parser %}
-            <strong style="color:red">{{ parser }}</strong><br>
+    <td style="text-align:left;">
+        {% if 'success' in parser_result %}
+            <strong style="color:green">{{ parser_result }}</strong>
+        {% elif 'chyba' in parser_result %}
+            <strong style="color:red">{{ parser_result }}</strong>
         {% else %}
-            {{ parser }}<br>
-        {% endif %}
-        {% endfor %}
-        {% else %}{ Zde bude SA }
+            {{ parser_result }}
         {% endif %}
     </td>
-
-    <td id="lex_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-        {% if lex_input %}
-        {% for l in lex_input %}
-            {{ l|safe }}<br>
-        {% endfor %}
-        {% else %}{ Zde bude vstup }
-        {% endif %}
+    <td style="text-align:left;">
+         {{ lex_input|safe }}
     </td>
 </tr>
+{% endfor %}
+{% endif %}
 </table>
 
 <p style="text-align:center">

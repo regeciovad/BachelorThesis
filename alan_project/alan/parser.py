@@ -81,6 +81,9 @@ class Parser(object):
                     self.lex_input.append('<strong style="color:orange">' + ''.join(token) + '</strong>' + ''.join(tokens[token_number:]))
                 except IndexError:
                     self.result.append('syntaktická chyba')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.exit_code = 1
                     break
                 a = token[1]
@@ -110,6 +113,9 @@ class Parser(object):
                     if actual_state == '':
                         self.result.append(
                             'Chyba: analýza se dostala do nedefinovaného stavu')
+                        self.stateHistory.append('')
+                        self.stackHistory.append('')
+                        self.lex_input.append('')
                         self.exit_code = 1
                         break
                     state = int(goto[actual_state][left])
@@ -123,11 +129,17 @@ class Parser(object):
                 else:
                     self.result.append(
                         'Chyba: analýza se dostala do nedefinovaného stavu')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.exit_code = 1
                     break
 
             # action[state][token] == acc, source code is correct
             elif cell.startswith('acc'):
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 self.result.append('success')
                 self.stackHistory.append('')
                 self.stateHistory.append('')
@@ -136,11 +148,14 @@ class Parser(object):
 
             # action[state][token] == blank, source code has some syntax error
             else:
-                self.result.append('syntaktická chyba')
-                self.exit_code = 1
                 self.stackHistory.append('')
                 self.stateHistory.append('')
                 self.lex_input.append('')
+                self.result.append('syntaktická chyba')
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
+                self.exit_code = 1
                 break
 
         # Return results

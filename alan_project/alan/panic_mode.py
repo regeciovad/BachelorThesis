@@ -20,6 +20,8 @@ class PanicModeParser(object):
         self.stackHistory = []
         # State records
         self.stateHistory = []
+        # Input lexems
+        self.lex_input = []
         # LR Table
         self.lrtable = LRTable()
         self.panic_time = 0
@@ -37,14 +39,14 @@ class PanicModeParser(object):
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.panic_mode_result)
+                    self.exit_code, self.panic_mode_result, self.lex_input)
 
         # List of grammar rules are missing
         if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.panic_mode_result)
+                    self.exit_code, self.panic_mode_result, self.lex_input)
 
         # Adding end
         if self.tokens[-1:] != '[$]':
@@ -61,6 +63,10 @@ class PanicModeParser(object):
         self.token_number = 0
         self.token = self.tokens[self.token_number]
         self.token_number += 1
+        self.stackHistory.append('')
+        self.stateHistory.append('')
+        self.result.append('Read the first token: ')
+        self.lex_input.append('<strong style="color:orange">' + ''.join(self.token) + '</strong>' + ''.join(self.tokens[self.token_number:]))
 
         # Main loop
         while True:
@@ -79,8 +85,12 @@ class PanicModeParser(object):
                 try:
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
+                    self.lex_input.append('<strong style="color:orange">' + ''.join(self.token) + '</strong>' + ''.join(self.tokens[self.token_number:]))
                 except IndexError:
                     self.result.append('syntaktická chyba')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     break
                 a = self.token[1]
                 self.state = int(q)
@@ -89,6 +99,7 @@ class PanicModeParser(object):
             # action[state][token] == r(p), p is a number of rule
             # Apply rule, change stack and state
             elif cell.startswith('r'):
+                self.lex_input.append('')
                 p = cell[1:]
                 left = grammar[int(p)]['left']
                 right = grammar[int(p)]['right']
@@ -102,6 +113,7 @@ class PanicModeParser(object):
                         'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     actual_state = int(
                         self.stack.get_topmost().split(',')[1][:-1])
                     if actual_state == '':
@@ -112,36 +124,49 @@ class PanicModeParser(object):
                     self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(self.state))
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.stateHistory.append(self.state)
                     self.stack.push('<' + left + ', ' + str(self.state) + '>')
                     self.stackHistory.append(self.stack.get_stack())
                 else:
                     self.result.append('syntaktická chyba')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.exit_code = 1
                     break
 
             # action[state][token] == acc, source code is correct
             elif cell.startswith('acc'):
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 self.result.append('success')
                 self.exit_code = 0
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 break
 
             # action[state][token] == blank, source code has some syntax error
             else:
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 self.result.append('syntaktická chyba')
                 self.exit_code = 1
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 panic_mode_exit = self.panic_mode()
                 self.stackHistory.append(self.stack.get_stack())
+                self.lex_input.append('<strong style="color:orange">' + ''.join(self.token) + '</strong>' + ''.join(self.tokens[self.token_number:]))
                 if panic_mode_exit == 1:
                     break
 
         # Return results
         return (self.result, self.stackHistory, self.stateHistory,
-                self.exit_code, self.panic_mode_result)
+                self.exit_code, self.panic_mode_result, self.lex_input)
 
     def panic_mode(self):
         """ Panic Mode recovery
@@ -197,7 +222,6 @@ class PanicModeParser(object):
                     self.panic_mode_result.append("Nebyl nalezen token z množiny Follow.")
                     self.panic_mode_result.append("Panická metoda na tuto chybu nestačí.")
                     return 1
-
         self.panic_mode_result.append("Nalezen symbol: " + str(self.token))
         state = int(self.stack.get_topmost().split(',')[1][:-1])
         goto_state = self.goto[state][next]
@@ -213,4 +237,5 @@ class PanicModeParser(object):
             'Vloženo na zásobník: ' + '<' + str(next) + ', ' +
             str(self.state) + '>')
         self.panic_mode_result.append('Ukončení Panického módu.')
+        self.panic_mode_result.append('')
         return 0

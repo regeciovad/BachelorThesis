@@ -101,14 +101,15 @@ def run_parser(request):
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
     parser_result = stack = state = []
-    exit_code = 0
+    exit_code = rows = 0
     grammar_list = get_grammar()
     if request.method == 'POST':
         parser_result, stack, state, lex_input, exit_code = parser.parser_analysis(tokens, grammar_list)
+        results = zip(stack, state, parser_result, lex_input)
+        rows = len(parser_result)
     return render(request, 'alan/parser.html', {'source_code': source_code,
-                  'tokens': tokens, 'parser_result': parser_result,
-                  'stack': stack, 'state': state, 'lex_input': lex_input,
-                  'exit_code': exit_code})
+                  'tokens': tokens, 'exit_code': exit_code, 'results': results,
+                  'rows':rows})
 
 
 def run_panic_mode_parser(request):
@@ -119,20 +120,16 @@ def run_panic_mode_parser(request):
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
     parser_result = stack = state = panic_mode = []
-    exit_code = 0
+    exit_code = rows = 0
     grammar_list = get_grammar()
-    begin = time.clock()
     if request.method == 'POST':
-        parser_result, stack, state, exit_code, panic_mode = parser.parser_analysis(tokens, grammar_list)
-    end = time.clock()
-    mytime = end - begin
-    parser_result.append("Celkový čas analýzy: %f \u03BCs" % mytime)
-    parser_result.append('')
+        parser_result, stack, state, exit_code, panic_mode, lex_input = parser.parser_analysis(tokens, grammar_list)
+        results = zip(stack, state, parser_result, lex_input)
+        rows = len(parser_result)
     return render(request, 'alan/panic_mode_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
-                  'parser_result': parser_result, 'stack': stack,
-                  'state': state, 'exit_code': exit_code,
-                  'panic_mode': panic_mode})
+                  'exit_code': exit_code, 'panic_mode': panic_mode, 'results': results,
+                  'rows':rows})
 
 
 def run_panic_mode_parser_first(request):

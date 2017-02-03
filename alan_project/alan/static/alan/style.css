@@ -126,6 +126,7 @@ table, th td {
 table.t01, table.t01 td, table.t01 th {
     border: 1px solid gray;
     border-collapse:collapse;
+    padding:10px;
 }
 
  table.t01 th {
