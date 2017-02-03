@@ -82,7 +82,7 @@ def run_scanner(request):
     scanner = Scanner()
     tokens = []
     source_code = ''
-    exit_code = 0
+    exit_code = rows = 0
     # Run of Lexical analysis
     if request.method == 'POST':
         if 'fun_code_area' in request.POST and request.POST['fun_code_area']:
@@ -90,8 +90,9 @@ def run_scanner(request):
             request.session['source_code'] = source_code
             tokens, exit_code = scanner.scanner_analysis(source_code)
             request.session['tokens'] = tokens
+            rows = len(tokens)
     return render(request, 'alan/scanner.html', {'source_code': source_code,
-                  'tokens': tokens, 'exit_code': exit_code})
+                  'tokens': tokens, 'exit_code': exit_code, 'rows':rows})
 
 
 def run_parser(request):

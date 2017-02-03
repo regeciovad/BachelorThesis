@@ -17,28 +17,25 @@
 <tr>
     <th>Program</th>
     <th>Lexikální analýza</th>
-</tr><tr>
-    <td id="fun_code_area" style="padding:10px; font-size:16px;text-align:left;vertical-align: text-top;">
-        {% if source_code %}
+</tr>
+{% if tokens %}
+<tr>
+    <td rowspan="{{ rows }}" style="text-align:left;vertical-align: text-top;font-size:16px;">
         <pre>{{ source_code }}</pre>
-        {% else %}{ Zde napiste svuj kod }
-        {% endif %}
     </td>
-    <td id="lex_code_area" style="padding:10px; font-size:16px;;text-align:left;vertical-align: text-top;">
-        {% if tokens %}
-        {% for token in tokens %}
-            {% if '[chyba' in token %}
-                <strong style="color:red">{{ token }}</strong><br>
-            {% elif '[k' in token %}
-                <strong style="color:green">{{ token }}</strong><br>
-            {% else %}
-                {{ token }}<br>
-            {% endif %}
-        {% endfor %}
-        {% else %}{ Zde bude výsledek Lexikální analýzy }
+{% for token in tokens %}
+    <td>
+        {% if '[chyba' in token %}
+            <strong style="color:red">{{ token }}</strong>
+        {% elif '[k' in token %}
+            <strong style="color:green">{{ token }}</strong>
+        {% else %}
+            {{ token }}
         {% endif %}
     </td>
 </tr>
+{% endfor %}
+{% endif %}
 </table>
 
 <p style="text-align:center">
