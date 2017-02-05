@@ -18,7 +18,7 @@ class PanicModeFollowMethodTests(TestCase):
         exit_code = 1
         output_expected = 'Syntaktická chyba - prázdný program'
         parser_result_expected = ['Panická metoda na tuto chybu nestačí.']
-        output, [], [], exit, parser_result = parser.parser_analysis()
+        output, [], [], exit, parser_result, lex_input = parser.parser_analysis()
         if not output_expected in output:
             raise TypeError("Something is wrong with checking empty program.")
         self.assertEqual(parser_result, parser_result_expected)
@@ -33,7 +33,7 @@ class PanicModeFollowMethodTests(TestCase):
         exit_code = 1
         lex_code = '[i, a]'
         output = (
-            ['Chyba programu - prázdná množina pravidel'], [], [], exit_code, [])
+            ['Chyba programu - prázdná množina pravidel'], [], [], exit_code, [], [])
         parser_result = parser.parser_analysis(lex_code)
         self.assertEqual(parser_result, output)
 
@@ -58,13 +58,13 @@ class PanicModeFollowMethodTests(TestCase):
                                  'Nalezen symbol: [$]',
                                  'goto[0, <statement_list>] = 1',
                                  'Vloženo na zásobník: <<statement_list>, 1>',
-                                 'Ukončení Panického módu.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
+                                 'Ukončení Panického módu.', '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
             ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'],
-            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '', ['<$, 0>', '<<statement_list>, 1>'], '']
-        state_expected = [0, 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '', '']
-        output_expected = ['action[0, i] = s9', 'action[9, ;] = r16',
+            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '', '', ['<$, 0>', '<<statement_list>, 1>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '', '', '', '']
+        output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, ;] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, ;] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -76,7 +76,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'pravidlo 6: <statement> \u2192 <condition>',
                            'goto[0, <statement>] = 2', 'action[2, ;] = s11',
                            'action[11, $] = ', 'syntaktická chyba', 'action[1, $] = acc', 'success']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -104,13 +104,13 @@ class PanicModeFollowMethodTests(TestCase):
                                  "Nalezen symbol: [$]",
                                  'goto[0, <statement_list>] = 1',
                                  'Vloženo na zásobník: <<statement_list>, 1>',
-                                 'Ukončení Panického módu.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
+                                 'Ukončení Panického módu.', '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
             ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'],
-            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '', ['<$, 0>', '<<statement_list>, 1>'], '']
-        state_expected = [0, 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '', '']
-        output_expected = ['action[0, i] = s9', 'action[9, ;] = r16',
+            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '', '', ['<$, 0>', '<<statement_list>, 1>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '', '', '', '']
+        output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, ;] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, ;] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -122,7 +122,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'pravidlo 6: <statement> \u2192 <condition>',
                            'goto[0, <statement>] = 2', 'action[2, ;] = s11',
                            'action[11, ;] = ', 'syntaktická chyba', 'action[1, $] = acc', 'success']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -150,14 +150,14 @@ class PanicModeFollowMethodTests(TestCase):
                                  "Nalezen symbol: [$]",
                                  'goto[0, <condition>] = 3',
                                  'Vloženo na zásobník: <<condition>, 3>',
-                                 'Ukončení Panického módu.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
+                                 'Ukončení Panického módu.', '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'],
-            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '', ['<$, 0>', '<<condition>, 3>'], '', '',
+            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '', '', ['<$, 0>', '<<condition>, 3>'], '', '',
             ['<$, 0>', '<<statement>, 2>'], '', '',
-            ['<$, 0>', '<<statement_list>, 1>'], '']
-        state_expected = [0, 9, '', '', 7, '', '', 6, '', '', 5, 16, '', '', '', 2, '', '', 1, '']
-        output_expected = ['action[0, i] = s9', 'action[9, +] = r16',
+            ['<$, 0>', '<<statement_list>, 1>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, 16, '', '', '', '', 2, '', '', 1, '', '']
+        output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, +] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, +] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -170,7 +170,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'pravidlo 2: <statement_list> \u2192 <statement>',
                            'goto[0, <statement_list>] = 1',
                            'action[1, $] = acc', 'success']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -193,11 +193,11 @@ class PanicModeFollowMethodTests(TestCase):
         parser_result_expected = ['Zahájení Panického módu.',
                                  'Zásobník byl plně vyprázdněn.',
                                  'Panická metoda na tuto chybu nestačí.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', []]
-        state_expected = [0, 9, '']
-        output_expected = ['action[0, i] = s9', 'action[9, i] = ',
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', []]
+        state_expected = [0, '', 9, '', '']
+        output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, i] = ',
                           'syntaktická chyba']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -225,13 +225,13 @@ class PanicModeFollowMethodTests(TestCase):
                                  "Nalezen symbol: [$]",
                                  'goto[0, <condition>] = 3',
                                  'Vloženo na zásobník: <<condition>, 3>',
-                                 'Ukončení Panického módu.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
+                                 'Ukončení Panického módu.', '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'],
-            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '', ['<$, 0>', '<<condition>, 3>'], '', '',
-            ['<$, 0>', '<<statement>, 2>'], '', '', ['<$, 0>', '<<statement_list>, 1>'], '']
-        state_expected = [0, 9, '', '', 7, '', '', 6, '', '', 5, 16, '', '', '', 2, '', '', 1, '']
-        output_expected = ['action[0, i] = s9', 'action[9, +] = r16',
+            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '', '', ['<$, 0>', '<<condition>, 3>'], '', '',
+            ['<$, 0>', '<<statement>, 2>'], '', '', ['<$, 0>', '<<statement_list>, 1>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, 16, '', '', '', '', 2, '', '', 1, '', '']
+        output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, +] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, +] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -243,7 +243,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'goto[0, <statement>] = 2', 'action[2, $] = r2',
                            'pravidlo 2: <statement_list> \u2192 <statement>',
                            'goto[0, <statement_list>] = 1', 'action[1, $] = acc', 'success']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -271,13 +271,13 @@ class PanicModeFollowMethodTests(TestCase):
                                  "Nalezen symbol: [$]",
                                  'goto[0, <statement_list>] = 1',
                                  'Vloženo na zásobník: <<statement_list>, 1>',
-                                 'Ukončení Panického módu.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
+                                 'Ukončení Panického módu.', '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
             ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'],
-            ['<$, 0>', '<<statement>, 2>', '<r, 12>'], '', ['<$, 0>', '<<statement_list>, 1>'], '']
-        state_expected = [0, 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 12, '', '']
-        output_expected = ['action[0, i] = s9', 'action[9, r] = r16',
+            ['<$, 0>', '<<statement>, 2>', '<r, 12>'], '', '', ['<$, 0>', '<<statement_list>, 1>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 12, '', '', '', '']
+        output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, r] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, r] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -289,7 +289,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'pravidlo 6: <statement> \u2192 <condition>',
                            'goto[0, <statement>] = 2', 'action[2, r] = s12',
                            'action[12, $] = ', 'syntaktická chyba', 'action[1, $] = acc', 'success']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -317,12 +317,12 @@ class PanicModeFollowMethodTests(TestCase):
                                  "Nalezen symbol: [$]",
                                  'Parser se dostal do nedefinovaného stavu.',
                                  'Panická metoda na tuto chybu nestačí.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<(, 8>'], ['<$, 0>', '<(, 8>', '<i, 9>'], '', '',
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], ['<$, 0>', '<(, 8>', '<i, 9>'], '', '',
             ['<$, 0>', '<(, 8>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<(, 8>', '<<term>, 6>'], '', '',
-            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], '', ['<$, 0>', '<(, 8>']]
-        state_expected = [0, 8, 9, '', '', 7, '', '', 6, '', '', 20, '']
-        output_expected = ['action[0, (] = s8', 'action[8, i] = s9', 'action[9, $] = r16',
+            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], '', '', ['<$, 0>', '<(, 8>']]
+        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, '', '']
+        output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, i] = s9', 'action[9, $] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[8, <factor>] = 7',
                            'action[7, $] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -330,7 +330,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'pravidlo 11: <expression> \u2192 <term>',
                            'goto[8, <expression>] = 20', 'action[20, $] = ',
                            'syntaktická chyba']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -358,16 +358,16 @@ class PanicModeFollowMethodTests(TestCase):
                                  "Nalezen symbol: [$]",
                                  'goto[0, <condition>] = 3',
                                  'Vloženo na zásobník: <<condition>, 3>',
-                                 'Ukončení Panického módu.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<(, 8>'], ['<$, 0>', '<(, 8>', '<i, 9>'], '', '',
+                                 'Ukončení Panického módu.', '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], ['<$, 0>', '<(, 8>', '<i, 9>'], '', '',
             ['<$, 0>', '<(, 8>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<(, 8>', '<<term>, 6>'], '', '',
             ['<$, 0>', '<(, 8>', '<<expression>, 20>'], ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<), 29>'], '', '',
             ['<$, 0>', '<<factor>, 7>'], '', '', ['<$, 0>', '<<term>, 6>'], '', '',
-            ['<$, 0>', '<<expression>, 5>'], '', ['<$, 0>', '<<condition>, 3>'], '', '',
-            ['<$, 0>', '<<statement>, 2>'], '', '', ['<$, 0>', '<<statement_list>, 1>'], '']
-        state_expected = [0, 8, 9, '', '', 7, '', '', 6, '', '', 20, 29, '', '', 7, '', '', 6, '', '', 5, '', '', '', 2, '', '', 1, '']
-        output_expected = ['action[0, (] = s8', 'action[8, i] = s9', 'action[9, )] = r16',
+            ['<$, 0>', '<<expression>, 5>'], '', '', ['<$, 0>', '<<condition>, 3>'], '', '',
+            ['<$, 0>', '<<statement>, 2>'], '', '', ['<$, 0>', '<<statement_list>, 1>'], '', '']
+        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, 29, '', '', 7, '', '', 6, '', '', 5, '', '', '', '', 2, '', '', 1, '', '']
+        output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, i] = s9', 'action[9, )] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[8, <factor>] = 7',
                            'action[7, )] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -386,7 +386,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'pravidlo 2: <statement_list> \u2192 <statement>',
                            'goto[0, <statement_list>] = 1',
                            'action[1, $] = acc', 'success']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -409,10 +409,10 @@ class PanicModeFollowMethodTests(TestCase):
         parser_result_expected = ['Zahájení Panického módu.',
                                  "Zásobník byl plně vyprázdněn.",
                                  'Panická metoda na tuto chybu nestačí.']
-        stack_expected = [['<$, 0>'], '', []]
-        state_expected = [0, '']
-        output_expected = ['action[0, )] = ', 'syntaktická chyba']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        stack_expected = [['<$, 0>'], '', '', '', []]
+        state_expected = [0, '', '', '']
+        output_expected = ['Read the first token', 'action[0, )] = ', 'syntaktická chyba']
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -435,10 +435,10 @@ class PanicModeFollowMethodTests(TestCase):
         parser_result_expected = ['Zahájení Panického módu.',
                                  "Zásobník byl plně vyprázdněn.",
                                  'Panická metoda na tuto chybu nestačí.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<(, 8>'], '', []]
-        state_expected = [0, 8, '']
-        output_expected = ['action[0, (] = s8', 'action[8, )] = ', 'syntaktická chyba']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], '', '', []]
+        state_expected = [0, '', 8, '', '']
+        output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, )] = ', 'syntaktická chyba']
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -461,10 +461,10 @@ class PanicModeFollowMethodTests(TestCase):
         parser_result_expected = ['Zahájení Panického módu.',
                                  "Zásobník byl plně vyprázdněn.",
                                  'Panická metoda na tuto chybu nestačí.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<(, 8>'], '', []]
-        state_expected = [0, 8, '']
-        output_expected = ['action[0, (] = s8', 'action[8, !] = ', 'syntaktická chyba']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], '', '', []]
+        state_expected = [0, '', 8, '', '']
+        output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, !] = ', 'syntaktická chyba']
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)
@@ -492,16 +492,16 @@ class PanicModeFollowMethodTests(TestCase):
                                  'Nalezen symbol: [$]',
                                  'Parser se dostal do nedefinovaného stavu.',
                                  'Panická metoda na tuto chybu nestačí.']
-        stack_expected = [['<$, 0>'], ['<$, 0>', '<(, 8>'], ['<$, 0>', '<(, 8>', '<i, 9>'], '', '',
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], ['<$, 0>', '<(, 8>', '<i, 9>'], '', '',
             ['<$, 0>', '<(, 8>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<(, 8>', '<<term>, 6>'], '', '',
             ['<$, 0>', '<(, 8>', '<<expression>, 20>'], ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<+, 16>'],
             ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<+, 16>', '<i, 9>'], '', '',
             ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<+, 16>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<+, 16>', '<<term>, 25>'], '', '',
-            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<), 29>'], '', ['<$, 0>', '<(, 8>']]
-        state_expected = [0, 8, 9, '', '', 7, '', '', 6, '', '', 20, 16, 9, '', '', 7, '', '', 25, '', '', 20, 29, '']
-        output_expected = ['action[0, (] = s8', 'action[8, i] = s9', 'action[9, +] = r16',
+            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<), 29>'], '', '', ['<$, 0>', '<(, 8>']]
+        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, 16, 9, '', '', 7, '', '', 25, '', '', 20, 29, '', '']
+        output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, i] = s9', 'action[9, +] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[8, <factor>] = 7',
                            'action[7, +] = r14',
                            'pravidlo 14: <term> \u2192 <factor>',
@@ -515,7 +515,7 @@ class PanicModeFollowMethodTests(TestCase):
                            'pravidlo 9: <expression> \u2192 <expression> + <term>',
                            'goto[8, <expression>] = 20', 'action[20, )] = s29', 'action[29, i] = ',
                            'syntaktická chyba']
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex_input = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, parser_result_expected)
         self.assertEqual(output, output_expected)
         self.assertEqual(stack, stack_expected)

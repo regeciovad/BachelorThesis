@@ -65,7 +65,7 @@ class PanicModeParser(object):
         self.token_number += 1
         self.stackHistory.append('')
         self.stateHistory.append('')
-        self.result.append('Read the first token: ')
+        self.result.append('Read the first token')
         self.lex_input.append('<strong style="color:orange">' + ''.join(self.token) + '</strong>' + ''.join(self.tokens[self.token_number:]))
 
         # Main loop

@@ -49,8 +49,8 @@ class ParserMethodTests(TestCase):
         stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
             ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'], '', '',
-            ['<$, 0>', '<<statement_list>, 1>'], '']
-        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, '', '', 1, '']
+            ['<$, 0>', '<<statement_list>, 1>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, '', '', 1, '', '']
         output_expected = ['Read the first token',
                            'action[0, i] = s9', 'action[9, $] = r16',
                            'pravidlo 16: <factor> \u2192 i',
@@ -88,8 +88,8 @@ class ParserMethodTests(TestCase):
         stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
             ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'],
-            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '']
-        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '']
+            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '', '']
         output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, ;] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, ;] = r14',
@@ -124,8 +124,8 @@ class ParserMethodTests(TestCase):
         stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
             ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'],
-            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '']
-        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '']
+            ['<$, 0>', '<<statement>, 2>', '<;, 11>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 11, '', '']
         output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, ;] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, ;] = r14',
@@ -159,8 +159,8 @@ class ParserMethodTests(TestCase):
         exit_code = 1
         stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'],
-            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '']
-        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, 16, '']
+            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, 16, '', '']
         output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, +] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, +] = r14',
@@ -188,8 +188,8 @@ class ParserMethodTests(TestCase):
             grammar_list.append({'id': g.id, 'left': g.left_hand_side, 'right': g.right_hand_side})
         lex_code = ['[i, a]', '[i, b]']
         exit_code = 1
-        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '']
-        state_expected = [0, '', 9, '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '']
+        state_expected = [0, '', 9, '', '']
         output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, i] = ',
                           'syntaktická chyba']
         parser_result, stack, state, lex_input, exit = parser.parser_analysis(lex_code, grammar_list)
@@ -213,8 +213,8 @@ class ParserMethodTests(TestCase):
         exit_code = 1
         stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'],
-            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '']
-        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, 16, '']
+            ['<$, 0>', '<<expression>, 5>', '<+, 16>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, 16, '', '']
         output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, +] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, +] = r14',
@@ -245,8 +245,8 @@ class ParserMethodTests(TestCase):
         stack_expected = [['<$, 0>'], '', ['<$, 0>', '<i, 9>'], '', '', ['<$, 0>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<<term>, 6>'], '', '', ['<$, 0>', '<<expression>, 5>'], '', '',
             ['<$, 0>', '<<condition>, 3>'], '', '', ['<$, 0>', '<<statement>, 2>'],
-            ['<$, 0>', '<<statement>, 2>', '<r, 12>'], '']
-        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 12, '']
+            ['<$, 0>', '<<statement>, 2>', '<r, 12>'], '', '']
+        state_expected = [0, '', 9, '', '', 7, '', '', 6, '', '', 5, '', '', 3, '', '', 2, 12, '', '']
         output_expected = ['Read the first token', 'action[0, i] = s9', 'action[9, r] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[0, <factor>] = 7',
                            'action[7, r] = r14',
@@ -281,8 +281,8 @@ class ParserMethodTests(TestCase):
         stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], ['<$, 0>', '<(, 8>', '<i, 9>'], '', '',
             ['<$, 0>', '<(, 8>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<(, 8>', '<<term>, 6>'], '', '',
-            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], '']
-        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, '']
+            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], '', '']
+        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, '', '']
         output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, i] = s9', 'action[9, $] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[8, <factor>] = 7',
                            'action[7, $] = r14',
@@ -315,8 +315,8 @@ class ParserMethodTests(TestCase):
             ['<$, 0>', '<(, 8>', '<<term>, 6>'], '', '',
             ['<$, 0>', '<(, 8>', '<<expression>, 20>'], ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<), 29>'], '', '',
             ['<$, 0>', '<<factor>, 7>'], '', '', ['<$, 0>', '<<term>, 6>'], '', '',
-            ['<$, 0>', '<<expression>, 5>'], '']
-        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, 29, '', '', 7, '', '', 6, '', '', 5, '']
+            ['<$, 0>', '<<expression>, 5>'], '', '']
+        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, 29, '', '', 7, '', '', 6, '', '', 5, '', '']
         output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, i] = s9', 'action[9, )] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[8, <factor>] = 7',
                            'action[7, )] = r14',
@@ -350,8 +350,8 @@ class ParserMethodTests(TestCase):
             grammar_list.append({'id': g.id, 'left': g.left_hand_side, 'right': g.right_hand_side})
         lex_code = ['[)]', '[i, a]', '[;]', '[i, b]']
         exit_code = 1
-        stack_expected = [['<$, 0>'], '' ,'']
-        state_expected = [0, '', '']
+        stack_expected = [['<$, 0>'], '' , '', '']
+        state_expected = [0, '', '', '']
         output_expected = ['Read the first token', 'action[0, )] = ', 'syntaktická chyba']
         parser_result, stack, state, lex_input, exit = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, output_expected)
@@ -372,8 +372,8 @@ class ParserMethodTests(TestCase):
             grammar_list.append({'id': g.id, 'left': g.left_hand_side, 'right': g.right_hand_side})
         lex_code = ['[(]', '[)]']
         exit_code = 1
-        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], '']
-        state_expected = [0, '', 8, '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], '', '']
+        state_expected = [0, '', 8, '', '']
         output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, )] = ', 'syntaktická chyba']
         parser_result, stack, state, lex_input, exit = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, output_expected)
@@ -394,8 +394,8 @@ class ParserMethodTests(TestCase):
             grammar_list.append({'id': g.id, 'left': g.left_hand_side, 'right': g.right_hand_side})
         lex_code = ['[(]', '[!]', '[i, a]', '[)]']
         exit_code = 1
-        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], '']
-        state_expected = [0, '', 8, '']
+        stack_expected = [['<$, 0>'], '', ['<$, 0>', '<(, 8>'], '', '']
+        state_expected = [0, '', 8, '', '']
         output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, !] = ', 'syntaktická chyba']
         parser_result, stack, state, lex_input, exit = parser.parser_analysis(lex_code, grammar_list)
         self.assertEqual(parser_result, output_expected)
@@ -423,8 +423,8 @@ class ParserMethodTests(TestCase):
             ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<+, 16>', '<i, 9>'], '', '',
             ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<+, 16>', '<<factor>, 7>'], '', '',
             ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<+, 16>', '<<term>, 25>'], '', '',
-            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<), 29>'], '']
-        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, 16, 9, '', '', 7, '', '', 25, '', '', 20, 29, '']
+            ['<$, 0>', '<(, 8>', '<<expression>, 20>'], ['<$, 0>', '<(, 8>', '<<expression>, 20>', '<), 29>'], '', '']
+        state_expected = [0, '', 8, 9, '', '', 7, '', '', 6, '', '', 20, 16, 9, '', '', 7, '', '', 25, '', '', 20, 29, '', '']
         output_expected = ['Read the first token', 'action[0, (] = s8', 'action[8, i] = s9', 'action[9, +] = r16',
                            'pravidlo 16: <factor> \u2192 i', 'goto[8, <factor>] = 7',
                            'action[7, +] = r14',

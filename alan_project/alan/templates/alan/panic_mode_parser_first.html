@@ -44,7 +44,7 @@
     <td style="text-align:left;">
          {{ lex_input|safe }}
     </td>
-    {% if "Read the first token:" in parser_result %}
+    {% if "Read the first token" in parser_result %}
     <td rowspan="{{ rows }}" style="text-align:left;vertical-align: text-top;font-size:16px;">
         {% for p in panic_mode %}
             {{ p }}<br>
