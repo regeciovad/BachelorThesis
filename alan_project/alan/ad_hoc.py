@@ -18,6 +18,8 @@ class ParserAdHoc(object):
         self.stackHistory = []
         # State records
         self.stateHistory = []
+        # Input lexems
+        self.lex_input = []
         # LR Table
         self.lrtable = LRTable()
 
@@ -31,8 +33,7 @@ class ParserAdHoc(object):
         if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
-            return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code)
+            return (self.result, self.stackHistory, self.stateHistory, self.lex_input, self.exit_code)
 
         # Adding end
         if tokens[-1:] != '[$]':
@@ -49,6 +50,10 @@ class ParserAdHoc(object):
         token_number = 0
         token = tokens[token_number]
         token_number += 1
+        self.stackHistory.append('')
+        self.stateHistory.append('')
+        self.result.append('Read the first token')
+        self.lex_input.append('<strong style="color:orange">' + ''.join(token) + '</strong>' + ''.join(tokens[token_number:]))
 
         # Main loop
         while (True):
@@ -67,8 +72,12 @@ class ParserAdHoc(object):
                 try:
                     token = tokens[token_number]
                     token_number += 1
+                    self.lex_input.append('<strong style="color:orange">' + ''.join(token) + '</strong>' + ''.join(tokens[token_number:]))
                 except IndexError:
                     self.result.append('syntaktická chyba')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     break
                 a = token[1]
                 state = int(q)
@@ -77,6 +86,7 @@ class ParserAdHoc(object):
             # action[state][token] == r(p), p is a number of rule
             # Apply rule, change stack and state
             elif cell.startswith('r'):
+                self.lex_input.append('')
                 p = cell[1:]
                 left = grammar[int(p)]['left']
                 right = grammar[int(p)]['right']
@@ -90,32 +100,53 @@ class ParserAdHoc(object):
                         'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     actual_state = int(
                         self.stack.get_topmost().split(',')[1][:-1])
                     if actual_state == '':
                         self.result.append('gotochyba')
+                        self.stateHistory.append('')
+                        self.stackHistory.append('')
+                        self.lex_input.append('')
                         self.exit_code = 1
                         break
                     state = int(goto[actual_state][left])
                     self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(state))
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.stateHistory.append(state)
                     self.stack.push(('<' + left + ', ' + str(state) + '>'))
                     self.stackHistory.append(self.stack.get_stack())
                 else:
                     self.result.append('syntaktická chyba')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.exit_code = 1
                     break
 
             # action[state][token] == acc, source code is correct
             elif cell.startswith('acc'):
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 self.result.append('success')
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 break
 
             elif cell.startswith('f'):
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 function = cell[1:]
                 if function == '1':
                     """ Diagnostic no. 1: Pop stack
@@ -170,18 +201,19 @@ class ParserAdHoc(object):
                 else:
                     self.result.append('Tento stav je nedostupný.')
                     self.exit_code = 1
-                    self.stackHistory.append('')
-                    self.stateHistory.append('')
                     break
 
             # action[state][token] == blank, source code has some syntax error
             else:
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 self.result.append('syntaktická chyba')
                 self.exit_code = 1
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 break
 
         # Return results
-        return (self.result, self.stackHistory, self.stateHistory,
-                self.exit_code)
+        return (self.result, self.stackHistory, self.stateHistory, self.lex_input, self.exit_code)

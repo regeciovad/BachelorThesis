@@ -161,21 +161,17 @@ def run_parser_ad_hoc(request):
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
     parser_result = stack = state = []
-    exit_code = 0
+    exit_code = rows = 0
     grammar_list = get_grammar()
     lrtable = LRTable()
     table_action, table_goto = lrtable.generate_ad_hoc_table_print()
-    begin = time.clock()
     if request.method == 'POST':
-        parser_result, stack, state, exit_code = parser.parser_analysis(tokens, grammar_list)
-    end = time.clock()
-    mytime = end - begin
-    parser_result.append("Celkový čas analýzy: %f \u03BCs" % mytime)
-    parser_result.append('')
+        parser_result, stack, state, lex_input, exit_code = parser.parser_analysis(tokens, grammar_list)
+        results = zip(stack, state, parser_result, lex_input)
+        rows = len(parser_result)
     return render(request, 'alan/ad_hoc_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
-                  'parser_result': parser_result, 'stack': stack,
-                  'state': state, 'exit_code': exit_code,
+                  'results': results, 'exit_code': exit_code, 'rows':rows,
                   'table_action': table_action, 'table_goto': table_goto})
 
 
