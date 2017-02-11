@@ -18,7 +18,7 @@ class AlanMethodTests(TestCase):
         exit_code = 1
         output_expected = 'Syntaktická chyba - prázdný program'
         parser_result_expected = []
-        output, [], [], exit, parser_result = parser.parser_analysis()
+        output, [], [], exit, parser_result, [] = parser.parser_analysis()
         if output_expected not in output:
             raise TypeError("Something is wrong with checking empty program.")
         self.assertEqual(parser_result, parser_result_expected)
@@ -33,7 +33,7 @@ class AlanMethodTests(TestCase):
         exit_code = 1
         lex_code = '[i, a]'
         output = (
-            ['Chyba programu - prázdná množina pravidel'], [], [], exit_code, [])
+            ['Chyba programu - prázdná množina pravidel'], [], [], exit_code, [], [])
         parser_result = parser.parser_analysis(lex_code)
         self.assertEqual(parser_result, output)
 
@@ -52,7 +52,7 @@ class AlanMethodTests(TestCase):
         exit_code = 0
         output_expected = 'success'
         rule_expected = '<statement_list> \u2192 <statement> ; <statement_list>'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected not in output:
             raise TypeError("Alan method did not fixed the error")
         if rule_expected not in parser_result:
@@ -74,7 +74,7 @@ class AlanMethodTests(TestCase):
         exit_code = 0
         output_expected = 'success'
         rule_expected = '<statement_list> \u2192 <statement> ; <statement_list>'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected not in output:
             raise TypeError("Alan method did not fixed the error")
         if rule_expected not in parser_result:
@@ -96,7 +96,7 @@ class AlanMethodTests(TestCase):
         exit_code = 0
         output_expected = 'success'
         rule_expected = '<expression> \u2192 <expression> + <term>'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected not in output:
             raise TypeError("Alan method did not fixed the error")
         if rule_expected not in parser_result:
@@ -118,7 +118,7 @@ class AlanMethodTests(TestCase):
         exit_code = 0
         output_expected = 'success'
         rule_expected = '<factor> \u2192 i'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected not in output:
             raise TypeError("Alan method did not fixed the error")
         if rule_expected not in parser_result:
@@ -140,7 +140,7 @@ class AlanMethodTests(TestCase):
         exit_code = 0
         output_expected = 'success'
         rule_expected = '<expression> \u2192 <expression> + <term>'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected not in output:
             raise TypeError("Alan method did not fixed the error")
         if rule_expected not in parser_result:
@@ -162,7 +162,7 @@ class AlanMethodTests(TestCase):
         exit_code = 0
         output_expected = 'success'
         rule_expected = '<statement> \u2192 <statement> r <condition>'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected not in output:
             raise TypeError("Alan method did not fixed the error")
         if rule_expected not in parser_result:
@@ -184,7 +184,7 @@ class AlanMethodTests(TestCase):
         exit_code = 0
         output_expected = 'success'
         rule_expected = '<factor> \u2192 ( <expression> )'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected not in output:
             raise TypeError("Alan method did not fixed the error")
         if rule_expected not in parser_result:
@@ -206,7 +206,7 @@ class AlanMethodTests(TestCase):
         exit_code = 1
         output_expected = 'success'
         rule_expected = '<factor> \u2192 ( <expression> )'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
             raise TypeError("Really?")
         if rule_expected not in parser_result:
@@ -228,7 +228,7 @@ class AlanMethodTests(TestCase):
         exit_code = 1
         output_expected = 'success'
         rule_expected = 'Nenalazen žádný záchytný token.'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
             raise TypeError("Really?")
         if rule_expected not in parser_result:
@@ -250,7 +250,7 @@ class AlanMethodTests(TestCase):
         exit_code = 1
         output_expected = 'success'
         rule_expected = '<factor> \u2192 ( <expression> )'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
             raise TypeError("Really?")
         if rule_expected not in parser_result:
@@ -272,7 +272,7 @@ class AlanMethodTests(TestCase):
         exit_code = 1
         output_expected = 'success'
         rule_expected = '<factor> \u2192 ( <expression> )'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
             raise TypeError("Really?")
         if rule_expected not in parser_result:
@@ -294,7 +294,7 @@ class AlanMethodTests(TestCase):
         exit_code = 1
         output_expected = 'success'
         rule_expected = '<factor> \u2192 ( <expression> )'
-        output, stack, state, exit, parser_result = parser.parser_analysis(lex_code, grammar_list)
+        output, stack, state, exit, parser_result, lex = parser.parser_analysis(lex_code, grammar_list)
         if output_expected in output:
             raise TypeError("Really?")
         if rule_expected not in parser_result:

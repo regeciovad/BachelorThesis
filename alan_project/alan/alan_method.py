@@ -20,6 +20,8 @@ class AlanMethodParser(object):
         self.stackHistory = []
         # State records
         self.stateHistory = []
+        # Input lexems
+        self.lex_input = []
         # LR Table
         self.lrtable = LRTable()
         self.alan_time = 0
@@ -36,14 +38,14 @@ class AlanMethodParser(object):
             self.result.append('Syntaktická chyba - prázdný program')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.alan_method_result)
+                    self.exit_code, self.alan_method_result, self.lex_input)
 
         # List of grammar rules are missing
         if grammar == []:
             self.result.append('Chyba programu - prázdná množina pravidel')
             self.exit_code = 1
             return (self.result, self.stackHistory, self.stateHistory,
-                    self.exit_code, self.alan_method_result)
+                    self.exit_code, self.alan_method_result, self.lex_input)
         self.grammar = grammar
 
         # Adding end
@@ -61,6 +63,10 @@ class AlanMethodParser(object):
         self.token_number = 0
         self.token = self.tokens[self.token_number]
         self.token_number += 1
+        self.stackHistory.append('')
+        self.stateHistory.append('')
+        self.result.append('Read the first token')
+        self.lex_input.append('<strong style="color:orange">' + ''.join(self.token) + '</strong>' + ''.join(self.tokens[self.token_number:]))
 
         # Main loop
         while True:
@@ -79,8 +85,12 @@ class AlanMethodParser(object):
                 try:
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
+                    self.lex_input.append('<strong style="color:orange">' + ''.join(self.token) + '</strong>' + ''.join(self.tokens[self.token_number:]))
                 except IndexError:
                     self.result.append('syntaktická chyba')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     break
                 a = self.token[1]
                 self.state = int(q)
@@ -89,6 +99,7 @@ class AlanMethodParser(object):
             # action[state][token] == r(p), p is a number of rule
             # Apply rule, change stack and state
             elif cell.startswith('r'):
+                self.lex_input.append('')
                 p = cell[1:]
                 left = self.grammar[int(p)]['left']
                 right = self.grammar[int(p)]['right']
@@ -102,6 +113,7 @@ class AlanMethodParser(object):
                         'pravidlo ' + p + ': ' + left + ' \u2192 ' + right)
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     actual_state = int(
                         self.stack.get_topmost().split(',')[1][:-1])
                     if actual_state == '':
@@ -112,35 +124,48 @@ class AlanMethodParser(object):
                     self.result.append('goto[' + str(actual_state) + ', ' + left + '] = ' + str(self.state))
                     self.stateHistory.append('')
                     self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.stateHistory.append(self.state)
                     self.stack.push('<' + left + ', ' + str(self.state) + '>')
                     self.stackHistory.append(self.stack.get_stack())
                 else:
                     self.result.append('syntaktická chyba')
+                    self.stateHistory.append('')
+                    self.stackHistory.append('')
+                    self.lex_input.append('')
                     self.exit_code = 1
                     break
 
             # action[state][token] == acc, source code is correct
             elif cell.startswith('acc'):
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 self.result.append('success')
                 self.exit_code = 0
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 break
 
             # action[state][token] == blank, source code has some syntax error
             else:
+                self.stackHistory.append('')
+                self.stateHistory.append('')
+                self.lex_input.append('')
                 self.result.append('syntaktická chyba')
                 self.exit_code = 1
                 self.stackHistory.append('')
                 self.stateHistory.append('')
+                self.lex_input.append('')
                 alan_method_exit = self.alan_method()
+                self.lex_input.append('<strong style="color:orange">' + ''.join(self.token) + '</strong>' + ''.join(self.tokens[self.token_number:]))
                 if alan_method_exit == 1:
                     break
 
         # Return results
         return (self.result, self.stackHistory, self.stateHistory,
-                self.exit_code, self.alan_method_result)
+                self.exit_code, self.alan_method_result, self.lex_input)
 
     def alan_method(self):
         """
@@ -227,4 +252,5 @@ class AlanMethodParser(object):
 
         self.alan_method_result.append('Aktualizace stavu: ' + str(self.state))
         self.alan_method_result.append('Ukončení Alanovy metody.')
+        self.alan_method_result.append('')
         return 0

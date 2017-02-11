@@ -183,20 +183,16 @@ def run_alan_method_parser(request):
     source_code = request.session.get('source_code', '')
     tokens = request.session.get('tokens', '')
     parser_result = stack = state = alan_method = []
-    exit_code = 0
+    exit_code = rows = 0
     grammar_list = get_grammar()
-    begin = time.clock()
     if request.method == 'POST':
-        parser_result, stack, state, exit_code, alan_method = parser.parser_analysis(tokens, grammar_list)
-    end = time.clock()
-    mytime = end - begin
-    parser_result.append("Čas zotavení: %f \u03BCs" % mytime)
-    parser_result.append('')
+        parser_result, stack, state, exit_code, alan_method, lex_input = parser.parser_analysis(tokens, grammar_list)
+        results = zip(stack, state, parser_result, lex_input)
+        rows = len(parser_result)
     return render(request, 'alan/alan_method_parser.html', {
                   'source_code': source_code, 'tokens': tokens,
-                  'parser_result': parser_result, 'stack': stack,
-                  'state': state, 'exit_code': exit_code,
-                  'alan_method': alan_method})
+                  'exit_code': exit_code, 'alan_method': alan_method, 'results': results,
+                  'rows':rows})
 
 
 def comparison(request):
