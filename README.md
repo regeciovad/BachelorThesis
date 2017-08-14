@@ -1,4 +1,3 @@
-===========================
 Bakalářská práce
 ===========================
 Repositář pro moji bakalářskou práci.
