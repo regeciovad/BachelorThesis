@@ -27,7 +27,7 @@ def zip_lists(a, b):
 </tr>
 {% if results %}
 <tr>
-    <td rowspan="{{ rows }}" style="text-align:left;vertical-align: text-top;font-size:16px;">
+    <td rowspan="{{ rows }}" class="source">
         <pre>{{ source_code }}</pre>
     </td>
 {% for stack, state, parser_result, lex_input in results %}
@@ -50,7 +50,7 @@ def zip_lists(a, b):
          {{ lex_input|safe }}
     </td>
     {% if "Read the first token" in parser_result %}
-    <td rowspan="{{ rows }}" style="text-align:left;vertical-align: text-top;font-size:16px;">
+    <td rowspan="{{ rows }}" class="source">
         {% for p in panic_mode %}
             {{ p }}<br>
         {% endfor %}

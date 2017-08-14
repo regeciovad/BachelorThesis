@@ -21,7 +21,7 @@
 </tr>
 {% if results %}
 <tr>
-    <td rowspan="{{ rows }}" style="text-align:left;vertical-align: text-top;font-size:16px;">
+    <td rowspan="{{ rows }}" class="source">
         <pre>{{ source_code }}</pre>
     </td>
 {% for stack, state, parser_result, lex_input in results %}
@@ -89,7 +89,7 @@
 {% endif %}
 
 {% if table_goto %}
-<table class="t01" style="display: inline-block;">
+<table class="t01" style="display: inline-block;border:0px;">
   <tr>
     <th>Stav</th><th>&lt;statement_list&gt;</th><th>&lt;statement&gt;</th><th>&lt;condition&gt;</th><th>&lt;expression&gt;</th>
     <th>&lt;term&gt;</th><th>&lt;factor&gt;</th></tr>

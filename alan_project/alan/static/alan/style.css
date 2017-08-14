@@ -6,7 +6,7 @@ html, body {
     margin:0;
     padding:0;
     height:100%;
-    /*font-family:Open sans, monospace;*/
+    font-size:12px;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
 }
 
@@ -49,7 +49,7 @@ html, body {
 }
 
 h2 {
-    font-size:1.5em;
+    font-size:14px;
     font-weight:bold;
     text-align:left;
     margin-top:0em;
@@ -111,7 +111,6 @@ ul#menu li a:hover {
 }
 
 
-
 /* Table - basic*/
 .highlight {
     background-color:#9F5F9F;
@@ -126,14 +125,14 @@ table, th td {
 table.t01, table.t01 td, table.t01 th {
     border: 1px solid gray;
     border-collapse:collapse;
-    padding:10px;
+    padding:5px;
 }
 
  table.t01 th {
     background-color:#61497A;
     color:white;
-    font-size:16px;
-    padding:7px 15px;
+    font-size:12px;
+    padding:5px 10px;
 }
 
 /* Table - t02*/
@@ -146,7 +145,13 @@ table.t02, table.t02 td, table.t02 th {
  table.t02 th {
     background-color:#61497A;
     color:white;
-    font-size:16px;
+    font-size:12px;
     padding:7px 15px;
+}
+
+td.source {
+    text-align:left;
+    vertical-align: text-top;
+    font-size:12px;
 }
 
