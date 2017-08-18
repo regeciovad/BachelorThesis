@@ -25,6 +25,7 @@ class PanicModeParser(object):
         # LR Table
         self.lrtable = LRTable()
         self.panic_time = 0
+        self.end = []
 
     def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Panic Mode recovery
@@ -82,6 +83,7 @@ class PanicModeParser(object):
                 q = cell[1:]
                 self.stack.push('<' + a + ', ' + q + '>')
                 self.stackHistory.append(self.stack.get_stack())
+                self.end.append(self.token)
                 try:
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
@@ -176,6 +178,7 @@ class PanicModeParser(object):
             with their sets Follow(). """
 
         self.panic_mode_result.append("Zahájení Panického módu.")
+        self.end.pop()
         synchronization_tokens = ['<term>', '<expression>', '<condition>',
                                   '<statement>', '<statement_list>']
 
@@ -236,6 +239,7 @@ class PanicModeParser(object):
         self.panic_mode_result.append(
             'Vloženo na zásobník: ' + '<' + str(next) + ', ' +
             str(self.state) + '>')
+        self.panic_mode_result.append('Přijatý vstup: ' + str(self.end))
         self.panic_mode_result.append('Ukončení Panického módu.')
         self.panic_mode_result.append('')
         return 0

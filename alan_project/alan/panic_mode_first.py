@@ -24,6 +24,7 @@ class PanicModeParserFirst(object):
         self.lex_input = []
         # LR Table
         self.lrtable = LRTable()
+        self.end = []
 
     def parser_analysis(self, tokens=[], grammar=[]):
         """ Advanced syntax analysis with Panic Mode recovery
@@ -81,6 +82,7 @@ class PanicModeParserFirst(object):
                 q = cell[1:]
                 self.stack.push('<' + a + ', ' + q + '>')
                 self.stackHistory.append(self.stack.get_stack())
+                self.end.append(self.token)
                 try:
                     self.token = self.tokens[self.token_number]
                     self.token_number += 1
@@ -175,6 +177,7 @@ class PanicModeParserFirst(object):
             with their sets First(). """
         self.panic_mode_result.append(
             'Zahájení Panického módu s množinou First.')
+        self.end.pop()
         first = ['!', '(', 'i', '#']
         self.panic_mode_result.append(
             'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))
@@ -243,10 +246,12 @@ class PanicModeParserFirst(object):
                         'Panická metoda na tuto chybu nestačí.')
                     return 1
         self.panic_mode_result.append('Nalezen symbol: ' + str(self.token))
+        self.end.append(self.token)
         state = int(self.stack.get_topmost().split(',')[1][:-1])
         self.state = state
         self.stateHistory.append(state)
         self.panic_mode_result.append('Aktualizace stavu: ' + str(self.state))
+        self.panic_mode_result.append('Přijatý vstup: ' + str(self.end))
         self.panic_mode_result.append('Ukončení Panického módu.')
         self.panic_mode_result.append('')
         return 0
