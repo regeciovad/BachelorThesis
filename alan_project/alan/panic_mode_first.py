@@ -177,7 +177,8 @@ class PanicModeParserFirst(object):
             with their sets First(). """
         self.panic_mode_result.append(
             'Zahájení Panického módu s množinou First.')
-        self.end.pop()
+        if self.end:
+            self.end.pop()
         first = ['!', '(', 'i', '#']
         self.panic_mode_result.append(
             'Aktuální vstup: ' + str(self.tokens[self.token_number-1:]))

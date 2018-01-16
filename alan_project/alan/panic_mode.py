@@ -178,7 +178,8 @@ class PanicModeParser(object):
             with their sets Follow(). """
 
         self.panic_mode_result.append("Zahájení Panického módu.")
-        self.end.pop()
+        if self.end:
+            self.end.pop()
         synchronization_tokens = ['<term>', '<expression>', '<condition>',
                                   '<statement>', '<statement_list>']
 
